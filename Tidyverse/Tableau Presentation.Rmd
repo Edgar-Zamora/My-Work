@@ -1,0 +1,199 @@
+---
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+    seal: false
+    css: "my-style.css"
+
+---
+class: center, middle, inverse
+
+## .medium[Understanding IR Dashboards]
+<br>
+## .medium[Institutional Research <br> & <br> Planning]
+
+
+
+
+---
+# Agenda
+
+- What is Tableau?
+
+- Locating our Dashboards
+
+- Using Tableau
+
+- Final thoughts
+
+
+
+
+---
+background-image: url(https://dev3lop.com/wp-content/uploads/2017/04/tableau-logo-tableau-software.jpg)
+background-size: 300px
+background-position: 100% 6%
+
+# What is Tableau?
+
+- Tableau is a data visualization tool that gives a user control of how to report and analyze data.
+
+- Though there are other business intelligence (Power BI, SAP, Looker) tools, Tableau is thought to be the most commonly used data visualization tool across industries.
+ - Tableau is used among most community and technical colleges in WA.
+ - The SBTC maintains a server that IR uses to allow our dashboards to be accessible.
+ 
+- Usability
+ - A large benefit of using Tableau is the ability for it to be used and understood by differing people.
+ - The amount of technical (programming/coding) skills needed is minimal because of it being point and click oriented.
+
+
+
+---
+# Locating IR Dashboards
+
+- You can access the dashboards by going to the <a style = "text-decoration:none" href = "https://port.bigbend.edu/employee/Institutional%20Research%20%20Planning/Forms/AllItems.aspx">portal</a> > Faculty & Staff Workspace > IR&P (left panel) > clicking on links
+
+<center>
+ <img src="Link to Dashboards.png" height="400px" width="500px" />
+</center>
+
+
+
+
+
+
+
+---
+# Tableau Terminology
+
+- Dashboard
+
+- Filter/Filtering
+
+- Aggregation (breakout by)
+
+
+
+---
+# Current IR Dashboards
+
+There are 6 dashboards that can be viewed:
+
+1. <b>Quick Facts</b>
+ - Provides a overall snapshot of important facts about the college for one academic year.
+2. <b>Where Are Our Students From?</b>
+ - Maps the location of where BBCC students are from.
+3. <b>Completions</b>
+ - Breakdowns the awards/degrees given to students for each year and over a 14 year period.
+4. <b>FTE & Student Faculty Ratio</b>
+ - Shows BBCCs FTE by year and program as well as displaying the student faculty ratio.
+5. <b>Departmental Profile</b>
+ - Provides a general profile of departments at BBCC.
+6. <b>Course Success Rates</b>
+ - Gives the success rates for individual classes at BBCC.
+7. <b> Live Enrollment & Waitlist </b>
+ - Will give you a daily count of students enrolled in a course as well as those waitlisted for a particular course
+
+ 
+---
+class: center, middle, inverse
+
+# .large[Demo]
+
+
+---
+
+# Exercise 1
+
+--
+<b>Quick Facts</b>
+
+--
+  - How many Running Start students did we have in the 2018-2019 academic year?
+
+--
+  - In the 2016-2017 academic year, how many female students between the ages of 25-29 were multiple goal seekers?
+  
+<br>
+
+--
+<b>Where Are Our Students From?</b>
+
+--
+  - In the 2014-2015 academic year, how many students were from Sandpoint, ID?
+
+--
+  - In the 2018-2019 academic year why does Ritzville, WA have a figure when it has 11 students but Ellensburg, WA has 17 students but no figure?
+
+
+
+---
+
+# Exercise 2
+
+--
+<b>FTE & Student Faculty Ratio</b>
+
+--
+  - In the last ten year (2008-2009 to 2018-2019), what has the trend been for common course Chemistry in FTE and Student Faculty Ratio?
+
+--
+  - Comparing the Political Science and Spanish department, which has more FTE and a higher Student Faculty Ratio for the 2015-2016 academic year?
+  
+<br>
+
+--
+<b>Departmental Profile</b>
+
+--
+  - Currently which program has the most students enrolled?
+
+--
+  - Comparing Hispanic Females and White Females in Business Information Technology, describe the enrollment trend starting with the 2014-2015 academic year.
+  
+  
+  
+---
+
+# Exercise 3
+
+--
+<b>Course Success Rates</b>
+
+--
+  - If I want to ensure I have the best chance of passing common course Political Science 202, what type of course delivery should I consider taking?
+  
+<br>
+
+--
+<b>Completions</b>
+
+--
+  - How many students received a High School Equivalency&reg; (GED) Certificate in the 2015-2016 Academic Year?
+
+--
+  - During the 2016-2017 Academic Year, what percent of students who received a AAS Commercial Pilot were white students?
+  
+  
+---
+# Final Thoughts
+
+- If you encounter what to believe is a problem there are multiple ways to fix it.
+  1. Hit the "Reset Filters" button
+  2. Close the tab and reopen Tableau
+  3. Switch browsers (most of the testing has been done in Chrome)
+  4. If those solutions do not work contact Valerie (x2371) or myself (x2347)
+  
+- Remember that whether you filter, exclude, or highlight data you are in no way altering the underlying data, so do not be afraid to try different things.
+
+- These dashboards are a ever evolving in that what you see today may change in the future. If you have suggests about ways to improve these dashboards we are open to hearing them.
+
+  
+---
+class: center,middle, inverse, 
+
+# Questions?
