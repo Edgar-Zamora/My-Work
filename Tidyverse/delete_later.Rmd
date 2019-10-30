@@ -1,0 +1,72 @@
+---
+title: "Untitled"
+author: "IR & P"
+date: "10/11/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(odbc)
+library(tidyverse)
+
+knitr::opts_chunk$set(echo = FALSE, fig.align = "center")
+con <- dbConnect(odbc::odbc(), "R Data")
+```
+
+
+```{r, echo=FALSE}
+modality_avg <- tbl(con, "CLASS") %>% 
+  select(YEAR, DIST_ED, FTES_TOTAL, ENR_TOTAL, TIME_LOC) %>% 
+  filter(YEAR == "A90" | YEAR == "B01" | YEAR == "B12") %>% 
+  filter(TIME_LOC == "1" | TIME_LOC == "2" |TIME_LOC == "7" | TIME_LOC == "8") %>% 
+  collect() %>% 
+  mutate(DIST_ED = recode(DIST_ED, 
+       `3C` = "3",
+       `3P` = "3",
+       `3A` = "3",
+       `3W` = "3")) %>% 
+  group_by(YEAR, DIST_ED) %>% 
+  summarize(total_ftes = as.numeric(format(sum(FTES_TOTAL), digits = 2, nsmall = 1))) %>% 
+  ungroup() %>% 
+  group_by(DIST_ED) %>%
+  summarize(year_avg = format(sum(total_ftes)/n(), digits = 2, nsmall = 1))
+```
+
+```{r echo=FALSE}
+enroll_by_modality <- tbl(con, "Class") %>% 
+  select(YEAR, DIST_ED, FTES_TOTAL, ENR_TOTAL, TIME_LOC) %>% 
+  filter(between(YEAR, "B34", "B89")) %>% 
+  filter(TIME_LOC == "1" | TIME_LOC == "2" |TIME_LOC == "7" | TIME_LOC == "8") %>% 
+  collect() %>% 
+  mutate(DIST_ED = recode(DIST_ED, 
+       `3C` = "3",
+       `3P` = "3",
+       `3A` = "3",
+       `3W` = "3")) %>% 
+  group_by(YEAR, DIST_ED) %>% 
+  summarize(total_ftes = as.numeric(format(sum(FTES_TOTAL/3), digits = 2, nsmall = 1)))
+```
+
+```{r echo=FALSE}
+enroll_by_modality %>% 
+  filter(DIST_ED == "3" | is.na(DIST_ED) | DIST_ED == "9E" | DIST_ED == "8H") %>% 
+  ggplot(aes(YEAR, total_ftes, group = DIST_ED, colour = DIST_ED)) +
+  geom_line(key_glyph = "timeseries", size = 1) +
+  labs(title = "Enrollment (FTE) by Modality",
+       x = "Academic Year",
+      y = "Total FTE's") +
+  scale_x_discrete(labels = c("2013-14", "2015-16", "2016-17", "2017-18", "2018-19", "2019-20")) +
+  scale_y_continuous(limits = c(0,1000),
+                     breaks = seq(0,1000, by = 200)) +
+  scale_colour_discrete(name = "Modality",
+                        labels = c("On-line", "Hybrid", "Web Enhanced", "Face-to-Face")) +
+  theme(panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major.y = element_line("grey90"),
+        panel.grid.major.x = element_blank(),
+        axis.ticks = element_blank(),
+        legend.key = element_blank(),
+        legend.position = "bottom",
+        legend.text = element_text(size = 12))
+```
+
