@@ -9,5 +9,4 @@ What you will find in this repository is work that I have compelted either for t
 # Contact Me
 
 Twitter: @Edgar_Zamora_
-Email: edgarzamora2012@hotmail.com
 

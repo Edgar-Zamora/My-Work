@@ -1,0 +1,37 @@
+gender,body_part,n
+F,Ankle,11
+F,Arm,3
+F,Back,16
+F,Chin,3
+F,Elbow,4
+F,Face,4
+F,Head,43
+F,Knee,11
+F,Left knee,3
+F,Left leg,3
+F,Lower back,6
+F,Mouth,6
+F,Neck,20
+F,Nose,4
+F,Ribs,3
+F,Shoulder,21
+F,Wrist,4
+M,Ankle,6
+M,Back,10
+M,Back of head,3
+M,Chin,4
+M,Elbow,5
+M,Face,6
+M,Finger,3
+M,Foot,3
+M,Forehead,5
+M,Hand,5
+M,Head,39
+M,Knee,4
+M,Lower back,3
+M,Neck,13
+M,Right Elbow,3
+M,Right knee,3
+M,Right shoulder,3
+M,Shoulder,35
+M,Toe,3
