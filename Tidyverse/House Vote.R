@@ -3,6 +3,9 @@ library(rvest)
 library(stringr)
 install.packages("statebins", repos = "https://cinc.rud.is")
 library(statebins)
+library(knitr)
+library(kableExtra)
+library(formattable)
 
 #Getting URLS
 url <- "https://www.nytimes.com/interactive/2019/10/31/us/politics/trump-impeachment-inquiry-house-vote.html?module=inline"
@@ -71,11 +74,6 @@ x <- complete %>%
   mutate(Party = if_else(Total > 0, "D", "R")) %>% 
   print(n = Inf)
 
-statebins(state_data = x, value_col = "Total", state_col = "State", 
-          round = TRUE,  direction = 2) +
-  ggplot2_scale_function = scale_color_gradient2(low = "red", midpoint = 3, mid = "blue", high = "green") +
-  theme_statebins(legend_position="right")
-
 mid <- mean(x$Total)
 
 ggplot(x, aes(state = State, fill = Total)) +
@@ -90,8 +88,12 @@ ggplot(x, aes(state = State, fill = Total)) +
 
 x %>% 
   group_by(State,Total) %>% 
-  arrange(desc(Total)) %>% 
-  print(n = Inf)
+  arrange(State) %>% 
+  print(n = Inf) %>% 
+  kable() %>% 
+  kable_styling(full_width = FALSE, c("condensed", "hover")) %>% 
+  footnote(general = 'Total is a calculation that sums "Ya" (1), "Nay" (-1), or "Never Voted" (0).')
+  
 
 
 
