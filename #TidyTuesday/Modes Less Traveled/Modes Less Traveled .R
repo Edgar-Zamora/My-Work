@@ -20,7 +20,7 @@ ggplot(total_walking_num, aes(state = state_abb, fill = num_bikes)) +
   scale_fill_viridis(option = "magma", direction = -1, label = comma,
                      name = "") +
   labs(title = "Do you like walking to places?",
-       subtitle = "Aggregate number of walkers by state excluding New York and California") +
+       subtitle = "Aggregate number of walkers by state") +
   theme(panel.background = element_blank(),
         plot.subtitle = element_text(size = 8),
         legend.position = "right",
