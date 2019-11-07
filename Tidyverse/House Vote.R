@@ -68,25 +68,25 @@ complete <- bind_cols(names, votes) %>%
                         N = -1,
                         NV = 0))
 
-x <- complete %>% 
+analysis_table <- complete %>% 
   group_by(State) %>% 
   summarize(Total = sum(Votes)) %>% 
   mutate(Party = if_else(Total > 0, "D", "R")) %>% 
   print(n = Inf)
 
-mid <- mean(x$Total)
+mid <- mean(analysis_table$Total)
 
-ggplot(x, aes(state = State, fill = Total)) +
+ggplot(analysis_table, aes(state = State, fill = Total)) +
   geom_statebins(border_col="grey90", border_size = .2) +
   labs(title = "How The House Voted On The Trump Impeachment Rule",
-       subtitle = 'A "Ya" is a 1 while a "Nay" is -1 with non-voters as 0') +
+       subtitle = 'A "Ya" is a 1 while a "Nay" is -1 with non-voters as 0 (mean: 0.71)') +
   scale_fill_gradient2(low = "red", high = "blue", midpoint = -1) +
   theme(panel.background = element_blank(),
         axis.ticks = element_blank(), 
         axis.text = element_blank(),
         plot.title = element_text(size = 23))
 
-x %>% 
+analysis_table %>% 
   group_by(State,Total) %>% 
   arrange(State) %>% 
   print(n = Inf) %>% 

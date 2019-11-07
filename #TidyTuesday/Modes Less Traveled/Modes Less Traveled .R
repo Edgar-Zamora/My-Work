@@ -12,10 +12,10 @@ commute_mode <- readr::read_csv("https://raw.githubusercontent.com/rfordatascien
 total_walking_num <- commute_mode %>% 
   filter(mode == "Walk" & !is.na(state_abb)) %>% 
   group_by(state_abb) %>% 
-  summarize(num_bikes = sum(n))
+  summarize(walking_num = sum(n))
 
 #Visualize total number of walkers per state using the statebins package
-ggplot(total_walking_num, aes(state = state_abb, fill = num_bikes)) +
+ggplot(total_walking_num, aes(state = state_abb, fill = log(walking_num))) +
   geom_statebins(border_col="grey40", border_size = .2) +
   scale_fill_viridis(option = "magma", direction = -1, label = comma,
                      name = "") +
@@ -28,5 +28,6 @@ ggplot(total_walking_num, aes(state = state_abb, fill = num_bikes)) +
         axis.text = element_blank(),
         plot.title = element_text(size = 24)) +
   guides(fill = guide_colourbar(barwidth = 0.7, barheight = 8))
+
 
 
