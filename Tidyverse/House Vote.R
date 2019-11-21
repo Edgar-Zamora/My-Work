@@ -93,7 +93,6 @@ analysis_table %>%
   kable() %>% 
   kable_styling(full_width = FALSE, c("condensed", "hover")) %>% 
   footnote(general = 'Total is a calculation that sums "Ya" (1), "Nay" (-1), or "Never Voted" (0).')
-  
 
 
 
