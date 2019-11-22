@@ -1,54 +1,56 @@
 #Libraries
 library(tidyverse)
-library(waffle)
 library(DT)
 library(ggthemes)
-install.packages("waffle", repos = "https://cinc.rud.is")
+library(waffle) #Needs to be 1.0 or above
+#install.packages("waffle", repos = "https://cinc.rud.is")
 
 #Import Data
 nz_bird <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-11-19/nz_bird.csv")
 
 #Place points
-top10_votes <- nz_bird %>%
+top5_votes <- nz_bird %>%
   filter(!is.na(vote_rank) & !is.na(bird_breed)) %>%
   count(bird_breed) %>%
   arrange(desc(n)) %>%
   top_n(5) %>%
   rename(total = n)
 
-top10_names <- top10_votes$bird_breed
+#Getting names of the top 5 bird breeds to filter
+top5_names <- top5_votes$bird_breed
 
-rm(x)
-
-x <- nz_bird %>%
+#Filter birds to top 5 and scaling the data by dividing into 25 to make 
+#creating a waffle chart easier
+top5_breakdown <- nz_bird %>%
   count(bird_breed, vote_rank) %>%
-  filter(bird_breed %in% top10_names) %>%
-  left_join(top10_votes, by = "bird_breed") %>%
+  filter(bird_breed %in% top5_names) %>%
+  left_join(top5_votes, by = "bird_breed") %>%
   group_by(bird_breed) %>%
-  mutate(percent =round((n/total*100),2),
-         n = n/50) %>%
-  select(c(-total, -percent))
+  mutate(n = n/25,
+         vote_rank = as.factor(vote_rank)) %>%
+  select(c(-total))
 
-
-
-ggplot(x, aes(fill = vote_rank, values = n)) +
-  geom_waffle(color = "grey90", size = .25, n_rows = 10, flip = TRUE) +
-  facet_wrap(~bird_breed, nrow = 1, strip.position = "bottom") +
+#Building Visualization
+ggplot(top5_breakdown, aes(fill = fct_rev(vote_rank), values = rev(n))) +
+  geom_waffle(color = "white", size = .3, n_rows = 10, flip = TRUE) +
+  facet_wrap(~bird_breed, nrow = 1, strip.position = "bottom",
+             labeller = label_wrap_gen(width = 10)) + #will prevent overflow of labels
   scale_x_discrete() +
-  scale_y_continuous(labels = function(x) x * 50, # make this multiplyer the same as n_rows
+  scale_y_continuous(labels = function(x) x * 10, # make this multiplyer the same as n_rows
                      expand = c(0,0),
-                     limits = c(0,30),
-                     breaks = seq(0,30, by = 5)) +
-  scale_fill_tableau(name= "One square = 50 votes") +
+                     limits = c(0,50),
+                     breaks = seq(0,50, by = 5)) +
+  scale_fill_tableau(name = "One square \n(25 votes)",
+                     labels = c("Vote 1", "Vote 2", "Vote 3", "Vote 4", "Vote 5")) +
   coord_equal() +
   labs(
-    title = "Faceted Waffle Bar Chart",
+    title = "Vote Rank Breakdown Among the Top 5 Bird Breeds",
     x = "Bird Breed",
-    y = "Total Votes") +
+    y = "Total Votes (divied by 25)") +
   theme(panel.grid = element_blank(),
+        plot.title = element_text(size = 16, hjust = .5),
         axis.ticks = element_blank(),
         panel.background = element_blank(),
-        strip.background = element_blank()) +
-  guides(fill = guide_legend(reverse = TRUE))
+        strip.background = element_blank())
 
 
