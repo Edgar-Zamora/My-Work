@@ -32,27 +32,28 @@ top5_breakdown <- nz_bird %>%
 
 #Building Visualization
 ggplot(top5_breakdown, aes(fill = fct_rev(vote_rank), values = rev(n))) +
-  geom_waffle(color = "white", size = .3, n_rows = 10, flip = TRUE) +
+  geom_waffle(color = "white", size = .3, flip = TRUE) +
   facet_wrap(~rev(bird_breed), nrow = 1, strip.position = "bottom",
              labeller = label_wrap_gen(width = 10)) + #will prevent overflow of labels
   scale_x_discrete() +
-  scale_y_continuous(labels = function(x) x * 10, # make this multiplyer the same as n_rows
+  scale_y_continuous(labels = function(x) x * 25, # make this multiplyer the same as n_rows
                      expand = c(0,0),
                      limits = c(0,50),
                      breaks = seq(0,50, by = 5)) +
-  scale_fill_tableau(name = "One square \n(25 votes)",
+  scale_fill_tableau(name = "1 sq = 25 votes",
                      labels = c("Vote 1", "Vote 2", "Vote 3", "Vote 4", "Vote 5")) +
   coord_equal() +
   labs(
     title = "Vote Rank Breakdown Among the Top 5 Bird Breeds",
     x = "Bird Breed",
-    y = "Total Votes (divied by 25)") +
+    y = "Total Votes") +
   theme(panel.grid = element_blank(),
-        plot.title = element_text(size = 16, hjust = .5),
+        plot.title = element_text(size = 16, hjust = .2),
         axis.ticks = element_blank(),
         panel.background = element_blank(),
         strip.background = element_blank())
 
 top5_breakdown %>% 
   print(n = Inf)
+
 
