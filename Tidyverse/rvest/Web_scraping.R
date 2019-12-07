@@ -2,6 +2,10 @@ library(rvest)
 library(tidyverse)
 library(stringr)
 
+#110
+#http://archives-financialservices.house.gov/hearing110/hr121008.shtml
+#http://archives-financialservices.house.gov/hearing110/hr091608.shtml
+
 #Use for hearings before May 21, 2014
 scrape <- function(url){
   starturl<- "https://financialservices.house.gov/calendar/eventsingle.aspx?EventID="
