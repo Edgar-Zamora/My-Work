@@ -2,11 +2,10 @@ library(rvest)
 library(tidyverse)
 library(glue)
 
-#110
-#hr121008
-#hr091608
-
-#Use for hearings before May 21, 2014
+#U.S. House Committee on Finaincal Services (107, 108, 110)
+#http://archives-financialservices.house.gov/archive/{url}.shtml (110 Congress Url)
+#http://archives-financialservices.house.gov/hearings107.shtml 
+#http://archives-financialservices.house.gov/hearings110.shtml
 scrape <- function(url){
   url <- glue('http://archives-financialservices.house.gov/hearing110/{url}.shtml')
   
@@ -34,17 +33,19 @@ scrape <- function(url){
          Title = title)
 }
 
-#http://archives-financialservices.house.gov/hearings107.shtml
-
-url <- c("hr121008", "hr091608")
-glue('http://archives-financialservices.house.gov/hearing110/{url}.shtml')
+#url <- c("hr121008", "hr091608", "hr0626084", "hr030607", "ht1002072") 110 Congress
+url <- c("hearings317")
 
 patterns <- c("Mr. |The Honorable |Ms. ") #Idk if you want to take these titles out of names
 
-x <- map_df(url, scrape) %>% 
-  mutate(Names = as.factor(str_replace(Names, patterns, ""))) %>% 
+x <- map_df(url, scrape)  %>% 
   separate(Date, c("Weekday","MonthDay", "Year"), sep = "([\\,])") %>% 
-  separate(Names, c("Name","Title", "Organization"), sep = "([\\,])") %>% 
-  mutate_if(is.character, str_trim)
+  separate(Names, c("Name","Wit_Title", "Organization"), sep = "([\\,])") %>% 
+  mutate_if(is.character, str_trim) %>% 
+  mutate(Name = str_replace(Name, patterns, ""))
 
-#try doing a detect with () at the edges with anything in between to be removed, whether they are numbers or letters(uppercase and lowercase)
+x <- x %>% 
+  mutate(Name = gsub("\\s*\\([^\\)]+\\)","",as.character(x$Name)),
+         Organization = gsub("\\s*\\([^\\)]+\\)","",as.character(x$Organization)))
+
+
