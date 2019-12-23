@@ -23,20 +23,16 @@ glimpse(snow_levels)
 
 snow_levels %>% 
   filter(Year == "18-19") %>% 
-  ggplot(aes(Day, New, group = Month, colour = Month)) + 
-  geom_line(key_glyph = "timeseries", size = .8) +
-  gghighlight(class == "Feburary") +
-  scale_y_continuous(limits = c(0,35),
-                     breaks = seq(0,35,5)) +
-  scale_x_continuous(limits = c(0,31),
-                     breaks = seq(0,31, 5)) +
+  ggplot(aes(Day, Month, group = Month, fill = New)) + 
+  geom_tile(color = "white", size = .5) +
+  scale_x_continuous(limits = c(1,35),
+                     breaks = seq(1,35, 3)) +
   labs(title = "New Snow on Snoqualmie Pass by Month and Day
        ",
        y = "Total (ft)") +
   theme(axis.ticks = element_blank(),
         panel.grid.minor = element_blank(),
-        panel.grid.major.y = element_line(colour = "grey90", size = .2),
-        panel.grid.major.x = element_blank(), 
+        panel.grid.major = element_blank(), 
         panel.background = element_blank(),
         legend.key = element_blank())
 
