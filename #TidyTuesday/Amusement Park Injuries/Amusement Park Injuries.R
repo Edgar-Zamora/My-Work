@@ -8,11 +8,11 @@ library(ggalt)
 tx_injuries <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-09-10/tx_injuries.csv")
 
 injuries <- tx_injuries %>% 
-  count(gender, body_part) 
+  count(gender, body_part)  %>% 
   filter(n >= 5  & body_part != "Face" & body_part != "Forehead") %>% 
   arrange(desc(n)) %>% 
   print(n = Inf) %>% 
-  as.tibble()
+  as_tibble()
 
 #Putting the coordinates of where the body party approximatelyis
 injuries$xcord <- round(c(155,152,545,550,490,492,495,142,133,494,493,155,145,410,40),0)
