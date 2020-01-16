@@ -4,14 +4,14 @@ library(readr)
 library(scales)
 library(grid)
 library(ggimage)
-library(extrafont)
+#library(extrafont)
 
 #Import Data
 cpu <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-09-03/cpu.csv")
 
 #Importing Fonts
-font_import()
-fonttable()
+#font_import()
+#fonttable()
 
 #Graphing
 plot <- cpu %>% 
