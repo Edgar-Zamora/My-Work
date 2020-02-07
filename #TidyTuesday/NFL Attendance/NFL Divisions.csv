@@ -1,0 +1,33 @@
+team_name,conference,division,colour
+Patriots,AFC,AFC East,#002244
+Bills,AFC,AFC East,#00338D
+Jets,AFC,AFC East,#125740
+Dolphins,AFC,AFC East,#008E97
+Chiefs,AFC,AFC West,#E31837
+Broncos,AFC,AFC West,#FA4616
+Raiders,AFC,AFC West,#A5ACAF
+Chargers,AFC,AFC West,#0080C6
+Ravens,AFC,AFC North,#241773
+Steelers,AFC,AFC North,#FFB612
+Browns,AFC,AFC North,#311D00
+Bengals,AFC,AFC North,#FB4F14
+Texans,AFC,AFC South,#A71930
+Titans,AFC,AFC South,#4B92DB
+Colts,AFC,AFC South,#002C5F
+Jaguars,AFC,AFC South,#006778
+Eagles,NFC,NFC East,#004C54
+Cowboys,NFC,NFC East,#003594
+Giants,NFC,NFC East,#0B2265
+Redskins,NFC,NFC East,#773141
+49ers,NFC,NFC West,#AA0000
+Seahawks,NFC,NFC West,#69BE28
+Rams,NFC,NFC West,#002D72
+Cardinals,NFC,NFC West, #97233F
+Packers,NFC,NFC North,#203731
+Vikings,NFC,NFC North,#4F2683
+Bears,NFC,NFC North,#C83803
+Lions,NFC,NFC North,#0076B6
+Saints,NFC,NFC South,#D3BC8D
+Falcons,NFC,NFC South,#C8102E
+Buccaneers,NFC,NFC South,#D50A0A
+Panthers,NFC,NFC South,#0085CA
