@@ -2,6 +2,8 @@
 library(tidyverse)
 library(glue)
 library(extrafont)
+library(ggrepel)
+library(ggimage)
 
 #Loading data
 season_goals <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/season_goals.csv')
@@ -35,9 +37,7 @@ top3_by_players <- top_10_scorers %>%
   top_n(3) %>% 
   mutate(top3_total_goals = sum(total_goals),
          perc = round(total_goals/top3_total_goals * 100, 2),
-         lab.ypos = cumsum(perc) - 0.5 * perc,
-         colour = "black",
-         position = seq(.33, 1, by = .3))
+         colour = "black")
 
 
 #plot
@@ -50,23 +50,37 @@ career_goals_lab <- top3_by_players$career_goals %>%
 strip_labels <- glue('{player_names_lab} {career_goals_lab}')
 
 ###
-top3_by_players %>% 
+plot <- top3_by_players %>% 
   #filter(player == "Bobby Hull") %>% 
   ggplot(aes(x= 2, y= perc, fill= team)) +
   geom_bar(stat = "identity", color = "white") +
-  geom_text(aes(label = perc), colour = "white") +
+  geom_text(aes(label = paste(team, "\n", paste0(round(perc, 1), "%"))), colour = "white",
+            position = position_stack(vjust = .5), size = 3) +
   coord_polar(theta = "y", start = 0) +
-  scale_fill_manual(values = top3_by_players$colour) +
-  annotate("text", x = -1, y = .5, label = "NHL |", size = 7.5, family = "NHL") +
-  xlim(-1, 2.5) + 
-  labs(title = "",
-    x = "", y = "") +
-  facet_wrap(.~player) +
+  scale_fill_manual(values = top3_by_players$colour,
+                    name = "NHL Teams",
+                    labels = c("Black Hawks (CBH)", "Red Wings (DET)", "Oilers (EDM)", "Hartford Whalers (HSA)",
+                               "Kings (LAK)", "New England \nWhalers (NEW)", "Rangers (NYR)", "Penguins (PIT)", 
+                               "Maple Leafs (TOT)", "Jets (WNJ)", "Capitals (WSH)")) +
+  annotate("text", x = 1, y = 1, label = "NHL |", size = 5, family = "NHL") +
+  xlim(1, 2.5) +
+  labs(title = "Where Did The Top 5 NHL Goals Scorers Make Their Goals",
+       subtitle = "% of goals of top 3",
+       x = "", y = "") +
+  facet_wrap(~player) +
   theme(
     axis.ticks = element_blank(),
     axis.text = element_blank(),
-    legend.position = "bottom",
-    plot.title = element_text(family = "NHL")
-  )
+    legend.position = c(.85, .27),
+    legend.key.size = unit(0, "line"),
+    plot.title = element_text(size = 11),
+    plot.subtitle = element_text(size = 8),
+    plot.caption = element_text(size = 7, hjust = 1.2),
+    panel.grid = element_blank(),
+    panel.background = element_blank()) +
+  guides(fill = guide_legend(nrow = 6, byrow = TRUE))
+
+ggsave("nhlTidyTuesday.png", plot = plot)
+
 
   
