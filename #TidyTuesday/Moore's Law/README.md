@@ -11,18 +11,5 @@ Moore's Law refers to a percepetion that was first formulated by Gordan Moore wh
 
 As is customary when discussing R analysis, I have provided the neccesary packages to replicate my visualization.
 
-```{r setup, include=FALSE}
-library(tidyverse)
-library(scales)
-library(grid)
-library(ggimage)
-library(knitr)
-
-knit(input = "README.rmd", output = "README.md")
-```
-
-
-
-
 
 
