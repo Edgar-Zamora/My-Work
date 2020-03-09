@@ -1,3 +1,8 @@
+---
+output: 
+  md_document:
+    variant: markdown_github
+---
 # What the f%>% is Moore's Law?
 
 Moore's Law refers to a perception that was first formulated by Gordon Moore who believed that "the number of transistors on a microchip doubles every two years, though the cost of computers is halved"^[https://www.investopedia.com/terms/m/mooreslaw.asp]. With that in mind, there were a multitude of different ways one could analyze this perception to decide whether it was true or if it was lacking in credibility. 
@@ -10,12 +15,9 @@ As is customary when discussing R analysis, I have provided the necessary packag
 
 ```{r setup}
 library(tidyverse)
+
 library(scales)
 library(grid)
 library(ggimage)
 library(knitr)
 ```
-
-
-
-
