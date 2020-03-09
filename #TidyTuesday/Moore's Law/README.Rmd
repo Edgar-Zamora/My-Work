@@ -1,12 +1,12 @@
 # What the f%>% is Moore's Law?
 
-Moore's Law refers to a percepetion that was first formulated by Gordan Moore who believed that "the number of transistors on a microchip doubles every two years, though the cost of computers is halved"^[https://www.investopedia.com/terms/m/mooreslaw.asp]. With that in mind, there were a multidue of different ways one could analyze this perception to decide whether it was true or if it was lacking in credability. 
+Moore's Law refers to a perception that was first formulated by Gordon Moore who believed that "the number of transistors on a microchip doubles every two years, though the cost of computers is halved"^[https://www.investopedia.com/terms/m/mooreslaw.asp]. With that in mind, there were a multitude of different ways one could analyze this perception to decide whether it was true or if it was lacking in credibility. 
 
 # Keys Visualization takeaways
 
 # Creating the visualization
 
-As is customary when discussing R analysis, I have provided the neccesary packages to replicate my visualization.
+As is customary when discussing R analysis, I have provided the necessary packages to replicate my visualization.
 
 ```{r setup}
 library(tidyverse)
@@ -14,37 +14,6 @@ library(scales)
 library(grid)
 library(ggimage)
 library(knitr)
-
-knit(input = "README.rmd", output = "README.md")
-```
-
-```{r data}
-cpu <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-09-03/cpu.csv")
-```
-
-
-```{r}
-cpu %>% 
-  ggplot(aes(date_of_introduction, area)) +
-  geom_point(aes(colour = log2(transistor_count)), size = 3.5, alpha = .8) +
-  scale_color_gradient2(high = "gold") +
-  scale_y_continuous(breaks = seq(0,800,100)) +
-  guides(colour = guide_legend(expression('Num. Of Transitors (log'[2]*')'))) +
-  theme(legend.key = element_rect(fill = "white"),
-        legend.position = "bottom",
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        text = element_text(colour = "white", size = 16),
-        plot.title = element_text(size = 25, family = "Lucida Console"),
-        axis.text = element_text(colour = "white", size = 11),
-        legend.margin = margin(0,0,0,0),
-        legend.box.margin = margin(-5,-5,-10,-5),
-        legend.text = element_text(size = 10),
-        legend.title = element_text(size = 10)) +
-  labs(x = "Year Introduced",
-       y = "Area of Chip (mm)",
-       title = "Does A Bigger CPU Lead To More Transitors?",
-       caption = "@Edgar_Zamora_")
 ```
 
 
