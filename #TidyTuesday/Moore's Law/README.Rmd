@@ -1,7 +1,5 @@
 ---
-title: "Moore's Law"
-author: "Edgar Zamora"
-output: html_document
+output: github_document
 ---
 # What the f%>% is Moore's Law?
 
