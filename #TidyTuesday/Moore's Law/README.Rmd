@@ -3,20 +3,19 @@ output:
   md_document:
     variant: markdown_github
 ---
-# What the f%>% is Moore's Law?
+# What the f%>%k is Moore's Law?
 
 Moore's Law refers to a perception that was first formulated by Gordon Moore who believed that "the number of transistors on a microchip doubles every two years, though the cost of computers is halved"^[https://www.investopedia.com/terms/m/mooreslaw.asp]. With that in mind, there were a multitude of different ways one could analyze this perception to decide whether it was true or if it was lacking in credibility. 
-
-# Keys Visualization takeaways
 
 # Creating the visualization
 
 As is customary when discussing R analysis, I have provided the necessary packages to replicate my visualization.
-```{r knit_opitions, include = FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```{r knit_opitions, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, results = 'hide')
 ```
 
-```{r setup}
+
+```{r}
 library(tidyverse)
 library(scales)
 library(grid)
@@ -31,7 +30,7 @@ The data for Moore's Law can be found on the tidytuesday [GitHub](https://github
 #cpu <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-09-03/cpu.csv")
 ```
 
-# Fonts in R
+# Fonts in R visualizations
 
 You should know that I used a **MacBook Pro** to laod fonts. I am unsure about how this would work on machines but I assume it would work in a similar fashion. To view and load different fonts into R, you will need to install and load the `extrafont` package. The primary function within this package that you will be using is the `font_import()` function. Running this function will import all fonts that are currently avaiable on your machine. In addition to the defualt fonts on your machine, you are also able to bring in additional fonts. If you have added a font manually, you can bring load it by using the `font_import()` with the specific font name as an argument like so: `font_import("my_new_font")`. For more detail regarding the package I encourage you to check out the GitHub [documentation](https://github.com/wch/extrafont). 
 
@@ -44,6 +43,7 @@ fonttable() #this function allows you to see all the fonts currently available
 # Background Image
 
 
+# Keys takeaways
 
 
 
