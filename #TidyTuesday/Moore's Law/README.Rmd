@@ -36,8 +36,8 @@ You should know that I used a **MacBook Pro** to load fonts. I am unsure about h
 
 ```{r fonts}
 #Importing Fonts
-font_import()
-fonttable() #this function allows you to see all the fonts currently available
+#font_import()      imports fonts onto your machine
+#fonttable()       this function allows you to see all the fonts currently available
 ```
 
 # Adding a background
