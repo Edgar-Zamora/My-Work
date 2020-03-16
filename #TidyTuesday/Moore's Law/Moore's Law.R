@@ -1,5 +1,4 @@
 library(tidyverse)
-library(magrittr)
 library(readr)
 library(scales)
 library(grid)
