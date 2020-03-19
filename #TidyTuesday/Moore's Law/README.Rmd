@@ -78,7 +78,7 @@ Before using the `ggbackground()` you will have to have the image you want to us
 ```{r add_background, fig.width=8, fig.height=8}
 TidyTuesday_plot <- ggbackground(plot, "CircuitBoard.jpg")
 
-TidyTuesday_plot
+print(TidyTuesday_plot)
 ```
 
 
