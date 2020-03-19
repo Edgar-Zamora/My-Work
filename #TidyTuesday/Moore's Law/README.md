@@ -1,5 +1,5 @@
-What the f%&gt;%k is Moore’s Law?
-=================================
+What the f%\>%k is Moore’s Law?
+===============================
 
 Moore’s Law refers to a perception that was first formulated by Gordon
 Moore who believed that “the number of transistors on a microchip
@@ -48,8 +48,8 @@ GitHub [documentation](https://github.com/wch/extrafont).
 
 ``` r
 #Importing Fonts
-#font_import()      imports fonts onto your machine
-#fonttable()       this function allows you to see all the fonts currently available
+#font_import()      #imports fonts onto your machine
+#fonttable()       #this function allows you to see all the fonts currently available
 ```
 
 Adding a background
@@ -80,9 +80,9 @@ visualization to my like, I store it into an object named plot.
         legend.position = "bottom",
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
-        text = element_text(colour = "white", size = 16, family = "Lucida Console"),
-        plot.title = element_text(size = 25, family = "Lucida Console"),
-        axis.text = element_text(colour = "white", size = 11, family = "Lucida Console"),
+        text = element_text(colour = "white", size = 16, family = "CourierNewPSMT"),
+        plot.title = element_text(size = 25, family = "CourierNewPSMT"),
+        axis.text = element_text(colour = "white", size = 11, family = "CourierNewPSMT"),
         legend.margin = margin(0,0,0,0),
         legend.box.margin = margin(-5,-5,-10,-5),
         legend.text = element_text(size = 10),
@@ -105,10 +105,8 @@ similar to what I have below.
 
 ``` r
 TidyTuesday_plot <- ggbackground(plot, "CircuitBoard.jpg")
-
-TidyTuesday_plot
 ```
 
-![](README_files/figure-markdown_github/add_background-1.png)
+![](TidyTuesday_Circuit.jpg)
 
 [1] <a href="https://www.investopedia.com/terms/m/mooreslaw.asp" class="uri">https://www.investopedia.com/terms/m/mooreslaw.asp</a>
