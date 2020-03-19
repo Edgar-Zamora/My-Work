@@ -36,8 +36,8 @@ You should know that I used a **MacBook Pro** to load fonts. I am unsure about h
 
 ```{r fonts}
 #Importing Fonts
-#font_import()      imports fonts onto your machine
-#fonttable()       this function allows you to see all the fonts currently available
+#font_import()      #imports fonts onto your machine
+#fonttable()       #this function allows you to see all the fonts currently available
 ```
 
 # Adding a background
@@ -60,9 +60,9 @@ In the code below, I begin by building my plot. I will not be going through each
         legend.position = "bottom",
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
-        text = element_text(colour = "white", size = 16, family = "Lucida Console"),
-        plot.title = element_text(size = 25, family = "Lucida Console"),
-        axis.text = element_text(colour = "white", size = 11, family = "Lucida Console"),
+        text = element_text(colour = "white", size = 16, family = "CourierNewPSMT"),
+        plot.title = element_text(size = 25, family = "CourierNewPSMT"),
+        axis.text = element_text(colour = "white", size = 11, family = "CourierNewPSMT"),
         legend.margin = margin(0,0,0,0),
         legend.box.margin = margin(-5,-5,-10,-5),
         legend.text = element_text(size = 10),
@@ -75,7 +75,7 @@ In the code below, I begin by building my plot. I will not be going through each
 
 Before using the `ggbackground()` you will have to have the image you want to use in your working directory. I have not experienced limitations in what type of files you can use for you image, but I would recommend using .jpg, .pdf, or some other common type. The `ggbackground()` function takes two main arguments. The first is the object, which in this case is the first. The second is the background image you want to use. This can be an object which has the stored image or it can be the path name like I have it. It should look something similar to what I have below. 
 
-```{r add_background}
+```{r add_background, fig.width=10, fig.height=8}
 TidyTuesday_plot <- ggbackground(plot, "CircuitBoard.jpg")
 
 TidyTuesday_plot
