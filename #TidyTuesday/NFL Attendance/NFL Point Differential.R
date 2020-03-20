@@ -29,7 +29,7 @@ nfl_sb_winners <- standings %>%
   filter(team_name %in% superbowl_teams$team_name)
 
 #Assiging hex colors to each team
-team_colour <- xxx %>% 
+team_colour <- nfl_sb_winners %>% 
   select(team_name, colour, conference) %>%
   unique() %>% 
   arrange(team_name)
@@ -38,7 +38,7 @@ team_colour <- xxx %>%
 ggplot(nfl_sb_winners, aes(year, points_differential, label = team_name)) +
   geom_hline(yintercept = 0, linetype = "dashed") +
   geom_line(aes(group = team_name, colour = team_name), size = 1.2, key_glyph = "timeseries") +
-  geom_point(colour = if_else(xxx$sb_winner == "Won Superbowl", sb_winner_colour, sb_loser_colour), 
+  geom_point(colour = if_else(nfl_sb_winners$sb_winner == "Won Superbowl", sb_winner_colour, sb_loser_colour), 
              shape = 21 , fill = "white", size = 4.3, stroke = 1.7, show.legend = FALSE) +
   labs(x = "NFL Season",
       y = "Point Differential",
