@@ -6,3 +6,8 @@ output:
 
 # Making Waffles
 
+
+# Shaping data
+
+
+# Visualizations
