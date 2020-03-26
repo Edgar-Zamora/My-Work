@@ -4,6 +4,7 @@ library(DT)
 library(ggthemes)
 library(waffle) #Needs to be 1.0 or above
 #install.packages("waffle", repos = "https://cinc.rud.is")
+#https://github.com/hrbrmstr/waffle
 
 #Import Data
 nz_bird <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-11-19/nz_bird.csv")

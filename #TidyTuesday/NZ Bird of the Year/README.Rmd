@@ -4,10 +4,72 @@ output:
     variant: markdown_github
 ---
 
-# Making Waffles
+```{r setup, echo=FALSE}
+#Libraries
+library(tidyverse)
+library(DT)
+library(ggthemes)
+library(knitr)
+library(png)
+library(waffle) #Needs to be 1.0 or above
+#install.packages("waffle", repos = "https://cinc.rud.is")
+#https://github.com/hrbrmstr/waffle
 
+#Import data
+nz_bird <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-11-19/nz_bird.csv")
+
+
+```
+
+
+# Making Waffles
+For this tidytuesday I decided to create a waffle chart using the `waffle` [package](https://github.com/hrbrmstr/waffle) created by hrbmster. There are multiple ways to describe a waffle chart, most obvious being by looking at a picture of a waffle. However I find that analogy not that clear. I prefer to instead consider a Rubik cube. Lets start with the following image of a Rubik cube. Lets say one side of the Rubik cube is equivalent to our chart. We know that the max amount of individual cubes in one side is six. 
+
+```{r rubik_cube}
+img_path1 <- "images/Rubik_cube.png"
+
+include_graphics(img_path1)
+#from upspash: (https://unsplash.com/@elijah_ekdahl)
+```
+
+The color combination will depend on the user similar to the way that our waffle chart will varying according to our data. Keep in mind there are limitations to this example because there is a finite amount of individual cubes while for a waffle chart there is not. 
+
+Another key part of a waffle chart is the meaning behind each individual cube. In the Rubik cube example each individual cube coulde represent 1 person from a community of 6 or it could represent 1 million people. The value assigned to each cube is something to consider and note when presenting a waffle chart. 
+
+From my experience, there are some limiations in using a waffle chart which are:
+
+1. It is best to limit the number of categories because having to many can make the chart difficult to read
+2. The default scaling may not be the most appropiate 
 
 # Shaping data
+
+
+
+```{r shape_data}
+#Place points
+top5_votes <- nz_bird %>%
+  filter(!is.na(vote_rank) & !is.na(bird_breed)) %>%
+  count(bird_breed) %>%
+  arrange(desc(n)) %>%
+  top_n(5) %>%
+  rename(total = n)
+
+#Getting names of the top 5 bird breeds to filter
+top5_names <- top5_votes$bird_breed
+
+#Filter birds to top 5 and scaling the data by dividing into 25 to make 
+#creating a waffle chart easier
+top5_breakdown <- nz_bird %>%
+  count(bird_breed, vote_rank) %>%
+  filter(bird_breed %in% top5_names) %>%
+  left_join(top5_votes, by = "bird_breed") %>%
+  group_by(bird_breed) %>%
+  mutate(n = n/25,
+         vote_rank = as.factor(vote_rank)) %>%
+  select(c(-total))
+```
+
+
 
 
 # Visualizations
