@@ -22,9 +22,9 @@ nz_bird <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesd
 # Making Waffles
 For this tidytuesday I decided to create a waffle chart using the `waffle` [package](https://github.com/hrbrmstr/waffle) created by hrbmster. There are multiple ways to describe a waffle chart, most obvious being by looking at a picture of a waffle. However I find that analogy not that clear. I prefer to instead consider a Rubik cube. Lets start with the following image of a Rubik cube. Lets say one side of the Rubik cube is equivalent to our chart. We know that the max amount of individual cubes in one side is six. 
 
-```{r rubik_cube, fig.align='center'}
+```{r rubik_cube, fig.align='center', echo=FALSE, out.width = "50%"}
 include_graphics("images/rubik_cube.jpeg")
-#from upspash: (https://unsplash.com/@elijah_ekdahl)
+# image from upspash: (https://unsplash.com/@elijah_ekdahl)
 ```
 
 The color combination will depend on the user similar to the way that our waffle chart will varying according to our data. Keep in mind there are limitations to this example because there is a finite amount of individual cubes while for a waffle chart there is not. 
@@ -78,7 +78,7 @@ To make the visualization understandable, I decide to make each square in a waff
 
 To create a waffle chart, you use the `geom_waffle()` function from the waffle package. There is not much to add within the actual function other than the size and color of the boxes themselves. The key part of making this visualization work is adding the `facet_wrap()` because of its ability to separate the graph into each bird breed. Other than that the graphic is build like any other visualization. 
 
-```{r waffle_chart}
+```{r waffle_chart, fig.align='center'}
 ggplot(top5_breakdown, aes(fill = fct_rev(vote_rank), values = rev(n))) +
   geom_waffle(color = "white", size = .3, flip = TRUE) +
   facet_wrap(~rev(bird_breed), nrow = 1, strip.position = "bottom",

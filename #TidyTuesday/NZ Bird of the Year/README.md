@@ -29,15 +29,7 @@ start with the following image of a Rubik cube. Lets say one side of the
 Rubik cube is equivalent to our chart. We know that the max amount of
 individual cubes in one side is six.
 
-``` r
-include_graphics("images/rubik_cube.jpeg")
-```
-
-<img src="images/rubik_cube.jpeg" width="2847" style="display: block; margin: auto;" />
-
-``` r
-#from upspash: (https://unsplash.com/@elijah_ekdahl)
-```
+<img src="images/rubik_cube.jpeg" width="50%" style="display: block; margin: auto;" />
 
 The color combination will depend on the user similar to the way that
 our waffle chart will varying according to our data. Keep in mind there
@@ -146,4 +138,4 @@ ggplot(top5_breakdown, aes(fill = fct_rev(vote_rank), values = rev(n))) +
         strip.background = element_blank())
 ```
 
-![](README_files/figure-markdown_github/waffle_chart-1.png)
+<img src="README_files/figure-markdown_github/waffle_chart-1.png" style="display: block; margin: auto;" />
