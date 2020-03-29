@@ -1,3 +1,22 @@
+    ## ── Attaching packages ──────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+
+    ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
+    ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
+    ## ✔ tidyr   1.0.0     ✔ stringr 1.4.0
+    ## ✔ readr   1.3.1     ✔ forcats 0.4.0
+
+    ## ── Conflicts ─────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ✖ dplyr::filter() masks stats::filter()
+    ## ✖ dplyr::lag()    masks stats::lag()
+
+    ## Parsed with column specification:
+    ## cols(
+    ##   date = col_date(format = ""),
+    ##   hour = col_double(),
+    ##   vote_rank = col_character(),
+    ##   bird_breed = col_character()
+    ## )
+
 Making Waffles
 ==============
 
@@ -5,13 +24,126 @@ For this tidytuesday I decided to create a waffle chart using the
 `waffle` [package](https://github.com/hrbrmstr/waffle) created by
 hrbmster. There are multiple ways to describe a waffle chart, most
 obvious being by looking at a picture of a waffle. However I find that
-analogy not that clear. I perfer to instead consider a Rubik cube or a
-block of cubed cheese. If you take a look at the
+analogy not that clear. I prefer to instead consider a Rubik cube. Lets
+start with the following image of a Rubik cube. Lets say one side of the
+Rubik cube is equivalent to our chart. We know that the max amount of
+individual cubes in one side is six.
 
-![](https://images.unsplash.com/photo-1565624546455-42a46d24cbc5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=358&q=80)
+``` r
+include_graphics("images/rubik_cube.jpeg")
+```
+
+<img src="images/rubik_cube.jpeg" width="2847" style="display: block; margin: auto;" />
+
+``` r
+#from upspash: (https://unsplash.com/@elijah_ekdahl)
+```
+
+The color combination will depend on the user similar to the way that
+our waffle chart will varying according to our data. Keep in mind there
+are limitations to this example because there is a finite amount of
+individual cubes while for a waffle chart there is not.
+
+Another key part of a waffle chart is the meaning behind each individual
+cube. In the Rubik cube example each individual cube could represent 1
+person from a community of 6 or it could represent 1 million people. The
+value assigned to each cube is something to consider and note when
+presenting a waffle chart.
+
+From my experience, there are some limitations in using a waffle chart
+which are:
+
+1.  It is best to limit the number of categories because having to many
+    can make the chart difficult to read
+2.  The default scaling may not be the most appropriate
 
 Shaping data
 ============
 
-Visualizations
-==============
+With the dataset having 86 different bird breeds, it would have been
+difficult to plot them using a waffle chart. For that reason, I decided
+to only look at the birds with the most votes. To do that I counted the
+number of bird breeds within the dataset and than arranged them in
+descending. Doing so gave me the birds that received the most votes
+regardless of specific vote ranking.
+
+``` r
+#Place points
+top5_votes <- nz_bird %>%
+  filter(!is.na(vote_rank) & !is.na(bird_breed)) %>%
+  count(bird_breed) %>%
+  arrange(desc(n)) %>%
+  top_n(5) %>%
+  rename(total = n)
+```
+
+    ## Selecting by n
+
+``` r
+#Getting names of the top 5 bird breeds to filter
+top5_names <- top5_votes %>% 
+  select(bird_breed) %>% 
+  pull()
+```
+
+To make filtering easier in the next step, I `pull()` the names of the
+top five bird breeds and store them in the top5\_names object.
+
+The next step in shaping the data to conform to a waffle chart was to
+get the distribution of vote rankings for each bird breed. For example,
+the *Banded Dotterel* bird received 6692 total votes, but only by
+including `vote_rank` in the `count()` function are we able to see how
+many of those votes were first, second, and so forth.
+
+``` r
+#Filter birds to top 5 and scaling the data by dividing into 25 to make 
+#creating a waffle chart easier
+top5_breakdown <- nz_bird %>%
+  count(bird_breed, vote_rank) %>%
+  filter(bird_breed %in% top5_names) %>%
+  left_join(top5_votes, by = "bird_breed") %>%
+  group_by(bird_breed) %>%
+  mutate(n = n/25,
+         vote_rank = as.factor(vote_rank)) %>%
+  select(c(-total))
+```
+
+To make the visualization understandable, I decide to make each square
+in a waffle chart represent 25 votes. The number is partly arbitrary and
+can be changed to any other number.
+
+Visualization
+=============
+
+To create a waffle chart, you use the `geom_waffle()` function from the
+waffle package. There is not much to add within the actual function
+other than the size and color of the boxes themselves. The key part of
+making this visualization work is adding the `facet_wrap()` because of
+its ability to separate the graph into each bird breed. Other than that
+the graphic is build like any other visualization.
+
+``` r
+ggplot(top5_breakdown, aes(fill = fct_rev(vote_rank), values = rev(n))) +
+  geom_waffle(color = "white", size = .3, flip = TRUE) +
+  facet_wrap(~rev(bird_breed), nrow = 1, strip.position = "bottom",
+             labeller = label_wrap_gen(width = 10)) + #will prevent overflow of labels
+  scale_x_discrete() +
+  scale_y_continuous(labels = function(x) x * 25, # make this multiplyer the same as n_rows
+                     expand = c(0,0),
+                     limits = c(0,50),
+                     breaks = seq(0,50, by = 5)) +
+  scale_fill_tableau(name = "1 sq = 25 votes",
+                     labels = c("Vote 1", "Vote 2", "Vote 3", "Vote 4", "Vote 5")) +
+  coord_equal() +
+  labs(
+    title = "Vote Rank Breakdown Among the Top 5 Bird Breeds",
+    x = "Bird Breed",
+    y = "Total Votes") +
+  theme(panel.grid = element_blank(),
+        plot.title = element_text(size = 16, hjust = .2),
+        axis.ticks = element_blank(),
+        panel.background = element_blank(),
+        strip.background = element_blank())
+```
+
+![](README_files/figure-markdown_github/waffle_chart-1.png)
