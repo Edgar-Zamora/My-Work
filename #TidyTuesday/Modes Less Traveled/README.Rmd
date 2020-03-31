@@ -4,7 +4,7 @@ output:
     variant: markdown_github
 ---
 
-```{r setup, echo=FALSE, results='hide'}
+```{r setup, echo=FALSE, results='hide', include=FALSE}
 #Packages
 library(tidyverse)
 library(statebins)
