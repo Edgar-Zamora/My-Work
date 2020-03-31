@@ -4,7 +4,7 @@ output:
     variant: markdown_github
 ---
 
-```{r setup, echo=FALSE}
+```{r setup, echo=FALSE, results='hide'}
 #Libraries
 library(tidyverse)
 library(DT)
@@ -59,7 +59,7 @@ To make filtering easier in the next step, I `pull()` the names of the top five 
 
 The next step in shaping the data to conform to a waffle chart was to get the distribution of vote rankings for each bird breed. For example, the *Banded Dotterel* bird received 6692 total votes, but only by including `vote_rank` in the `count()` function are we able to see how many of those votes were first, second, and so forth. 
 
-```{r shape_data_2}
+```{r shape_data_2, results='hide'}
 #Filter birds to top 5 and scaling the data by dividing into 25 to make 
 #creating a waffle chart easier
 top5_breakdown <- nz_bird %>%
