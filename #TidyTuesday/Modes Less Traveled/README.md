@@ -74,4 +74,4 @@ ggplot(total_walking_num, aes(state = state_abb, fill = log2(walking_num))) +
   guides(fill = guide_colourbar(barwidth = 0.7, barheight = 8))
 ```
 
-<img src="Modes-Less-Traveled_files/figure-markdown_github/mapping-1.png" style="display: block; margin: auto;" />
+<img src="README_files/figure-markdown_github/mapping-1.png" style="display: block; margin: auto;" />
