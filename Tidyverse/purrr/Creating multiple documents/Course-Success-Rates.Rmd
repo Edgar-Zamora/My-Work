@@ -1,0 +1,136 @@
+---
+title: "`r paste(params$dean, '- Course Success Rates')`"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: pdf_document
+params:
+  dean: Faviola
+---
+
+```{r packages, include=FALSE}
+#Loading packages
+library(tidyverse)
+library(knitr)
+library(rmarkdown)
+library(odbc)
+library(DBI)
+library(dbplyr)
+library(janitor)
+library(kableExtra)
+library(glue)
+
+knitr::opts_chunk$set(echo = FALSE, results = FALSE, message = FALSE, warning = FALSE)
+
+course_success_rates <- read_csv("course_success_rates.csv") %>% 
+  mutate(dean = recode(dean,
+                        "Daneen B.G" = "Daneen",
+                        "Faviola B." = "Faviola",
+                        "Kathleen" = "Kathleen"))
+```
+
+```{r connection}
+#Making connection to database
+#con <- dbConnect(odbc(), "R Data")
+```
+
+```{r tables}
+#Bringing in tables
+#Year LU
+#year_lu <- tbl(con, "YRQ LU") %>% 
+#  collect() %>% 
+#  clean_names()
+
+year_lu <- tibble(
+  year = c("B45", "B56", "B67", "B78", "B89", "B90"),
+  year_long = c("2014-15", "2015-16", "2016-17", "2017-18", "2018-19", "2019-20")
+)
+
+
+#Transcript table
+#transcripts <- tbl(con, "TRANSCRIPTS") %>% 
+#  collect() %>% 
+#  clean_names() %>% 
+#  mutate(passed = case_when(
+#    gr == "W" ~ "Withdraw",
+#    gr == "N" ~ "-9",
+#    gr == "P" ~ "Passed",
+#    gr_dec > 1.9 ~ "Passed",
+#    TRUE ~ "Failed"
+#  ))
+```
+
+```{r course_success_rate}
+#Replicating course success rate query from Access (Transcript W Gate)
+#course_success_rates <- transcripts %>% 
+#  filter(!dept_div %in% c("NSO", "DVS", "FIR", "COM", "JST", "CPT", "HSC", "OPD") &
+#           !str_detect(dept_div, "BDC[A-Z]"),
+#         year >= "B23" & year <= "B90",
+#         course_num >= "090",
+#         cr > 0, item != "XOXO",
+#         !sect %in% c("A#P", "C#P", "OCW", "PLC", "T#P", "ACE", "HSP", "HSC", "CBE", "CLG", "CHP", "CRT", "I#B")) %>% 
+#  select(year, quarter, item, dept_div, course_num, course_title, cr, dist_ed, item, sect, passed) %>% 
+#  arrange(year, dept_div, course_num) %>% 
+#  group_by(year, dept_div, course_num, course_title, cr, dist_ed, item, sect, passed) %>% 
+#  summarise(outcome = n()) %>% 
+#  pivot_wider(names_from = passed, values_from = outcome) %>% 
+#  ungroup() %>% 
+#  select(-`-9`) %>% 
+#  mutate(Withdraw = if_else(is.na(Withdraw), 0, as.numeric(Withdraw)),
+#         Passed = if_else(is.na(Passed), 0, as.numeric(Passed)),
+#         Failed = if_else(is.na(Failed), 0, as.numeric(Failed)),
+#         total_stu = Withdraw + Passed + Failed,
+#         pass_rate = round(Passed/total_stu * 100, 1),
+#         dean = case_when(
+#           dept_div %in% c("AGR", "ACCT", "AVF", "GIS", "ACCT&", "AMT", "AUT", "BIM", "BUS", "BUS&", "CDL", "CS", "CS&",
+#                           "ECON", "ECON&", "IST", "SIM", "UMS", "MAP", "MCT", "WKED", "WLD") ~ "Daneen",
+#           dept_div %in% c("CSS") ~ "Faviola",
+#           TRUE ~ "Kathleen")) %>% 
+#  select(year, dean, dept_div, course_num, course_title, Withdraw, Passed, Failed, total_stu, pass_rate, cr, dist_ed) 
+
+#Filter data according to dean parameter
+this_dean <- filter(course_success_rates, dean == params$dean)
+
+#Creating graphic function
+course_success_graph_fun <- function(course){
+  course <- {{course}}
+  
+  this_dean %>% 
+    filter(dept_div == {{course}}, year > "B45") %>%
+    left_join(year_lu, by = "year") %>% 
+    #select(-c(year)) %>% 
+    group_by(year_long, dean, dept_div, course_num) %>% 
+    summarise(rate_passed = sum(Passed)/sum(total_stu) * 100) %>% 
+    ggplot(aes(year_long, fct_rev(course_num), fill = rate_passed)) +
+    geom_tile(colour = "white", size = 5) +
+    geom_text(aes(label = paste0(round(rate_passed, 0), "%"))) +
+    scale_fill_gradient(name = "Success \nRate (%)", low = "#ED0E0E", high = "#FFF700") +
+    labs(title = glue("{course} Course Success Rate"),
+         subtitle = "From 2015-2019*",
+         caption = "*The 2019-20 Academic Year only includes Summer and Fall",
+         y = "Course Number",
+         x = "Academic Year") +
+    theme(
+      panel.background = element_blank(),
+      plot.subtitle = element_text(size = 8),
+      plot.caption = element_text(size = 5),
+      axis.ticks = element_blank())
+}
+
+```
+
+``` {r map_graphic}
+#Pulling out each department that a dean oversees
+#Daneen B.G = 22
+#Faviola = 1
+#Kathleen D. = 45 (54 - some errors)
+courses <- this_dean %>% 
+  select(dept_div) %>% 
+  filter(!dept_div %in% c("AVG", "ECE", "GGR", "MPC", "SOC", "ECED", "PSYC", "ENGR", "SCI")) %>% 
+  unique() %>% 
+  pull(dept_div)
+
+#Looping each department through the graphic function.
+map(courses, course_success_graph_fun)
+```
+
+
+
