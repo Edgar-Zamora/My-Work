@@ -44,7 +44,7 @@ abr_names <- tibble(
 
 
 
-```{r viz}
+```{r viz, fig.width=9, fig.height=9}
 epl18_19 %>% 
   left_join(abr_names) %>% 
   ggplot(aes(away_team_abr, fct_rev(home_team), fill = result)) +
