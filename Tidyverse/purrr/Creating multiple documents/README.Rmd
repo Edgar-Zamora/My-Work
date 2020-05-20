@@ -1,0 +1,8 @@
+---
+title: "R Notebook"
+output:
+  md_document:
+    variant: markdown_github
+---
+
+In this folder you can see an exmample of when I created individualized reports for each dean containing the course success rates for the courses they oversaw in their division. To do this it requried a two step plan. The first part was creating a document (*Course-Success-Rates.Rmd*) template that could be indivdualized for each dean. The document required the inclusion of parameters to allow looping over each dean. The second step was to create a recipe that would actually create output. In this script you can find the process of listing each dean and iternating over the document template to process a report for each dean. An example of what the output would look like can be seen in the PDF.
