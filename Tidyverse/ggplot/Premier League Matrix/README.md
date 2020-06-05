@@ -1,6 +1,7 @@
 ``` r
 library(tidyverse)
 library(janitor)
+library(ggtext)
 
 #load data
 epl18_19 <- read_csv("2018-2019.csv") %>% 
@@ -46,7 +47,11 @@ epl18_19 %>%
     x = "",
     y = "",
     title = "2018-19 Premier Leauge Results Matrix",
-    caption = 'Colour: Blue = home team win; Yellow = draw; Red = away team win') +
+    caption = "Colour: 
+    <br> <span style = 'color:#BBF3FF;'>Blue =</span> Home team win 
+    <br> <span style = 'color:#FCBBBB;'>Red  =</span> Away team win
+    <br> <span style = 'color:#FFFFBB;'>Yellow  =</span> Tie"
+      ) +
   scale_x_discrete(position = "top") +
   scale_y_discrete(labels = rev(c("Aresenal", "Bournemouth", "Brighton & Hove Albion", "Burnley", "Cardiff", "Chelsea",
                                   "Crystal Palace", "Everton", "Fulham", "Huddersfield Town", "Leicester City",
@@ -55,7 +60,7 @@ epl18_19 %>%
   theme(
     panel.background = element_blank(),
     axis.ticks = element_blank(),
-    plot.caption = element_text(hjust = -.7)) 
+    plot.caption = element_markdown(hjust = 0)) 
 ```
 
     ## Joining, by = "away_team"
