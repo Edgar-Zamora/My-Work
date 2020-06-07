@@ -1,0 +1,36 @@
+---
+output: 
+  md_document:
+    variant: markdown_github
+---
+
+
+```{r setup}
+#Loading packages
+library(tidyverse)
+library(viridis)
+
+#Load data
+df <- read_csv("us-counties.csv") %>% 
+  filter(state == "Washington",
+         county != "Unknown") %>% 
+  select(-c(fips, state))
+
+```
+
+
+
+```{r graphic}
+df %>% 
+  group_by(date) %>% 
+  summarise(cases = sum(cases),
+            deaths = sum(deaths)) %>%
+  mutate(county = "agg") %>% 
+  bind_rows(df) %>% 
+  ggplot(aes(date, deaths, group = county)) +
+  geom_line() +
+  facet_wrap(~county)
+
+```
+
+
