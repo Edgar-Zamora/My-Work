@@ -1,8 +1,3 @@
-``` r
-#Loading packages
-library(tidyverse)
-```
-
     ## ── Attaching packages ───────────────────────────────────────────────────────── tidyverse 1.3.0 ──
 
     ## ✓ ggplot2 3.3.0     ✓ purrr   0.3.4
@@ -18,19 +13,7 @@ library(tidyverse)
     ## x dplyr::filter() masks stats::filter()
     ## x dplyr::lag()    masks stats::lag()
 
-``` r
-library(viridis)
-```
-
     ## Loading required package: viridisLite
-
-``` r
-#Load data
-df <- read_csv("us-counties.csv") %>% 
-  filter(state == "Washington",
-         county != "Unknown") %>% 
-  select(-c(fips, state))
-```
 
     ## Parsed with column specification:
     ## cols(
@@ -43,15 +26,23 @@ df <- read_csv("us-counties.csv") %>%
     ## )
 
 ``` r
-df %>% 
-  group_by(date) %>% 
-  summarise(cases = sum(cases),
-            deaths = sum(deaths)) %>%
-  mutate(county = "agg") %>% 
-  bind_rows(df) %>% 
-  ggplot(aes(date, deaths, group = county)) +
-  geom_line() +
-  facet_wrap(~county)
+ggplot(covid_19, aes(date, fct_reorder(county, date), fill = log(cases))) +
+  geom_tile(colour = "white") +
+  scale_fill_viridis(name = "Num. of \nCases \n(log)",
+                     guide = guide_colourbar(direction = "horizontal"),
+                     option = "magma") +
+  labs(
+    x = "Date",
+    y = "Washington County",
+    title = "Timeline of COVID-19 Caes by Washington County"
+  ) +
+  theme(
+    axis.text  = element_text(size = 12),
+    axis.ticks = element_blank(),
+    panel.background = element_blank(),
+    plot.title = element_text(size = 18),
+    legend.position = "bottom"
+  )
 ```
 
 ![](README_files/figure-markdown_github/graphic-1.png)

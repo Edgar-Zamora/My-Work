@@ -5,7 +5,7 @@ output:
 ---
 
 
-```{r setup}
+```{r setup, echo=FALSE}
 #Loading packages
 library(tidyverse)
 library(viridis)
@@ -16,20 +16,41 @@ df <- read_csv("us-counties.csv") %>%
          county != "Unknown") %>% 
   select(-c(fips, state))
 
+covid_19 <- df %>% 
+  group_by(date) %>% 
+  summarise(cases = sum(cases),
+            deaths = sum(deaths)) %>%
+  mutate(county = "Aggregate") %>% 
+  bind_rows(df)
+
+knitr::opts_chunk$set(
+	fig.height = 10,
+	fig.width = 9,
+	message = FALSE,
+	warning = FALSE
+)
 ```
 
 
 
 ```{r graphic}
-df %>% 
-  group_by(date) %>% 
-  summarise(cases = sum(cases),
-            deaths = sum(deaths)) %>%
-  mutate(county = "agg") %>% 
-  bind_rows(df) %>% 
-  ggplot(aes(date, deaths, group = county)) +
-  geom_line() +
-  facet_wrap(~county)
+ggplot(covid_19, aes(date, fct_reorder(county, date), fill = log(cases))) +
+  geom_tile(colour = "white") +
+  scale_fill_viridis(name = "Num. of \nCases \n(log)",
+                     guide = guide_colourbar(direction = "horizontal"),
+                     option = "magma") +
+  labs(
+    x = "Date",
+    y = "Washington County",
+    title = "Timeline of COVID-19 Caes by Washington County"
+  ) +
+  theme(
+    axis.text  = element_text(size = 12),
+    axis.ticks = element_blank(),
+    panel.background = element_blank(),
+    plot.title = element_text(size = 18),
+    legend.position = "bottom"
+  )
 
 ```
 
