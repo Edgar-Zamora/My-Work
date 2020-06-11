@@ -5,7 +5,7 @@ output:
 ---
 
 
-```{r setup, echo=FALSE, results='hide'}
+```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
 #Loading packages
 library(tidyverse)
 library(viridis)
@@ -25,9 +25,7 @@ covid_19 <- df %>%
 
 knitr::opts_chunk$set(
 	fig.height = 10,
-	fig.width = 9,
-	message = FALSE,
-	warning = FALSE
+	fig.width = 9
 )
 ```
 
