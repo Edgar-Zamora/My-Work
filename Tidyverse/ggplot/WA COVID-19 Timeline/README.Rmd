@@ -5,7 +5,7 @@ output:
 ---
 
 
-```{r setup, echo=FALSE}
+```{r setup, echo=FALSE, results='hide'}
 #Loading packages
 library(tidyverse)
 library(viridis)
