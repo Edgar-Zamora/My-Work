@@ -3,5 +3,95 @@ title: "Ch2:Stack Overflow Predictions"
 author: "Edgar Zamora"
 date: "6/22/2020"
 output: html_document
+editor_options: 
+  chunk_output_type: console
 ---
+
+
+```{r setup}
+#Loading Packages
+library(tidyverse)
+library(tidymodels)
+library(rstanarm)
+library(rstanarm)
+library(janitor)
+library(broom)
+library(randomForest)
+
+#loading data
+stack_overflow <- read_csv("/Users/edgarzamora/Desktop/GitHub/myrepo/Tidymodels/data/stack_overflow.csv") %>% clean_names()
+
+```
+
+# Question of Chapter
+The aim of this chapter is to determine what makes a developer more likely to work remotely.
+
+
+# Exploratory Analysis
+As seen below there is a heavy skew between those who work remotely and those who do not in the dataset. Having such differences will have an impact on how well the model will perform. For that reason some **preprocessing** will be done to the data to cope with that.
+
+```{r}
+stack_overflow %>% 
+  count(remote)
+
+stack_overflow %>% 
+  count(country, sort = TRUE)
+```
+
+
+```{r boxplot}
+ggplot(stack_overflow, aes(remote, years_coded_job)) +
+  geom_boxplot() +
+  labs(
+    x = NULL,
+    y = "Years of professional coding experience"
+  )
+```
+
+
+# Training and testing data
+
+```{r splitting_data}
+#data prep
+stack_overflow <- stack_overflow %>% 
+  mutate(remote = factor(remote, levels = c("Remote", "Not Remote"))) %>% 
+  mutate_if(is.character, factor) %>% #everthing should be either a logical, numberic, or a factor. no char
+  select(-respondent)
+
+
+#creating split
+stack_overflow_split <- initial_split(stack_overflow,
+                                      p = 0.80,
+                                      strata = remote)
+
+stack_testing <- testing(stack_overflow_split)
+stack_training <- training(stack_overflow_split)
+
+
+```
+
+# Dealing with imbalanced data
+
+Class imbalance is common in datasets and need to be dealt with appropiately as they often negatively affect the performance of your model. The issue of not correctly the imbalance is that the machine learning model will always predict the majority class or otherwise exhibiti poor performance on the metrics that we care about. 
+
+There are multiple approahces to dealing with imbalance, ranging in complexity.
+
+## Downsampling
+
+**Downsampling** (also known as undersampling) is the approach where one randomly removes observations from the majority class until it's the same as the minority class and both classes can have the same effect on the machine learning model we're training. 
+
+Downsampling is an example known as preprocessing and can be down with `recipes`. In this section the `step_downsample()` function is used on the data to downsample the non remote to balance it with the remote respondents. 
+
+```{r downsampling}
+stack_recipe <- recipe(remote ~ ., data = stack_training) %>% 
+  step_downsample(remote)
+
+stack_prep <- prep(stack_recipe)
+
+juice(stack_prep)
+```
+
+
+
+
 
