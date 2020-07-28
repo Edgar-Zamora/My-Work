@@ -8,7 +8,7 @@ output:
 library(knitr)
 ```
 
-```{r image}
+```{r image, echo=FALSE}
 include_graphics("nfl_sb_winners.png")
 ```
 
