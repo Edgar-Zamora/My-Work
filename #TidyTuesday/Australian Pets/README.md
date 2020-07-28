@@ -1,1 +1,1 @@
-![](/Users/edgarzamora/Desktop/GitHub/myrepo/#TidyTuesday/Australian%20Pets/australian_pets.jpeg)
+<img src="australian_pets.jpeg" width="1100" />

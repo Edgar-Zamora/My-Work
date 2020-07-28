@@ -8,4 +8,6 @@ output:
 library(knitr)
 ```
 
-![](/Users/edgarzamora/Desktop/GitHub/myrepo/#TidyTuesday/Australian Pets/australian_pets.jpeg)
+```{r image, echo=FALSE}
+include_graphics("australian_pets.jpeg")
+```
