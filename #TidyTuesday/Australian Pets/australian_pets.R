@@ -47,8 +47,8 @@ ggplot(per_animal_complaints, aes(month, year)) +
     y = NULL,
     title = "Top 10 Months With The Most Reported Complaints By Type",
     subtitle = "While the the percent of complaints by month are generally even throughout the years, there are 
-    <br>some months that have a larger tendency to recieve more complaints. TLooking below we can see 
-    <br>that months that are typically **colder** or consdiered **winter** months reviece a larger share of complaints.
+    <br>some months that have a larger tendency to recieve more complaints. Looking below we can see 
+    <br>that months that are typically **colder** or considered **winter** months reviece a larger share of complaints.
     <br>Along with reporting the percentage, number of reports for the top 10 months for each complaint type is 
     <br>also provided."
   ) +

@@ -1,0 +1,14 @@
+---
+output: 
+  md_document:
+    variant: markdown_github
+---
+
+```{r setup, echo=FALSE, include=FALSE}
+library(knitr)
+```
+
+```{r image}
+include_graphics("/Users/edgarzamora/Desktop/GitHub/myrepo/#TidyTuesday/Australian Pets/australian_pets.jpeg")
+```
+
