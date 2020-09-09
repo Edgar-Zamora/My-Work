@@ -9,3 +9,65 @@ output:
     seal: false
     css: "my-style.css"
 ---
+class: inverse, center, middle
+
+.large[Data Committee Meeting]
+<br>
+<br>
+.medium[September 25, 2020]
+
+
+---
+.large[Agenda]
+
+<br>
+
+- Survey Vetting
+
+- SBCTC Findings
+
+- Regional & National Comparisons
+
+
+---
+
+.large[Survey Vetting]
+
+
+- Currently there are a number of surveys that are administered periodically:
+
+  - Fall Enrollment Survey (*annual*)
+  
+  - Spring Enrollment Survey (*annual*)
+  
+  - Former Workforce Students (*triennial*)
+  
+  - Former Arts & Science Students (*triennial*)
+  
+
+- In addition to these surveys, there are others that are adminsistered by individuals, departments or other entities. 
+
+---
+
+.large[Survey Vetting Cont']
+
+
+- With a large amount of survey being created and administered there are some problems that may arise:
+
+  - The potential for survey fatigue is increase with each survey.
+  
+  - The content of surveys may overlap if creators are unware of related surveys.
+  
+  - Aim of a survey may be answered from a previous survey.
+  
+  - A survey may not be the most approcpiate way to gain insight into a proposed question.
+
+  
+---
+
+- Questions to consider:
+
+  1. Should **all** surveys be vetted by the Data Committee team or only those individuals that request Institutional Research administered the survey on their behalf. 
+  
+  2. How quick are we expecting a turn around on individuals who submit surveys for vetting?
+
