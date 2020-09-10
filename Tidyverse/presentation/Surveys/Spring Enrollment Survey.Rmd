@@ -44,7 +44,6 @@ class: inverse, center, middle
   
   - Former Arts & Science Students (*triennial*)
   
-
 - In addition to these surveys, there are others that are adminsistered by individuals, departments or other entities. 
 
 ---
@@ -54,15 +53,28 @@ class: inverse, center, middle
 
 - With a large amount of survey being created and administered there are some problems that may arise:
 
-  - The potential for survey fatigue is increase with each survey.
+  - The potential for survey fatigue is increased with each added survey.
   
   - The content of surveys may overlap if creators are unware of related surveys.
   
   - Aim of a survey may be answered from a previous survey.
   
   - A survey may not be the most approcpiate way to gain insight into a proposed question.
+  
+  - The language and structure of a survey my need reforming.
 
   
+  
+- To medigate some of these problems we are interested in implementing a survey vetting process.
+
+---
+
+.large[Survey Vetting Form]
+
+- To facilitate a more streamlined process of vetting surveys we are thinking of creatinga 
+
+
+
 ---
 
 - Questions to consider:
