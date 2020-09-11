@@ -9,3 +9,14 @@
 .notes {font-size: 10px;}
 
 body { font-family: 'Calibri Light'}
+
+
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #30763a;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+}
+
+
+

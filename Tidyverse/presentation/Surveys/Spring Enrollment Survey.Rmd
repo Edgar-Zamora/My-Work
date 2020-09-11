@@ -7,8 +7,18 @@ output:
       highlightLines: true
       countIncrementalSlides: false
     seal: false
-    css: "my-style.css"
+    css: ["my-style.css", "default"]
 ---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(knitr)
+
+opts_chunk$set(echo = FALSE)
+
+```
+
+
 class: inverse, center, middle
 
 .large[Data Committee Meeting]
@@ -44,7 +54,7 @@ class: inverse, center, middle
   
   - Former Arts & Science Students (*triennial*)
   
-- In addition to these surveys, there are others that are adminsistered by individuals, departments or other entities. 
+- In addition to these surveys, there are others that are administered by individuals, departments or other entities. 
 
 ---
 
@@ -55,31 +65,123 @@ class: inverse, center, middle
 
   - The potential for survey fatigue is increased with each added survey.
   
-  - The content of surveys may overlap if creators are unware of related surveys.
+  - The content of surveys may overlap if creators are unaware of related surveys.
   
   - Aim of a survey may be answered from a previous survey.
   
-  - A survey may not be the most approcpiate way to gain insight into a proposed question.
+  - A survey may not be the most appropriate way to gain insight into a proposed question.
   
   - The language and structure of a survey my need reforming.
 
   
   
-- To medigate some of these problems we are interested in implementing a survey vetting process.
+- To mitigate some of these problems we are interested in implementing a survey vetting process.
 
 ---
 
 .large[Survey Vetting Form]
 
-- To facilitate a more streamlined process of vetting surveys we are thinking of creatinga 
+- To facilitate a more streamlined process of vetting surveys we are thinking of creating a form as a survey using SurveyMonkey. 
 
+- Opening Statement:
+  <blockquote>To manage the number of surveys students receive from Big Bend and gain information that will inform decision-making to improve the student experience, BBCC will implement a survey vetting process. All Ad Hoc surveys that are not on the regularly scheduled inventory will go through this process.
+  <br>
+  <br>The Data Committee will review survey proposals (quarterly or monthly) and provide feedback on survey questions, whether there is another way to gather the information, and if there is another survey that can be modified to include questions being proposed to reduce the number of surveys being sent to students, faculty or staff.</blockquote>
+
+---
+.large[Survey Vetting Form]
+
+- Questions
+  1. What is the purpose of your survey?
+     - Improve the student journey
+     - Empower faculty and staff to better support students
+     - Provide information to inform decisions
+     - Other (please specify)
+  2. What information are you trying to gather and/or what challenge are you confronting?
+     - Open response
+  3. Upload your questions
+     - Opportunity to upload a file containing questions
+  4. Please upload a sample of your questions?
+     - Alternative to uploading a file people can write their questions
+  5. Who is the target audience for your survey?
+     - Open response
+  6. When do you intend to administer the survey?
+     - Open response
+ 
+<br>
+- The [survey materials](https://port.bigbend.edu/employee/Institutional%20Research%20%20Planning/Forms/AllItems.aspx?RootFolder=%2Femployee%2FInstitutional%20Research%20%20Planning%2FData%20Committee&FolderCTID=0x012000D5C315C51773504A99066BEEF49E4336&View=%7B150B68D1%2D6F01%2D4AB3%2D9C13%2D9167849F888B%7D) can found on the portal. Once the form is accepted by the data committee a announcement will be sent campus about the new process for survey submission.
 
 
 ---
 
-- Questions to consider:
+.large[Questions to consider:]
 
-  1. Should **all** surveys be vetted by the Data Committee team or only those individuals that request Institutional Research administered the survey on their behalf. 
+  1. Should **all** surveys be vetted by the Data Committee team or only those individuals that request Institutional Research administer the survey on their behalf. 
   
   2. How quick are we expecting a turn around on individuals who submit surveys for vetting?
+  
+  
+  
+---
+
+.large[Regional & National Comparision Criteria]
+
+- Regional Criteria
+  - *Criteria*
+     - Institutional size
+     - Rural setting
+     - Local economy 
+     - Hispanic Serving institution
+
+- National Criteria
+  - *Criteria*
+     - Sector of institution
+     - Degree of urbanization
+     - Institutional category
+     - Institutional size category
+     - 12-month unduplicated headcount
+     - Percent of undergraduate enrollment who are Hispanic/ Latino
+     - Geographical cross-section
+     - Similar economic base
+     - Community population growth
+     - Percent full and part-time students
+
+---
+
+.large[Regional & National Comparision Colleges]
+
+- Regional Colleges
+  - *Colleges*
+     - Walla Walla Community College, Wenatchee Valley College, and Yakima Valley College
+
+- National Colleges
+  - *Colleges*
+     - Barstow Community College (Barstow, California)
+     - Eastern New Mexico University-Roswell Campus (Roswell, New Mexico)
+     - Garden City Community College (Garden City, Kansas)
+     
+---
+
+.large[Regional Comparison - College Lvl. Math in First Year]
+
+.pull-left[
+**Overall**
+
+- `sydney-fonts.css`
+
+]
+
+.pull-right[
+**Sex**
+
+- `USydLogo-black.svg`
+
+]
+
+---
+
+.large[Regional Comparison - College Lvl. English in First Year]
+
+
+
 
