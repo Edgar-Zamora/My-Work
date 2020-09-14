@@ -13,6 +13,7 @@ output:
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(knitr)
+library(png)
 
 opts_chunk$set(echo = FALSE)
 
@@ -167,8 +168,6 @@ class: inverse, center, middle
 .pull-left[
 **Overall**
 
-- `sydney-fonts.css`
-
 ]
 
 .pull-right[
@@ -179,6 +178,11 @@ class: inverse, center, middle
 ]
 
 ---
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Oklahoma_Sooners_logo.svg/150px-Oklahoma_Sooners_logo.svg.png" />
+
+---
+
 
 .large[Regional Comparison - College Lvl. English in First Year]
 
