@@ -7,7 +7,7 @@ output:
       highlightLines: true
       countIncrementalSlides: false
     seal: false
-    css: ["my-style.css", "default"]
+    css: ["my-style.css", "default", "ninjutsu"]
 ---
 
 ```{r setup, include=FALSE}
@@ -35,9 +35,9 @@ class: inverse, center, middle
 
 - Survey Vetting
 
-- SBCTC Findings
-
 - Regional & National Comparisons
+
+- SBCTC Findings
 
 
 ---
@@ -165,27 +165,35 @@ class: inverse, center, middle
 
 .large[Regional Comparison - College Lvl. Math in First Year]
 
-.pull-left[
 **Overall**
+<center>
 
+.column[
+<img src="https://raw.githubusercontent.com/Edgar-Zamora/My-Work/master/Tidyverse/presentation/Surveys/images/math/math_overall.jpg" height="250px">
 ]
 
-.pull-right[
-**Sex**
+</center>
 
-- `USydLogo-black.svg`
+**Age**
 
+<center>
+
+.column[
+<img src="https://raw.githubusercontent.com/Edgar-Zamora/My-Work/master/Tidyverse/presentation/Surveys/images/math/math_age.jpeg" height="250px">
 ]
+
+</center>
 
 ---
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Oklahoma_Sooners_logo.svg/150px-Oklahoma_Sooners_logo.svg.png" />
+.large[Regional Comparison - College Lvl. Math in First Year]
+
+**Receiving Aid**
+
+<img src="https://raw.githubusercontent.com/Edgar-Zamora/My-Work/master/Tidyverse/presentation/Surveys/images/math/math_aid.jpeg">
 
 ---
 
-
-.large[Regional Comparison - College Lvl. English in First Year]
-
-
+.large[SBCTC Findings]
 
 
