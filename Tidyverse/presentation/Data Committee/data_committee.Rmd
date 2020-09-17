@@ -25,7 +25,7 @@ class: inverse, center, middle
 .large[Data Committee Meeting]
 <br>
 <br>
-.medium[September 25, 2020]
+.medium[September 17, 2020]
 
 
 ---
@@ -160,40 +160,4 @@ class: inverse, center, middle
      - Barstow Community College (Barstow, California)
      - Eastern New Mexico University-Roswell Campus (Roswell, New Mexico)
      - Garden City Community College (Garden City, Kansas)
-     
----
-
-.large[Regional Comparison - College Lvl. Math in First Year]
-
-**Overall**
-<center>
-
-.column[
-<img src="https://raw.githubusercontent.com/Edgar-Zamora/My-Work/master/Tidyverse/presentation/Surveys/images/math/math_overall.jpg" height="250px">
-]
-
-</center>
-
-**Age**
-
-<center>
-
-.column[
-<img src="https://raw.githubusercontent.com/Edgar-Zamora/My-Work/master/Tidyverse/presentation/Surveys/images/math/math_age.jpeg" height="250px">
-]
-
-</center>
-
----
-
-.large[Regional Comparison - College Lvl. Math in First Year]
-
-**Receiving Aid**
-
-<img src="https://raw.githubusercontent.com/Edgar-Zamora/My-Work/master/Tidyverse/presentation/Surveys/images/math/math_aid.jpeg">
-
----
-
-.large[SBCTC Findings]
-
 
