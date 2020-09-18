@@ -122,7 +122,7 @@ ggplot(state_spending, aes(year, avg, group = state_abb, color = spending_colour
     title = "Public spending on higher education by state and year",
     subtitle = "The spending per child, adjusted for inflation, for each state from 1997 to 2015. Each <b style='color:#59A14F'>increase </b>, 
     <b style='color:#E15759'>decrease</b>, or <b style='color:#BAB0AC'>constant</b> <br> spending is compared to the previous years spending. 
-    Additionally those **states that increased their spend by 50%** from 
+    Additionally those **states that increased their spending by 50%** from 
     <br> 1997 to 2015 are colored <b style='color:#5D729D'>blue</b> while those that did not are colored <b style='color:#DFF0D8'>green(ish) </b>"
   ) +
   theme(
