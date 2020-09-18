@@ -2,12 +2,60 @@ library(tidyverse)
 library(janitor)
 library(geofacet)
 library(scales)
+library(ggtext)
+library(cowplot)
 
 kids <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-15/kids.csv') %>% 
   left_join(tibble(
   state_abb = state.abb,
   state_name = state.name) %>% 
   add_row(state_abb = "DC", state_name = "District of Columbia"), by = c("state" = "state_name"))
+
+
+## This will allow for the change the strip headers
+## THIS IS NOT MT WORK. The solution comes from Claus Wilke who was answering a question on stackoverflow asked by Eric Green. 
+## You can find the question and answer here: https://stackoverflow.com/questions/60332202/conditionally-fill-ggtext-text-boxes-in-facet-wrap/60345086#60345086
+
+element_textbox_highlight <- function(..., hi.labels = NULL, hi.fill = NULL,
+                                      hi.col = NULL, hi.box.col = NULL) {
+  structure(
+    c(element_textbox(...),
+      list(hi.labels = hi.labels, hi.fill = hi.fill, hi.col = hi.col, hi.box.col = hi.box.col)
+    ),
+    class = c("element_textbox_highlight", "element_textbox", "element_text", "element")
+  )
+}
+
+element_grob.element_textbox_highlight <- function(element, label = "", ...) {
+  if (label %in% element$hi.labels) {
+    element$fill <- element$hi.fill %||% element$fill
+    element$colour <- element$hi.col %||% element$colour
+    element$box.colour <- element$hi.box.col %||% element$box.colour
+  }
+  NextMethod()
+}
+
+
+ggplot(mpg, aes(cty, hwy)) + 
+  geom_point() +
+  facet_wrap(~class) +
+  theme(
+    strip.background = element_blank(),
+    strip.text = element_textbox_highlight(
+      size = 12,
+      color = "white", fill = "#5D729D", box.color = "#4A618C",
+      halign = 0.5, linetype = 1, r = unit(5, "pt"), width = unit(1, "npc"),
+      padding = margin(2, 0, 1, 0), margin = margin(3, 3, 3, 3),
+      # this is new relative to element_textbox():
+      hi.labels = c("2seater", "suv"),
+      hi.fill = "#F89096", hi.box.col = "#A6424A", hi.col = "black"
+    )
+  )
+
+
+
+
+## Summarizing state spending to figure out whether there was an increase from one year to another.
 
 state_spending <- kids %>% 
   filter(variable == "highered") %>% 
@@ -16,20 +64,29 @@ state_spending <- kids %>%
     avg = round(mean(inf_adj_perchild), 2)) %>% 
   ungroup() %>% 
   group_by(state_abb) %>% 
-  mutate(diff = avg - lag(avg, default = first(avg))) %>% 
+  mutate(spending_change = case_when(avg  > lag(avg, default = first(avg), order_by = year) ~ "Increase",
+                                     avg  < lag(avg, default = first(avg), order_by = year) ~ "Decrease",
+                                     TRUE ~ "Same"),
+         spending_colour = lead(spending_change),
+         spending_colour = factor(spending_colour, levels = c("Increase", "Decrease", "Same"))) %>% 
+  ungroup() %>%
+  filter(year != "2016")
+
+
+## Pulling those states that had at least a 50% increase in spending from the 1997 to 2015
+state_total_change <- state_spending %>% 
+  group_by(state_abb) %>% 
+  summarise(
+    better_off = round((last(avg) - first(avg))/first(avg) * 100, 0)) %>% 
   ungroup() %>% 
-  mutate(
-    spending_change = case_when(diff == 0 ~ "Same",
-                       diff < 0 ~ "Decrease",
-                       TRUE ~ "Increase"),
-    spending_change = factor(spending_change, levels = c("Increase", "Same", "Decrease")))
+  filter(better_off >= 50) %>% 
+  pull(state_abb)
 
 
-state_spending %>% 
-  #filter(state == "Washington") %>% 
-  ggplot(aes(year, avg, group = state_abb, color = spending_change)) +
+## Creating visualization
+ggplot(state_spending, aes(year, avg, group = state_abb, color = spending_colour)) +
   geom_line(size = .8, key_glyph = "timeseries") +
-  scale_color_manual(name = "Spending Change", values = c("#59A14F","#BAB0AC", "#E15759")) +
+  scale_color_manual(name = "Spending Change \nFrom Previous Year", values = c("#59A14F","#E15759", "#BAB0AC", "orange")) +
   scale_y_continuous(labels = dollar_format()) +
   labs(
     x = NULL,
@@ -40,7 +97,15 @@ state_spending %>%
     panel.grid = element_blank(),
     panel.background = element_blank(),
     axis.ticks = element_blank(),
-    axis.text.x = element_blank()
+    axis.text.x = element_blank(),
+    strip.background = element_blank(),
+    strip.text = element_textbox_highlight(
+      size = 12,
+      color = "black", fill = "#DFF0D8", box.color = "#DFF0D8",
+      halign = 0.5, linetype = 1, r = unit(5, "pt"), width = unit(1, "npc"),
+      padding = margin(2, 0, 1, 0), margin = margin(3, 3, 3, 3),
+      hi.labels = state_total_change ,
+      hi.fill = "#5D729D", hi.box.col = "#5D729D", hi.col = "white")
   ) +
   facet_geo(~state_abb, grid = "us_state_grid2")
 
