@@ -4,11 +4,14 @@ output:
     variant: markdown_github
 ---
 
+
 ```{r setup, echo=FALSE, include=FALSE}
 library(knitr)
+
 ```
 
 ```{r image, echo=FALSE, fig.align='center'}
-include_graphics("palmer_penguins_final.jpeg")
+include_graphics("/Users/edgarzamora/Desktop/GitHub/myrepo/#TidyTuesday/Gov Spending on Kids/higered_spending.png")
+
 ```
 
