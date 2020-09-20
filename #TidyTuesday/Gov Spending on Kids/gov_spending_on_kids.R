@@ -36,25 +36,6 @@ element_grob.element_textbox_highlight <- function(element, label = "", ...) {
 }
 
 
-ggplot(mpg, aes(cty, hwy)) + 
-  geom_point() +
-  facet_wrap(~class) +
-  theme(
-    strip.background = element_blank(),
-    strip.text = element_textbox_highlight(
-      size = 12,
-      color = "white", fill = "#5D729D", box.color = "#4A618C",
-      halign = 0.5, linetype = 1, r = unit(5, "pt"), width = unit(1, "npc"),
-      padding = margin(2, 0, 1, 0), margin = margin(3, 3, 3, 3),
-      # this is new relative to element_textbox():
-      hi.labels = c("2seater", "suv"),
-      hi.fill = "#F89096", hi.box.col = "#A6424A", hi.col = "black"
-    )
-  )
-
-
-
-
 ## Summarizing state spending to figure out whether there was an increase from one year to another.
 
 state_spending <- kids %>% 
