@@ -9,6 +9,5 @@ What you will find in this repository is work that I have completed either from 
 # Contact Me
 
 - Twitter (<a href="https://twitter.com/Edgar_Zamora_">Edgar_Zamora_</a>)
-<br>
 - <a href="https://www.linkedin.com/in/edgar-zamora-01896b148/">LinkedIn</a>
 
