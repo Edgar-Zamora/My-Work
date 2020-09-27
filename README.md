@@ -16,6 +16,7 @@ A portfolio of my work to the <a href="https://github.com/rfordatascience/tidytu
 <img class="mySlides" src="https://raw.githubusercontent.com/Edgar-Zamora/My-Work/master/%23TidyTuesday/NZ%20Bird%20of%20the%20Year/NZ_Bird_of_Year.jpeg">
 
 <script>
+
 var slideIndex = 0;
 var slideIndex = 0;
 carousel();
@@ -31,4 +32,5 @@ function carousel() {
   x[slideIndex-1].style.display = "block"; 
   setTimeout(carousel, 10000);
 }
+
 </script>
