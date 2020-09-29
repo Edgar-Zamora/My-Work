@@ -1,3 +1,9 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
 # My Work
 
 <center>
@@ -12,6 +18,10 @@ A portfolio of my work to the <a href="https://github.com/rfordatascience/tidytu
 
 <br>
 
-<img src="/Users/edgarzamora/Desktop/GitHub/myrepo/#TidyTuesday/images/tidytuesday.gif">
+```{r gif}
+library(knitr)
+
+include_graphics("/Users/edgarzamora/Desktop/GitHub/myrepo/#TidyTuesday/images/tidytuesday.gif")
+```
 
 

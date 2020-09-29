@@ -1,3 +1,19 @@
-# Sample Tidyverse code
+My Work
+=======
 
-Contained in these folders are work that I have done using the Tidyverse packages. Some involves stuff from my current while other are projects that I have worked on in my spare time. For the most part I have tried to make the code reproducible, however there are constraints because some of these work is limited by proprietary reasons. 
+<center>
+🐦 <a href="https://twitter.com/Edgar_Zamora_">Twitter</a> \| 📝
+<a href="https://edgarzamora.netlify.com/">Blog</a> \| 📧
+<a href="mailto:edgarzamora2012@hotmail.com">Email</a> \| 👔
+<a href="https://www.linkedin.com/in/edgar-zamora-01896b148/">LinkedIn</a>
+
+</center>
+<br>
+
+A portfolio of my work to the
+<a href="https://github.com/rfordatascience/tidytuesday">\#TidyTuesday</a>
+project and general `{tidyverse}` work.
+
+<br>
+
+<img src="/Users/edgarzamora/Desktop/GitHub/myrepo/#TidyTuesday/images/tidytuesday.gif">

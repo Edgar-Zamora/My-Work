@@ -1,2 +1,25 @@
-# About
-Contained within these folders is work that I have done for #TidyTuesday. Every week I attempt to hone some R skill, whether it be `tidyverse` related or something like importing fonts. In addition to building my R skills, I also include rmarkdown documents that help document what and why I am doing things a particular way. This not only help me build my writing and documention skills, but it also alwasy reproducible for others. Last, participating in #TidyTuesday allows me to engage with the R community through sharing my visualizations but also generating ideas from other visualizations I see. My work can be found on my [@Edgar_Zamora_](https://twitter.com/Edgar_Zamora_)
+My Work
+=======
+
+<center>
+🐦 <a href="https://twitter.com/Edgar_Zamora_">Twitter</a> \| 📝
+<a href="https://edgarzamora.netlify.com/">Blog</a> \| 📧
+<a href="mailto:edgarzamora2012@hotmail.com">Email</a> \| 👔
+<a href="https://www.linkedin.com/in/edgar-zamora-01896b148/">LinkedIn</a>
+
+</center>
+<br>
+
+A portfolio of my work to the
+<a href="https://github.com/rfordatascience/tidytuesday">\#TidyTuesday</a>
+project and general `{tidyverse}` work.
+
+<br>
+
+``` r
+library(knitr)
+
+include_graphics("/Users/edgarzamora/Desktop/GitHub/myrepo/#TidyTuesday/images/tidytuesday.gif")
+```
+
+![](/Users/edgarzamora/Desktop/GitHub/myrepo/#TidyTuesday/images/tidytuesday.gif)
