@@ -1,6 +1,3 @@
-My Work
-=======
-
 <center>
 🐦 <a href="https://twitter.com/Edgar_Zamora_">Twitter</a> \| 📝
 <a href="https://edgarzamora.netlify.com/">Blog</a> \| 📧
@@ -15,11 +12,3 @@ A portfolio of my work to the
 project and general `{tidyverse}` work.
 
 <br>
-
-``` r
-library(knitr)
-
-include_graphics("/Users/edgarzamora/Desktop/GitHub/myrepo/#TidyTuesday/images/tidytuesday.gif")
-```
-
-![](/Users/edgarzamora/Desktop/GitHub/myrepo/#TidyTuesday/images/tidytuesday.gif)
