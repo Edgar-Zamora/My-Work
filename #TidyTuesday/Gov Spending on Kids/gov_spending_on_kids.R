@@ -38,10 +38,8 @@ element_grob.element_textbox_highlight <- function(element, label = "", ...) {
 }
 
 
-<<<<<<< HEAD
 ## Summarizing state spending to figure out whether there was an increase from one year to another.
 
-=======
 ## Making summaries for legend and state-level 
 ## Overall summary
 #overall_state_spending <- kids %>% 
@@ -59,7 +57,6 @@ element_grob.element_textbox_highlight <- function(element, label = "", ...) {
 #  filter(year != "2016")
 
 ## State summary
->>>>>>> bfc7cf536b034aa4db453511f593ae24876acb9e
 state_spending <- kids %>% 
   filter(variable == "highered") %>% 
   group_by(state_abb, year) %>% 
@@ -155,8 +152,3 @@ ggplot(state_spending, aes(year, avg, group = state_abb, color = spending_colour
   ggsave(here("#TidyTuesday", "Gov Spending on Kids", "higered_spending.png"), width = 14, height = 8, units = c("in"))
 
   
-
-
-
-
-
