@@ -1,9 +1,9 @@
-<h4 style="text-align:center;">
+<h3 style="text-align:center;">
 🐦 <a href="https://twitter.com/Edgar_Zamora_">Twitter</a> | 📝
 <a href="https://edgarzamora.netlify.com/">Blog</a> | 📧
 <a href="mailto:edgarzamora2012@hotmail.com">Email</a> | 👔
 <a href="https://www.linkedin.com/in/edgar-zamora-01896b148/">LinkedIn</a>
-</h4>
+</h3>
 
 <br>
 <br>
