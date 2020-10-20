@@ -10,8 +10,9 @@ library(knitr)
 
 ```
 
+For Week 38 of #TidyTuesday I focus on two new features. The *first* being is the changing the colour of strip in the facet to match states that saw a 50% increase in funding from 1997 to 2015. The other feature is using the `{facet_geo}` function from `{geofacet}` package to facet the visualization to place states in their actual position. In addition to those features I colour each line based on whether they was an increase, decrease, or same spending from the previous year.
+
 ```{r image, echo=FALSE, fig.align='center'}
 include_graphics("/Users/edgarzamora/Desktop/GitHub/myrepo/#TidyTuesday/Gov Spending on Kids/higered_spending.png")
-
 ```
 
