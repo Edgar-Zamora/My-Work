@@ -60,7 +60,8 @@ plot <- ggplot() +
     title =  "Getting The <span style = 'color:gold;'>Gold </span>: Top 10 States",
     subtitle = "The Professional Judge Panel awards gold, silver or bronze medals that are recognized around the 
     <br>world as symbols of brewing excellence. These awards are among the most 
-    coveted in the industry <br>and heralded by the winning brewers in their national advertising.") +
+    coveted in the industry <br>and heralded by the winning brewers in their national advertising.",
+    caption = "Data: Great American Beer Festival | Viz: @Edgar_Zamora_") +
   theme(plot.margin = margin(.5, 1, .5, .5, "cm"),
         legend.position = "none",
         plot.background = element_rect(fill = "black"),
