@@ -25,10 +25,10 @@ track_info <- function(artist) {
 }
 
 
-x <- track_info("Bad Bunny")
+bad_bunny_tracks <- track_info("Bad Bunny")
 
 
-track_ids <- x %>% 
+track_ids <- bad_bunny_tracks %>% 
   pull(track_id)
 
 
@@ -47,7 +47,7 @@ track_popularity <- map_df(track_ids, track_popularity)
 
 # --------------------------------------------------------------
 
-x %>%
+bad_bunny_tracks %>%
   left_join(track_popularity, by = "track_id") %>% 
   mutate(track_name = case_when(track_name == "LA CANCIÓN" ~ "LA CANCION",
                                 track_name == "Si Veo a Tu Mamá" ~ "Si Veo a Tu Mama",
@@ -80,11 +80,8 @@ x %>%
     align = "center",
     columns = vars(track_name, danceability, valence, energy, popularity)
   ) %>%
-  cols_width(
-    vars(track_name) ~ px(300)
-  ) %>% 
   cols_label(
-    track_preview_url = md(" Lets Hear It &#127911;"),
+    track_preview_url = md("Lets Hear It &#127911;"),
     url = " ", 
     track_name = "Track Name",
     popularity = "Popularity",
@@ -92,13 +89,12 @@ x %>%
     valence = "Valence",
     energy = "Energy"
   ) %>% 
-
   tab_spanner(
     label = md("Track Audio Features &#128191;"),
     columns = vars(danceability, energy, valence)
   ) %>% 
   tab_style(
-    style = list(cell_text(font = "Againts", 
+    style = list(cell_text(font = "Againts", #https://www.dafont.com/againts.font?text=Bad+Bunny
                            size = px(65), 
                            color = "white"),
                  cell_fill(color = "black")),
@@ -106,7 +102,7 @@ x %>%
   ) %>% 
   tab_style(
     style = cell_text(
-      font = "Colors Of Autumn",
+      font = "Colors Of Autumn", #https://www.dafont.com/colors-of-autumn.font
       size = px(20)),
     locations = cells_body(vars(track_name))
   ) %>% 
@@ -126,7 +122,7 @@ x %>%
     ) %>% 
   tab_style(
     style = cell_text(
-      size = px(15)),
+      size = px(18.5)),
     locations = cells_body(vars(popularity, danceability, energy,
                      valence)) 
   ) %>% 
@@ -134,13 +130,18 @@ x %>%
     style = cell_text(
       weight = "bold",
       color = "#156594",
-      size = px(17)
+      size = px(20)
     ),
     locations = list(
       cells_body(columns=c(4), rows=c(6)),
       cells_body(columns=c(5), rows=c(5)),
       cells_body(columns=c(6), rows=c(8))
     )) %>% 
+  cols_width(
+    vars(track_name) ~ px(300),
+    vars(track_preview_url) ~ px(350),
+    vars(url, popularity, danceability, energy, valence) ~ px(120)
+  )  %>% 
   tab_style(
     style = list(
       cell_borders(
@@ -154,9 +155,24 @@ x %>%
     title = md("Bad Bunny <img src='https://1000marcas.net/wp-content/uploads/2020/01/Bad-Bunny-emblema.jpg' width='100' height='60' style='vertical-align:middle'> ")
   )  %>% 
   tab_footnote(
-    footnote = "Popularity is calculated by algorithm and is based, in the most part, on the total number of plays the track has had and how recent those plays are.",
+    footnote = md("**Popularity** is calculated by algorithm and is based, in the most part, on the total number of plays the track has had and how recent those plays are."),
     locations = cells_column_labels(
       columns = vars(popularity))
+  ) %>% 
+  tab_footnote(
+    footnote = md("**Danceability** is a measure based on a combination of musical elements including tempo, rhythm stability, beat strenght, and overall regularity"),
+    locations = cells_column_labels(
+      columns = vars(danceability))
+  ) %>% 
+  tab_footnote(
+    footnote = md("**Energy** "),
+    locations = cells_column_labels(
+      columns = vars(energy))
+  ) %>% 
+  tab_footnote(
+    footnote = md("**Valence**"),
+    locations = cells_column_labels(
+      columns = vars(valence))
   ) %>% 
   tab_options(
     table_body.hlines.color = "white",
@@ -165,7 +181,15 @@ x %>%
     data_row.padding = px(7),
     footnotes.font.size = px(11)
   ) %>% 
-  tab_source_note(source_note = md("**Data**: Spotify Web API"))
+  tab_source_note(source_note = md("**Data**: Spotify Web API")) %>% 
+  data_color(
+    columns = vars(popularity),
+    colors = scales::col_numeric(
+      # custom defined values - notice that order matters!
+      palette = c('#fbeb04', '#f1d324', '#e5bd30', '#d7a739', '#23a6e1'),
+      domain = NULL
+    )
+  )
 
 
 
