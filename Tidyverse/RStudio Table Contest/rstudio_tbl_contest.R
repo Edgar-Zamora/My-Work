@@ -165,12 +165,12 @@ bad_bunny_tracks %>%
       columns = vars(danceability))
   ) %>% 
   tab_footnote(
-    footnote = md("**Energy** "),
+    footnote = md("**Energy** represents a perceptual measure of intensity and activity in a track. High energy resembles death metal while low resembles Bach."),
     locations = cells_column_labels(
       columns = vars(energy))
   ) %>% 
   tab_footnote(
-    footnote = md("**Valence**"),
+    footnote = md("**Valence** describes the positiveness conveyed by a track. high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry)"),
     locations = cells_column_labels(
       columns = vars(valence))
   ) %>% 
@@ -179,7 +179,7 @@ bad_bunny_tracks %>%
     table.border.bottom.color = "white",
     table.border.bottom.width = px(3),
     data_row.padding = px(7),
-    footnotes.font.size = px(11)
+    footnotes.font.size = px(10)
   ) %>% 
   tab_source_note(source_note = md("**Data**: Spotify Web API")) %>% 
   data_color(
