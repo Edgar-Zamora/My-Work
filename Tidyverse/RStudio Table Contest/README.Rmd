@@ -47,7 +47,7 @@ Once you have done that you are all ready to go!!
 
 The `spotifyr` package offers a lot of functions when it comes to accessing information from the Spotify Web API of which can not all be covered in this post so I encourage y'all to explore it further. For this post we will cover the `get_artist_audio_features()` function which retrieves a list of all the features for a track from a given artist. The primary argument needed in this function is the name of the artist with proper capitalization.
 
-```{r track_info}
+```{r track_info, warning=FALSE, message=FALSE}
 track_info <- function(artist) {
   
   track_data <- get_artist_audio_features({{artist}}) %>%
@@ -84,7 +84,7 @@ track_popularity <- map_df(track_ids, track_popularity)
 
 # Building a `gt` table
 
-```{r gt_tbl}
+```{r gt_tbl, include=FALSE}
 bad_bunny_tracks %>%
   left_join(track_popularity, by = "track_id") %>% 
   mutate(track_name = case_when(track_name == "LA CANCIÓN" ~ "LA CANCION",
