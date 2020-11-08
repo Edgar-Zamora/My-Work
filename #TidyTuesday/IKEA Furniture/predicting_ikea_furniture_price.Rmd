@@ -1,0 +1,22 @@
+---
+output: 
+  md_document:
+    variant: markdown_github
+---
+
+# Predicting IKEA furniture prices
+
+For this weeks [TidyTuesday](https://github.com/rfordatascience/tidytuesday), I decide to give the `tidymodels` metapackage an opportunity. Similar to the `tidyverse` metapackage, `tidymodels` is a collection of packages for modeling and machine learning using the *tidyverse* principles. To find a fuller explanation you can visit the [tidymodels webpage](https://www.tidymodels.org/) or read the [Tidy Modeling with R](https://www.tmwr.org/) by Max Kuhn and Julia Silge.
+
+```{r setup}
+# Loading packages
+library(tidyverse)
+library(tidymodels)
+library(corrplot)
+library(ranger)
+
+#Importing Data
+ikea_data <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-11-03/ikea.csv') %>%
+  select(-X1) %>% 
+  select(price, category, other_colors, depth, height, width)
+```
