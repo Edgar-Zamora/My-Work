@@ -10,7 +10,7 @@ output:
 
 To explore some of the features present in Bad Bunny's music, I use the `spotifyr` [package](https://github.com/charlie86/spotifyr) which is an R wrapper for pulling track audio features and other information from Spotify's Web API. In order to access the Spotify Web API, it is required that you have a Spotify account (free subscription works) of which to connect a Spotify developer account. To create Spotify developer account you can go to their their [dashboard](https://developer.spotify.com/dashboard/). After logging in you will need to "create an app" which will provide you with a **Client ID** and **Client Secret** which important in setting up a connection to the API. After doing that you will have to save those tokens as an object as so:
 
-```{r setup, include=FALSE}
+```{r include=FALSE}
 library(tidyverse)
 library(spotifyr)
 library(knitr)
@@ -18,12 +18,9 @@ library(ggtext)
 library(gt)
 library(glue)
 library(extrafont)
-
-Sys.setenv(SPOTIFY_CLIENT_ID = '9d31a6fe89fc4bbda898cd726a12d593')
-Sys.setenv(SPOTIFY_CLIENT_SECRET = '79c0d581fa314b999d6f747e380dd412')
-
-access_token <- get_spotify_access_token()
+library(rmarkdown)
 ```
+
 
 ```{r spotify_token, eval=FALSE}
 library(tidyverse)
@@ -33,6 +30,7 @@ library(ggtext)
 library(gt)
 library(glue)
 library(extrafont)
+library(rmarkdown)
 
 Sys.setenv(SPOTIFY_CLIENT_ID = 'xxxxxxxx')
 Sys.setenv(SPOTIFY_CLIENT_SECRET = 'xxxxxxxx')
@@ -45,9 +43,9 @@ Once you have done that you are all ready to go!!
 
 ## Track features and popularity
 
-The `spotifyr` package offers a lot of functions when it comes to accessing information from the Spotify Web API of which can not all be covered in this post so I encourage y'all to explore it further. For this post we will cover the `get_artist_audio_features()` function which retrieves a list of all the features for a track from a given artist. Note that this excludes singles that may have garnered a lot of attention that are later put into the full released album. In the case of Bad Bunny, Callaíta and Dakitiand recived a lot of praise with the latter being include in an album.
+The `spotifyr` package offers a lot of functions when it comes to accessing information from the Spotify Web API of which can not all be covered in this post so I encourage y'all to explore it further. For this post we will cover the `get_artist_audio_features()` function which retrieves a list of all the features for a track from a given artist. Note that this excludes singles that may have garnered a lot of attention that are later put into the full released album. In the case of Bad Bunny, Callaíta and Dakiti and received a lot of praise with the latter being include in an album.
 
-To be able to extrapulate to other artists, I decided to put use the `get_artist_audio_features()` function within my own function, `track_info()`, to retrieve audio features for artists. If the `get_artist_audio_features()` function is only used be aware that the function does not return results as a tibble.
+To be able to extrapolate to other artists, I decided to put use the `get_artist_audio_features()` function within my own function, `track_info()`, to retrieve audio features for artists. If the `get_artist_audio_features()` function is only used be aware that the function does not return results as a tibble.
 
 ```{r track_info, warning=FALSE, message=FALSE, eval=FALSE}
 track_info <- function(artist) {
@@ -85,9 +83,9 @@ track_popularity <- map_df(track_ids, track_popularity)
 
 ```
 
-To retrieve the actual popularity ratings we use the `map_df()` from the `purrr` package to iterate each track id through the `track_popularity` function with the final object being stored as a data frame. Again we decide to take this functional approach to allow other to apply the same methodolgy to other artists.
+To retrieve the actual popularity ratings we use the `map_df()` from the `purrr` package to iterate each track id through the `track_popularity` function with the final object being stored as a data frame. Again we decide to take this functional approach to allow other to apply the same methodology to other artists.
 
-After having run the code above, we are left with a lot of tracks with not a lot of space to visualize it. For thos ereasons, we decide that it would be appropiate to choose the top 10 most popular Bad Bunny tracks, which is what is done below.
+After having run the code above, we are left with a lot of tracks with not a lot of space to visualize it. For these reasons, we decide that it would be appropriate to choose the top 10 most popular Bad Bunny tracks, which is what is done below.
 
 ```{r complete_data, eval=FALSE}
 bad_bunny_compl_track <- bad_bunny_tracks %>%
@@ -109,16 +107,17 @@ bad_bunny_compl_track <- bad_bunny_tracks %>%
   select(url, track_name, popularity, danceability, valence, energy,  track_preview_url)
 ```
 
-When we oringally retrieved the Spotify data, you may have noticed two really cool features, album image and track preview url. These two features are usually available for each track and we will be using them in the `gt` table.
+When we originally retrieved the Spotify data, you may have noticed two really cool features, album image and track preview url. These two features are usually available for each track and we will be using them in the `gt` table.
 
 # Building a `gt` table
 
 ```{r data, include=FALSE}
-bad_bunny_compl_track <- read_csv("data/bad_bunny.csv")
+bad_bunny_compl_track <- read_csv("data/bad_bunny.csv") %>% 
+  select(-X1)
 ```
 
 
-```{r gt_tbl}
+```{r gt_tbl, echo=FALSE}
 
 bad_bunny_compl_track %>% 
   gt() %>% 

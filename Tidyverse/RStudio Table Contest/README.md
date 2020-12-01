@@ -25,6 +25,7 @@ library(ggtext)
 library(gt)
 library(glue)
 library(extrafont)
+library(rmarkdown)
 
 Sys.setenv(SPOTIFY_CLIENT_ID = 'xxxxxxxx')
 Sys.setenv(SPOTIFY_CLIENT_SECRET = 'xxxxxxxx')
@@ -44,10 +45,10 @@ this post we will cover the `get_artist_audio_features()` function which
 retrieves a list of all the features for a track from a given artist.
 Note that this excludes singles that may have garnered a lot of
 attention that are later put into the full released album. In the case
-of Bad Bunny, Callaíta and Dakitiand recived a lot of praise with the
+of Bad Bunny, Callaíta and Dakiti and received a lot of praise with the
 latter being include in an album.
 
-To be able to extrapulate to other artists, I decided to put use the
+To be able to extrapolate to other artists, I decided to put use the
 `get_artist_audio_features()` function within my own function,
 `track_info()`, to retrieve audio features for artists. If the
 `get_artist_audio_features()` function is only used be aware that the
@@ -98,11 +99,11 @@ To retrieve the actual popularity ratings we use the `map_df()` from the
 `purrr` package to iterate each track id through the `track_popularity`
 function with the final object being stored as a data frame. Again we
 decide to take this functional approach to allow other to apply the same
-methodolgy to other artists.
+methodology to other artists.
 
 After having run the code above, we are left with a lot of tracks with
-not a lot of space to visualize it. For thos ereasons, we decide that it
-would be appropiate to choose the top 10 most popular Bad Bunny tracks,
+not a lot of space to visualize it. For these reasons, we decide that it
+would be appropriate to choose the top 10 most popular Bad Bunny tracks,
 which is what is done below.
 
 ``` r
@@ -125,7 +126,7 @@ bad_bunny_compl_track <- bad_bunny_tracks %>%
   select(url, track_name, popularity, danceability, valence, energy,  track_preview_url)
 ```
 
-When we oringally retrieved the Spotify data, you may have noticed two
+When we originally retrieved the Spotify data, you may have noticed two
 really cool features, album image and track preview url. These two
 features are usually available for each track and we will be using them
 in the `gt` table.
@@ -133,146 +134,12 @@ in the `gt` table.
 Building a `gt` table
 =====================
 
-``` r
-bad_bunny_compl_track %>% 
-  gt() %>% 
-  fmt_markdown(columns = vars(track_preview_url)) %>%
-  fmt_number(
-    columns = vars(danceability, energy, valence),
-    decimals = 2
-  ) %>% 
-  text_transform(
-    locations = cells_body(vars(url)),
-    fn = function(x){
-      web_image(url = x, height = 80)
-    }
-  ) %>%
-  cols_align(
-    align = "center",
-    columns = vars(track_name, danceability, valence, energy, popularity)
-  ) %>%
-  cols_label(
-    track_preview_url = md("Preview The Track &#127911;"),
-    url = " ", 
-    track_name = "Track Name",
-    popularity = "Popularity",
-    danceability = "Danceability",
-    valence = "Valence",
-    energy = "Energy"
-  ) %>% 
-  tab_spanner(
-    label = md("Track Audio Features &#128191;"),
-    columns = vars(danceability, energy, valence)
-  ) %>% 
-  tab_style(
-    style = list(cell_text(font = "Againts", #https://www.dafont.com/againts.font?text=Bad+Bunny
-                           size = px(65), 
-                           color = "white"),
-                 cell_fill(color = "black")),
-    locations = cells_title("title")
-  ) %>% 
-  tab_style(
-    style = cell_text(
-      font = "Colors Of Autumn", #https://www.dafont.com/colors-of-autumn.font
-      size = px(20)),
-    locations = cells_body(vars(track_name))
-  ) %>% 
-  tab_style(
-    style = cell_borders(
-      sides = c("left", "right"),
-      color = "black",
-      weight = px(3)),
-    locations = cells_body(columns = vars(popularity))
-  ) %>% 
-  tab_style(
-    style = cell_borders(
-      sides = c("bottom"),
-      color = "black",
-      weight = px(3)),
-    locations = cells_column_labels(columns = everything())
-    ) %>% 
-  tab_style(
-    style = cell_text(
-      size = px(18.5)),
-    locations = cells_body(vars(popularity, danceability, energy,
-                     valence)) 
-  ) %>% 
-  tab_style(
-    style = cell_text(
-      weight = "bold",
-      color = "#156594",
-      size = px(20)
-    ),
-    locations = list(
-      cells_body(columns=c(4), rows=c(6)),
-      cells_body(columns=c(5), rows=c(5)),
-      cells_body(columns=c(6), rows=c(8))
-    )) %>% 
-  cols_width(
-    vars(track_name) ~ px(300),
-    vars(track_preview_url) ~ px(350),
-    vars(url, popularity, danceability, energy, valence) ~ px(120)
-  )  %>% 
-  tab_style(
-    style = list(
-      cell_borders(
-        sides = c("top"),
-        color = "white",
-        weight = px(3))
-      ),
-    locations = cells_column_labels(columns = everything())
-  ) %>% 
-  tab_header(
-    title = md("Bad Bunny <img src='https://1000marcas.net/wp-content/uploads/2020/01/Bad-Bunny-emblema.jpg' width='100' height='60' style='vertical-align:middle'> ")
-  )  %>% 
-  tab_footnote(
-    footnote = md("**Popularity** is calculated by algorithm and is based, in the most part, on the total number of plays the track has had and how recent those plays are."),
-    locations = cells_column_labels(
-      columns = vars(popularity))
-  ) %>% 
-  tab_footnote(
-    footnote = md("**Danceability** is a measure based on a combination of musical elements including tempo, rhythm stability, beat strenght, and overall regularity"),
-    locations = cells_column_labels(
-      columns = vars(danceability))
-  ) %>% 
-  tab_footnote(
-    footnote = md("**Energy** represents a perceptual measure of intensity and activity in a track. High energy resembles death metal while low resembles Bach."),
-    locations = cells_column_labels(
-      columns = vars(energy))
-  ) %>% 
-  tab_footnote(
-    footnote = md("**Valence** describes the positiveness conveyed by a track. high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry)"),
-    locations = cells_column_labels(
-      columns = vars(valence))
-  ) %>% 
-  tab_options(
-    table_body.hlines.color = "white",
-    table.border.bottom.color = "white",
-    table.border.bottom.width = px(3),
-    data_row.padding = px(7),
-    footnotes.font.size = px(10)
-  ) %>% 
-  tab_source_note(source_note = md("**Data**: Spotify Web API")) %>% 
-  data_color(
-    columns = vars(popularity),
-    colors = scales::col_numeric(
-      # custom defined values - notice that order matters!
-      palette = c('#fbeb04', '#f1d324', '#e5bd30', '#d7a739', '#23a6e1'),
-      domain = NULL
-    )
-  )
-```
-
-    ## Warning: Unset column widths found, setting them to `100px`:
-    ##  * columns: `"X1"`.
-    ##  * Set any remaining column widths in `cols_width()` with `everything() ~ px(100)`.
-
 <!--html_preserve-->
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#mysqivatrl .gt_table {
+#mrthuztxxx .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -295,7 +162,7 @@ bad_bunny_compl_track %>%
   border-left-color: #D3D3D3;
 }
 
-#mysqivatrl .gt_heading {
+#mrthuztxxx .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -307,7 +174,7 @@ bad_bunny_compl_track %>%
   border-right-color: #D3D3D3;
 }
 
-#mysqivatrl .gt_title {
+#mrthuztxxx .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -317,7 +184,7 @@ bad_bunny_compl_track %>%
   border-bottom-width: 0;
 }
 
-#mysqivatrl .gt_subtitle {
+#mrthuztxxx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -327,13 +194,13 @@ bad_bunny_compl_track %>%
   border-top-width: 0;
 }
 
-#mysqivatrl .gt_bottom_border {
+#mrthuztxxx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#mysqivatrl .gt_col_headings {
+#mrthuztxxx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -348,7 +215,7 @@ bad_bunny_compl_track %>%
   border-right-color: #D3D3D3;
 }
 
-#mysqivatrl .gt_col_heading {
+#mrthuztxxx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -368,7 +235,7 @@ bad_bunny_compl_track %>%
   overflow-x: hidden;
 }
 
-#mysqivatrl .gt_column_spanner_outer {
+#mrthuztxxx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -380,15 +247,15 @@ bad_bunny_compl_track %>%
   padding-right: 4px;
 }
 
-#mysqivatrl .gt_column_spanner_outer:first-child {
+#mrthuztxxx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#mysqivatrl .gt_column_spanner_outer:last-child {
+#mrthuztxxx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#mysqivatrl .gt_column_spanner {
+#mrthuztxxx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -400,7 +267,7 @@ bad_bunny_compl_track %>%
   width: 100%;
 }
 
-#mysqivatrl .gt_group_heading {
+#mrthuztxxx .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -422,7 +289,7 @@ bad_bunny_compl_track %>%
   vertical-align: middle;
 }
 
-#mysqivatrl .gt_empty_group_heading {
+#mrthuztxxx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -437,19 +304,19 @@ bad_bunny_compl_track %>%
   vertical-align: middle;
 }
 
-#mysqivatrl .gt_striped {
+#mrthuztxxx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#mysqivatrl .gt_from_md > :first-child {
+#mrthuztxxx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#mysqivatrl .gt_from_md > :last-child {
+#mrthuztxxx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#mysqivatrl .gt_row {
+#mrthuztxxx .gt_row {
   padding-top: 7px;
   padding-bottom: 7px;
   padding-left: 5px;
@@ -468,7 +335,7 @@ bad_bunny_compl_track %>%
   overflow-x: hidden;
 }
 
-#mysqivatrl .gt_stub {
+#mrthuztxxx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -480,7 +347,7 @@ bad_bunny_compl_track %>%
   padding-left: 12px;
 }
 
-#mysqivatrl .gt_summary_row {
+#mrthuztxxx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -490,7 +357,7 @@ bad_bunny_compl_track %>%
   padding-right: 5px;
 }
 
-#mysqivatrl .gt_first_summary_row {
+#mrthuztxxx .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -500,7 +367,7 @@ bad_bunny_compl_track %>%
   border-top-color: #D3D3D3;
 }
 
-#mysqivatrl .gt_grand_summary_row {
+#mrthuztxxx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -510,7 +377,7 @@ bad_bunny_compl_track %>%
   padding-right: 5px;
 }
 
-#mysqivatrl .gt_first_grand_summary_row {
+#mrthuztxxx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -520,7 +387,7 @@ bad_bunny_compl_track %>%
   border-top-color: #D3D3D3;
 }
 
-#mysqivatrl .gt_table_body {
+#mrthuztxxx .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -529,7 +396,7 @@ bad_bunny_compl_track %>%
   border-bottom-color: #D3D3D3;
 }
 
-#mysqivatrl .gt_footnotes {
+#mrthuztxxx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -543,13 +410,13 @@ bad_bunny_compl_track %>%
   border-right-color: #D3D3D3;
 }
 
-#mysqivatrl .gt_footnote {
+#mrthuztxxx .gt_footnote {
   margin: 0px;
   font-size: 10px;
   padding: 4px;
 }
 
-#mysqivatrl .gt_sourcenotes {
+#mrthuztxxx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -563,49 +430,48 @@ bad_bunny_compl_track %>%
   border-right-color: #D3D3D3;
 }
 
-#mysqivatrl .gt_sourcenote {
+#mrthuztxxx .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#mysqivatrl .gt_left {
+#mrthuztxxx .gt_left {
   text-align: left;
 }
 
-#mysqivatrl .gt_center {
+#mrthuztxxx .gt_center {
   text-align: center;
 }
 
-#mysqivatrl .gt_right {
+#mrthuztxxx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#mysqivatrl .gt_font_normal {
+#mrthuztxxx .gt_font_normal {
   font-weight: normal;
 }
 
-#mysqivatrl .gt_font_bold {
+#mrthuztxxx .gt_font_bold {
   font-weight: bold;
 }
 
-#mysqivatrl .gt_font_italic {
+#mrthuztxxx .gt_font_italic {
   font-style: italic;
 }
 
-#mysqivatrl .gt_super {
+#mrthuztxxx .gt_super {
   font-size: 65%;
 }
 
-#mysqivatrl .gt_footnote_marks {
+#mrthuztxxx .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="mysqivatrl" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<table class="gt_table" style="table-layout: fixed; width: 1350px">
+<div id="mrthuztxxx" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<table class="gt_table" style="table-layout: fixed; width: 1250px">
 <colgroup>
-<col style="width: 100px"/>
 <col style="width: 120px"/>
 <col style="width: 300px"/>
 <col style="width: 120px"/>
@@ -616,21 +482,18 @@ bad_bunny_compl_track %>%
 </colgroup>
 <thead class="gt_header">
 <tr>
-<th colspan="8" class="gt_heading gt_title gt_font_normal" style="color: white; font-family: Againts; font-size: 65px; background-color: #000000;">
+<th colspan="7" class="gt_heading gt_title gt_font_normal" style="color: white; font-family: Againts; font-size: 65px; background-color: #000000;">
 Bad Bunny
 <img src='https://1000marcas.net/wp-content/uploads/2020/01/Bad-Bunny-emblema.jpg' width='100' height='60' style='vertical-align:middle'>
 </th>
 </tr>
 <tr>
-<th colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>
+<th colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>
 </th>
 </tr>
 </thead>
 <thead class="gt_col_headings">
 <tr>
-<th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black; border-top-width: 3px; border-top-style: solid; border-top-color: white;">
-X1
-</th>
 <th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black; border-top-width: 3px; border-top-style: solid; border-top-color: white;">
 </th>
 <th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black; border-top-width: 3px; border-top-style: solid; border-top-color: white;">
@@ -660,9 +523,6 @@ Valence<sup class="gt_footnote_marks">4</sup>
 </thead>
 <tbody class="gt_table_body">
 <tr>
-<td class="gt_row gt_right">
-1
-</td>
 <td class="gt_row gt_left">
 <img src="https://i.scdn.co/image/ab67616d0000b273548f7ec52da7313de0c5e4a0" style="height:80px;">
 </td>
@@ -691,9 +551,6 @@ Safaera
 </td>
 </tr>
 <tr>
-<td class="gt_row gt_right">
-2
-</td>
 <td class="gt_row gt_left">
 <img src="https://i.scdn.co/image/ab67616d0000b2734891d9b25d8919448388f3bb" style="height:80px;">
 </td>
@@ -722,9 +579,6 @@ LA CANCION
 </td>
 </tr>
 <tr>
-<td class="gt_row gt_right">
-3
-</td>
 <td class="gt_row gt_left">
 <img src="https://i.scdn.co/image/ab67616d0000b273548f7ec52da7313de0c5e4a0" style="height:80px;">
 </td>
@@ -753,9 +607,6 @@ La Santa
 </td>
 </tr>
 <tr>
-<td class="gt_row gt_right">
-4
-</td>
 <td class="gt_row gt_left">
 <img src="https://i.scdn.co/image/ab67616d0000b273548f7ec52da7313de0c5e4a0" style="height:80px;">
 </td>
@@ -784,9 +635,6 @@ Si Veo a Tu Mama
 </td>
 </tr>
 <tr>
-<td class="gt_row gt_right">
-5
-</td>
 <td class="gt_row gt_left">
 <img src="https://i.scdn.co/image/ab67616d0000b273548f7ec52da7313de0c5e4a0" style="height:80px;">
 </td>
@@ -796,13 +644,13 @@ Yo Perreo Sola
 <td class="gt_row gt_center" style="border-left-width: 3px; border-left-style: solid; border-left-color: black; border-right-width: 3px; border-right-style: solid; border-right-color: black; font-size: 18.5px; color: #000000; background-color: #DCAE36;">
 84
 </td>
-<td class="gt_row gt_center" style="font-size: 20px; color: #156594; font-weight: bold;">
+<td class="gt_row gt_center" style="font-size: 18.5px;">
 0.86
 </td>
 <td class="gt_row gt_center" style="font-size: 18.5px;">
 0.76
 </td>
-<td class="gt_row gt_center" style="font-size: 18.5px;">
+<td class="gt_row gt_center" style="font-size: 20px; color: #156594; font-weight: bold;">
 0.45
 </td>
 <td class="gt_row gt_left">
@@ -815,19 +663,16 @@ Yo Perreo Sola
 </td>
 </tr>
 <tr>
-<td class="gt_row gt_right">
-6
-</td>
 <td class="gt_row gt_left">
 <img src="https://i.scdn.co/image/ab67616d0000b273548f7ec52da7313de0c5e4a0" style="height:80px;">
 </td>
 <td class="gt_row gt_center" style="font-family: Colors Of Autumn; font-size: 20px;">
 La Dificil
 </td>
-<td class="gt_row gt_center" style="border-left-width: 3px; border-left-style: solid; border-left-color: black; border-right-width: 3px; border-right-style: solid; border-right-color: black; font-size: 20px; color: #000000; font-weight: bold; background-color: #EDCC29;">
+<td class="gt_row gt_center" style="border-left-width: 3px; border-left-style: solid; border-left-color: black; border-right-width: 3px; border-right-style: solid; border-right-color: black; font-size: 18.5px; color: #000000; background-color: #EDCC29;">
 83
 </td>
-<td class="gt_row gt_center" style="font-size: 18.5px;">
+<td class="gt_row gt_center" style="font-size: 20px; color: #156594; font-weight: bold;">
 0.69
 </td>
 <td class="gt_row gt_center" style="font-size: 18.5px;">
@@ -846,9 +691,6 @@ La Dificil
 </td>
 </tr>
 <tr>
-<td class="gt_row gt_right">
-7
-</td>
 <td class="gt_row gt_left">
 <img src="https://i.scdn.co/image/ab67616d0000b273005ee342f4eef2cc6e8436ab" style="height:80px;">
 </td>
@@ -877,9 +719,6 @@ LA NOCHE DE ANOCHE
 </td>
 </tr>
 <tr>
-<td class="gt_row gt_right">
-8
-</td>
 <td class="gt_row gt_left">
 <img src="https://i.scdn.co/image/ab67616d0000b2732fbd77033247e889cb7d2ac4" style="height:80px;">
 </td>
@@ -892,10 +731,10 @@ Si Estuviesemos Juntos
 <td class="gt_row gt_center" style="font-size: 18.5px;">
 0.67
 </td>
-<td class="gt_row gt_center" style="font-size: 18.5px;">
+<td class="gt_row gt_center" style="font-size: 20px; color: #156594; font-weight: bold;">
 0.59
 </td>
-<td class="gt_row gt_center" style="font-size: 20px; color: #156594; font-weight: bold;">
+<td class="gt_row gt_center" style="font-size: 18.5px;">
 0.16
 </td>
 <td class="gt_row gt_left">
@@ -908,9 +747,6 @@ Si Estuviesemos Juntos
 </td>
 </tr>
 <tr>
-<td class="gt_row gt_right">
-9
-</td>
 <td class="gt_row gt_left">
 <img src="https://i.scdn.co/image/ab67616d0000b273548f7ec52da7313de0c5e4a0" style="height:80px;">
 </td>
@@ -939,9 +775,6 @@ A Tu Merced
 </td>
 </tr>
 <tr>
-<td class="gt_row gt_right">
-10
-</td>
 <td class="gt_row gt_left">
 <img src="https://i.scdn.co/image/ab67616d0000b273005ee342f4eef2cc6e8436ab" style="height:80px;">
 </td>
@@ -972,14 +805,14 @@ TE MUDASTE
 </tbody>
 <tfoot class="gt_sourcenotes">
 <tr>
-<td class="gt_sourcenote" colspan="8">
+<td class="gt_sourcenote" colspan="7">
 <strong>Data</strong>: Spotify Web API
 </td>
 </tr>
 </tfoot>
 <tfoot>
 <tr class="gt_footnotes">
-<td colspan="8">
+<td colspan="7">
 <p class="gt_footnote">
 
 <sup class="gt_footnote_marks"> <em>1</em> </sup>
