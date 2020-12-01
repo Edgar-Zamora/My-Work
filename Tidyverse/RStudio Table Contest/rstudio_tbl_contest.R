@@ -47,7 +47,7 @@ track_popularity <- map_df(track_ids, track_popularity)
 
 # --------------------------------------------------------------
 
-bad_bunny_tracks %>%
+bad_bunny_compl_track <- bad_bunny_tracks %>%
   left_join(track_popularity, by = "track_id") %>% 
   mutate(track_name = case_when(track_name == "LA CANCIÓN" ~ "LA CANCION",
                                 track_name == "Si Veo a Tu Mamá" ~ "Si Veo a Tu Mama",
@@ -63,7 +63,16 @@ bad_bunny_tracks %>%
   arrange(-popularity) %>% 
   slice(1:10) %>% 
   mutate(track_preview_url = glue('<audio controlsList="nodownload" controls src="{track_preview_url}"></audio>')) %>%
-  select(url, track_name, popularity, danceability, valence, energy,  track_preview_url) %>% 
+  select(url, track_name, popularity, danceability, valence, energy,  track_preview_url)
+
+
+# --------------------------------------------------------------
+
+write.csv(bad_bunny_compl_track, "data/bad_bunny.csv")
+
+# --------------------------------------------------------------
+
+bad_bunny_compl_track %>% 
   gt() %>% 
   fmt_markdown(columns = vars(track_preview_url)) %>%
   fmt_number(
@@ -81,7 +90,7 @@ bad_bunny_tracks %>%
     columns = vars(track_name, danceability, valence, energy, popularity)
   ) %>%
   cols_label(
-    track_preview_url = md("Lets Hear It &#127911;"),
+    track_preview_url = md("Preview The Track &#127911;"),
     url = " ", 
     track_name = "Track Name",
     popularity = "Popularity",

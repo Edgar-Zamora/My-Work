@@ -45,9 +45,11 @@ Once you have done that you are all ready to go!!
 
 ## Track features and popularity
 
-The `spotifyr` package offers a lot of functions when it comes to accessing information from the Spotify Web API of which can not all be covered in this post so I encourage y'all to explore it further. For this post we will cover the `get_artist_audio_features()` function which retrieves a list of all the features for a track from a given artist. The primary argument needed in this function is the name of the artist with proper capitalization.
+The `spotifyr` package offers a lot of functions when it comes to accessing information from the Spotify Web API of which can not all be covered in this post so I encourage y'all to explore it further. For this post we will cover the `get_artist_audio_features()` function which retrieves a list of all the features for a track from a given artist. Note that this excludes singles that may have garnered a lot of attention that are later put into the full released album. In the case of Bad Bunny, Callaíta and Dakitiand recived a lot of praise with the latter being include in an album.
 
-```{r track_info, warning=FALSE, message=FALSE}
+To be able to extrapulate to other artists, I decided to put use the `get_artist_audio_features()` function within my own function, `track_info()`, to retrieve audio features for artists. If the `get_artist_audio_features()` function is only used be aware that the function does not return results as a tibble.
+
+```{r track_info, warning=FALSE, message=FALSE, eval=FALSE}
 track_info <- function(artist) {
   
   track_data <- get_artist_audio_features({{artist}}) %>%
@@ -61,7 +63,9 @@ track_info <- function(artist) {
 bad_bunny_tracks <- track_info("Bad Bunny")
 ```
 
-```{r track_popularity}
+After retrieving the audio features for each of Bad Bunny's tracks, I proceed to get the popularity of each track based on Spotify's algorithm. To be able to get the popularity of a track we need each track unique id which is provided to us. Using the `pluck()` function we can, pluck lol, the id of each track to feed into the function that we create below. Similar to the custom made `track_info()` function, we create a `track_popularity()` function with the `get_track()` function from `spotifyr` as the core function.
+
+```{r track_popularity, eval=FALSE}
 
 track_ids <- bad_bunny_tracks %>% 
   pull(track_id)
@@ -81,11 +85,12 @@ track_popularity <- map_df(track_ids, track_popularity)
 
 ```
 
+To retrieve the actual popularity ratings we use the `map_df()` from the `purrr` package to iterate each track id through the `track_popularity` function with the final object being stored as a data frame. Again we decide to take this functional approach to allow other to apply the same methodolgy to other artists.
 
-# Building a `gt` table
+After having run the code above, we are left with a lot of tracks with not a lot of space to visualize it. For thos ereasons, we decide that it would be appropiate to choose the top 10 most popular Bad Bunny tracks, which is what is done below.
 
-```{r gt_tbl, include=FALSE}
-bad_bunny_tracks %>%
+```{r complete_data, eval=FALSE}
+bad_bunny_compl_track <- bad_bunny_tracks %>%
   left_join(track_popularity, by = "track_id") %>% 
   mutate(track_name = case_when(track_name == "LA CANCIÓN" ~ "LA CANCION",
                                 track_name == "Si Veo a Tu Mamá" ~ "Si Veo a Tu Mama",
@@ -101,7 +106,21 @@ bad_bunny_tracks %>%
   arrange(-popularity) %>% 
   slice(1:10) %>% 
   mutate(track_preview_url = glue('<audio controlsList="nodownload" controls src="{track_preview_url}"></audio>')) %>%
-  select(url, track_name, popularity, danceability, valence, energy,  track_preview_url) %>% 
+  select(url, track_name, popularity, danceability, valence, energy,  track_preview_url)
+```
+
+When we oringally retrieved the Spotify data, you may have noticed two really cool features, album image and track preview url. These two features are usually available for each track and we will be using them in the `gt` table.
+
+# Building a `gt` table
+
+```{r data, include=FALSE}
+bad_bunny_compl_track <- read_csv("data/bad_bunny.csv")
+```
+
+
+```{r gt_tbl}
+
+bad_bunny_compl_track %>% 
   gt() %>% 
   fmt_markdown(columns = vars(track_preview_url)) %>%
   fmt_number(
@@ -119,7 +138,7 @@ bad_bunny_tracks %>%
     columns = vars(track_name, danceability, valence, energy, popularity)
   ) %>%
   cols_label(
-    track_preview_url = md("Lets Hear It &#127911;"),
+    track_preview_url = md("Preview The Track &#127911;"),
     url = " ", 
     track_name = "Track Name",
     popularity = "Popularity",
