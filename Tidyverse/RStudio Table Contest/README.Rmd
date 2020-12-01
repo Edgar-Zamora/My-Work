@@ -1,7 +1,6 @@
 ---
-output: 
-  md_document:
-    variant: markdown_github
+title: "Bad Bunny"
+output: html_document
 ---
 
 # Bad Bunny :rabbit:
