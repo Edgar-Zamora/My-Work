@@ -1,0 +1,42 @@
+---
+title: "Predicting Shipping Mode"
+author: "Edgar Zamora"
+date: "12/5/2020"
+output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Predicting A Customers Shipping Mode 📦
+
+Having seen recent articles and tweets regarding the {tidymodels}
+package, I decided to give it a try mysel. Today I decide to use the
+superstore dataset that is commonly used when working in Tableau. The
+superstore data records purchases from fictional customers regarding
+various products.
+
+As is customary, I load all the necessary packages and load the data.
+
+```{r setup,  message=FALSE, warning=FALSE}
+library(tidyverse)
+library(tidymodels)
+library(janitor)
+library(readxl)
+
+orders <- read_excel("data/Global Superstore.xls", sheet = "Orders") %>% 
+  clean_names()
+
+#data source: https://community.tableau.com/s/question/0D54T00000C5vSDSAZ/global-superstore-data-file
+
+```
+
+# Exploratory Analysis
+
+# Creating A Recipe
+
+# Building models
+
+# Reporting Results
+
+# Conclusions
