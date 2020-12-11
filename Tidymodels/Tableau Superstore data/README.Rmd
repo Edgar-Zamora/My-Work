@@ -1,22 +1,14 @@
 ---
-title: "Predicting Shipping Mode"
-author: "Edgar Zamora"
-date: "12/5/2020"
-output: html_document
-editor_options: 
-  markdown: 
-    wrap: 72
+output: 
+  md_document:
+    variant: markdown_github
 ---
 
-# Predicting A Customers Shipping Mode 📦
+# Predicting A Customers Shipping Mode :package:
 
-Having seen recent articles and tweets regarding the {tidymodels}
-package, I decided to give it a try mysel. Today I decide to use the
-superstore dataset that is commonly used when working in Tableau. The
-superstore data records purchases from fictional customers regarding
-various products.
+Having seen recent articles and tweets regarding the {tidymodels} package, I decided to give it a try myself. Today I decide to use the superstore dataset that is commonly used when working in Tableau. The superstore data records purchases from fictional customers regarding various products.
 
-As is customary, I load all the necessary packages and load the data.
+As is customary, we start by loading the necessary packages and data.
 
 ```{r setup,  message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -31,7 +23,25 @@ orders <- read_excel("data/Global Superstore.xls", sheet = "Orders") %>%
 
 ```
 
+For this post, we use the Superstore dataset from Tableau. The dataset was found on the Tableau community forum and can found [here](https://community.tableau.com/s/question/0D54T00000C5vSDSAZ/global-superstore-data-file). 
+
+
+# Superstore Data
+
+The superstore dataset consist of transactions (fictional) for customers order which can be a single item or multiple items. In addition to each individual item, there are other transactional details like order and ship date, shipping mode, profit margin and many other items. 
+
+```{r superstore_data}
+
+head(orders) %>% 
+  select(customer_id, order_date, ship_date, ship_mode, segment,
+         shipping_cost, order_priority, profit)
+
+```
+
+The *main objective* of this post is to **predict a customers shipping mode** based on a set of predictors.
+
 # Exploratory Analysis
+
 
 # Creating A Recipe
 
