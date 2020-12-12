@@ -15,6 +15,7 @@ library(tidyverse)
 library(tidymodels)
 library(janitor)
 library(readxl)
+library(lubridate)
 
 orders <- read_excel("data/Global Superstore.xls", sheet = "Orders") %>% 
   clean_names()
@@ -25,22 +26,53 @@ orders <- read_excel("data/Global Superstore.xls", sheet = "Orders") %>%
 
 For this post, we use the Superstore dataset from Tableau. The dataset was found on the Tableau community forum and can found [here](https://community.tableau.com/s/question/0D54T00000C5vSDSAZ/global-superstore-data-file). 
 
-
 # Superstore Data
 
-The superstore dataset consist of transactions (fictional) for customers order which can be a single item or multiple items. In addition to each individual item, there are other transactional details like order and ship date, shipping mode, profit margin and many other items. 
+The superstore dataset consist of transactions (fictional) for customers order, including single and bulk orders. In addition to each individual item, there are other transactional details like order and ship date, shipping mode, profit margin and many other items. Below you can see the complete list that is available
 
-```{r superstore_data}
 
-head(orders) %>% 
-  select(customer_id, order_date, ship_date, ship_mode, segment,
-         shipping_cost, order_priority, profit)
+```{r superstore_names, echo=FALSE}
+orders %>% 
+  colnames()
 
 ```
 
-The *main objective* of this post is to **predict a customers shipping mode** based on a set of predictors.
+The *main objective* of this post is to **predict a products shipping mode** based on a set of predictors.
+
+Though all factors may be relevant in helping to predict the shipping mode of a customer, I decide to limit it to a few that I believe matter. Note that this decision is not based on any scientific analysis or reach but but instead is my perspective. The variables I decide to go with are *order date*, *shipping data*, *segment*, *shipping cost*, *order priority*, and *profit*. 
+
+```{r superstore_data}
+head(orders) %>% 
+  select(customer_id, order_date, ship_mode, segment,
+         shipping_cost, order_priority, profit)
+```
 
 # Exploratory Analysis
+
+Prior to deleving into some exploratory analysis, we first must transform the data into a format that will allow use to visualize and model our data. 
+
+```{r tidy_data}
+orders %>% 
+  select(customer_id, order_date, ship_mode, segment,
+         shipping_cost, order_priority, profit) %>% 
+  group_by(customer_id, order_date) %>% 
+  mutate(num_in_order = n()) %>% 
+  ungroup() %>% 
+  mutate(order_month = month(order_date),
+         segment = case_when(segment == "Consumer" ~ 1,
+                             segment == "Corporate" ~ 2,
+                             TRUE ~ 3), #Home Office
+         ship_mode = case_when(ship_mode == "Same Day" ~ 1,
+                               ship_mode == "First Class" ~ 2,
+                               ship_mode == "Second Class" ~ 3,
+                               TRUE ~ 4), # Standard Class
+         order_priority = case_when(order_priority == "Critical" ~ 1,
+                                    order_priority == "High" ~ 2,
+                                    order_priority == "Medium" ~ 3,
+                                    TRUE ~ 4)) %>%  #Low
+  select(-c(customer_id, order_date))
+  
+```
 
 
 # Creating A Recipe
