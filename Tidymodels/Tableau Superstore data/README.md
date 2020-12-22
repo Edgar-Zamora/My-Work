@@ -29,6 +29,9 @@ month_lu <- month.abb %>%
                                                   "Sep", "Oct", "Nov", "Dec")))
 
 #data source: https://community.tableau.com/s/question/0D54T00000C5vSDSAZ/global-superstore-data-file
+
+
+knitr::opts_chunk$set(fig.align = 'center')
 ```
 
 For this post, we use the Superstore dataset from Tableau. The dataset
@@ -160,7 +163,7 @@ processed_orders %>%
   )
 ```
 
-![](README_files/figure-markdown_github/explore_num_in_order-1.png)
+<img src="README_files/figure-markdown_github/explore_num_in_order-1.png" style="display: block; margin: auto;" />
 
 With there being a large positive skew, logging the count of orders also
 for a potential relationship to be observed. Not associated with our
@@ -208,7 +211,7 @@ processed_orders %>%
   )
 ```
 
-![](README_files/figure-markdown_github/explore_shipping_months-1.png)
+<img src="README_files/figure-markdown_github/explore_shipping_months-1.png" style="display: block; margin: auto;" />
 
 Going forward, we may have to consider how to account for seasonal
 difference in our model. One approach we could take is creating a dummy
@@ -251,7 +254,7 @@ processed_orders %>%
   )
 ```
 
-![](README_files/figure-markdown_github/shipping_cost-1.png)
+<img src="README_files/figure-markdown_github/shipping_cost-1.png" style="display: block; margin: auto;" />
 
 Considering the shipping cost, we can see that generally the shipping
 cost distribution for the different shipping modes are the same. For
@@ -263,6 +266,16 @@ our model.
 
 Creating A Recipe
 =================
+
+The {recipes} package offers a easy and reproducible way to preprocess
+data to be able to fit a new model. I will not go into full detail about
+what all the {recipes} package can do but for more information visit the
+{recipes} [page](https://recipes.tidymodels.org/index.html).
+
+It has been my experience that models are particular in the way that
+variables are structured, for that reason the {recipes} package is great
+at formatting predictors in a the right structure. In the following code
+I start by removing the month abbreviations because they do not make
 
 ``` r
 model_data <- processed_orders %>% 

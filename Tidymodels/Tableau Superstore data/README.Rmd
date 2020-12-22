@@ -31,6 +31,9 @@ month_lu <- month.abb %>%
 
 #data source: https://community.tableau.com/s/question/0D54T00000C5vSDSAZ/global-superstore-data-file
 
+
+knitr::opts_chunk$set(fig.align = 'center')
+
 ```
 
 For this post, we use the Superstore dataset from Tableau. The dataset was found on the Tableau community forum and can found [here](https://community.tableau.com/s/question/0D54T00000C5vSDSAZ/global-superstore-data-file).
@@ -193,6 +196,10 @@ Having explored some of the predictors, we are ready to start building our model
 
 # Creating A Recipe
 
+The {recipes} package offers a easy and reproducible way to preprocess data to be able to fit a new model. I will not go into full detail about what all the {recipes} package can do but for more information visit the {recipes} [page](https://recipes.tidymodels.org/index.html).
+
+It has been my experience that models are particular in the way that variables are structured, for that reason the {recipes} package is great at formatting predictors in a the right structure. In the following code I start by removing the month abbreviations because they do not make 
+
 ```{r recipe}
 model_data <- processed_orders %>% 
   select(-month_abb)
@@ -211,6 +218,15 @@ model_training <- training(model_split)
 model_testing <- testing(model_split)
 
 ```
+
+
+```{r model_build}
+
+
+
+```
+
+
 
 
 # Reporting Results
