@@ -54,6 +54,7 @@ bad_bunny_compl_track <- bad_bunny_tracks %>%
                                 track_name == "La Difícil" ~ "La Dificil",
                                 track_name == "Si Estuviésemos Juntos" ~ "	Si Estuviesemos Juntos",
                                 track_name == "CANCIÓN CON YANDEL" ~ "CANCION CON YANDEL",
+                                track_name == "DÁKITI" ~ "Dakiti",
                    TRUE ~ track_name)) %>%
   unnest(album_images) %>%
   distinct(track_name, url, track_preview_url, valence, danceability, energy, popularity) %>% 
@@ -71,6 +72,12 @@ bad_bunny_compl_track <- bad_bunny_tracks %>%
 write.csv(bad_bunny_compl_track, "data/bad_bunny.csv")
 
 # --------------------------------------------------------------
+
+max_dance_row <- which.max(bad_bunny_compl_track$danceability)
+max_energy_row <- which.max(bad_bunny_compl_track$energy)
+max_valence_row <- which.max(bad_bunny_compl_track$valence)
+
+
 
 bad_bunny_compl_track %>% 
   gt() %>% 
@@ -142,9 +149,9 @@ bad_bunny_compl_track %>%
       size = px(20)
     ),
     locations = list(
-      cells_body(columns=c(4), rows=c(6)),
-      cells_body(columns=c(5), rows=c(5)),
-      cells_body(columns=c(6), rows=c(8))
+      cells_body(columns = c(4), rows = as.numeric(max_dance_row)),
+      cells_body(columns = c(5), rows = as.numeric(max_valence_row)),
+      cells_body(columns = c(6), rows =as.numeric(max_energy_row))
     )) %>% 
   cols_width(
     vars(track_name) ~ px(300),
