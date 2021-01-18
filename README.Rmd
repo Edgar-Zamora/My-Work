@@ -1,8 +1,5 @@
 ---
-output: 
-  md_document:
-    variant: markdown_github
-  css: style.css
+output: html_document
 ---
 
 <div class="slideshow-container">
