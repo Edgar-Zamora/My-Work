@@ -1,7 +1,5 @@
 ---
-output: 
-  md_document:
-    variant: markdown_github
+output: html_document
 ---
 
 This repository currently shows some of the contributions to the weekly TidyTuesday challenge. Each week my aim is to either grow my skills on a existing visualization type or to explorea new package I have come across. 
@@ -16,7 +14,7 @@ library(here) #help point to each image
 
 
 
-```{r slideshow, echo=FALSE}
+```{r slideshow, echo=FALSE, fig.align='center'}
 
 tidytuesday_plots <- tibble(
   dataset = c("gov_spending_kids",
