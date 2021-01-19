@@ -1,5 +1,9 @@
 ---
-output: html_document
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{slickR Basics}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 This repository currently shows some of the contributions to the weekly TidyTuesday challenge. Each week my aim is to either grow my skills on a existing visualization type or to explorea new package I have come across. 
@@ -9,6 +13,11 @@ library(tidyverse)
 library(htmlwidgets)
 library(slickR) #used to create sideshow
 library(here) #help point to each image
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
 
 ```
 
@@ -22,7 +31,7 @@ tidytuesday_plots <- tibble(
   url = c(here("#TidyTuesday", "Australian Pets", "australian_pets.png"),
           here("#TidyTuesday", "NZ Bird of the Year", "NZ_Bird_of_Year.jpeg")))
 
-slickR(obj = tidytuesday_plots$url) +
+slickR(obj = tidytuesday_plots$url, width = 850, height = 500) +
   settings(dots = TRUE, autoplay = TRUE,
            autoplaySpeed = 5000)
 
