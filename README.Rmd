@@ -19,21 +19,17 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
+images <- tibble(
+  x = c("test1", "test2"),
+  y = c("https://raw.githubusercontent.com/Edgar-Zamora/My-Work/master/%23TidyTuesday/Gov%20Spending%20on%20Kids/higered_spending.png",
+        "https://raw.githubusercontent.com/Edgar-Zamora/My-Work/master/%23TidyTuesday/Moore's%20Law/TidyTuesday_Circuit.jpg"))
+
+
 ```
 
+```{r image_slide, echo=FALSE}
 
-
-```{r slideshow, echo=FALSE, fig.align='center'}
-
-tidytuesday_plots <- tibble(
-  dataset = c("gov_spending_kids",
-              "nz_birds"),
-  url = c(here("#TidyTuesday", "Australian Pets", "australian_pets.png"),
-          here("#TidyTuesday", "NZ Bird of the Year", "NZ_Bird_of_Year.jpeg")))
-
-slickR(obj = tidytuesday_plots$url, width = 850, height = 500) +
-  settings(dots = TRUE, autoplay = TRUE,
-           autoplaySpeed = 5000)
+slickR(obj = images$y, height = 500, width = "100%")
 
 ```
 
