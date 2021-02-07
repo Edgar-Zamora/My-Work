@@ -1,12 +1,8 @@
 ---
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{slickR Basics}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+output: html_document
 ---
 
-This repository currently shows some of the contributions to the weekly TidyTuesday challenge. Each week my aim is to either grow my skills on a existing visualization type or to explorea new package I have come across. 
+This repository currently shows some of the contributions to the weekly TidyTuesday challenge. Each week my aim is to either grow my skills on a existing visualization type or to explore new package I have come across. 
 
 ```{r setup, include=FALSE}
 library(tidyverse)
