@@ -149,6 +149,6 @@ ggplot(state_spending, aes(year, avg, group = state_abb, color = spending_colour
       hi.fill = "#5D729D", hi.box.col = "#5D729D", hi.col = "white")
     ) +
   facet_geo(~state_abb, grid = "us_state_grid2") +
-  ggsave(here("#TidyTuesday", "Gov Spending on Kids", "higered_spending.png"), width = 14, height = 8, units = c("in"))
+  ggsave(here("#TidyTuesday", "Gov Spending on Kids", "higherEd_spending.png"), width = 8, height = 8, units = c("in"))
 
   

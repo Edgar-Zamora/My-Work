@@ -6,7 +6,7 @@ library(scales)
 options(scipen=999)
 
 #Load Data
-commute_mode <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-11-05/commute.csv")
+commute_mode <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-11-05/commute.csv")
 
 #Compute total number of walkers per state
 total_walking_num <- commute_mode %>% 

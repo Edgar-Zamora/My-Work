@@ -40,6 +40,6 @@ TidyTuesday_plot <- ggbackground(plot, "CircuitBoard.jpg")
 
 #Saving 
 
-ggsave("TidyTuesday.png", width = 30, height = 17, units = "cm")
+ggsave("TidyTuesday.png", width = 12, height = 8, units = "in")
 
 #ISource of image: "https://www.vecteezy.com/"

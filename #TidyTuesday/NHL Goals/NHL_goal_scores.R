@@ -80,7 +80,7 @@ plot <- top3_by_players %>%
     panel.background = element_blank()) +
   guides(fill = guide_legend(nrow = 6, byrow = TRUE))
 
-ggsave("nhlTidyTuesday.png", plot = plot)
+ggsave("nhlTidyTuesday.png", width = 9, height = 8, units = "in", plot = plot)
 
 
   
