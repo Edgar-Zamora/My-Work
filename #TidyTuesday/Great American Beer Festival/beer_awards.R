@@ -71,4 +71,6 @@ plot <- ggplot() +
 
 
 #Saving plot
-ggsave(here("#TidyTuesday", "Great American Beer Festival", "beer_award.png"), width = 10, height = 8, units = c("in"))
+ggsave(here("#TidyTuesday", "Great American Beer Festival", "beer_award.png"), width = 10, height = 5.5, units = c("in"))
+
+

@@ -29,7 +29,7 @@ nfl_sb_winners <- standings %>%
   ungroup() %>% 
   filter(team_name %in% superbowl_teams$team_name)
 
-#Assiging hex colors to each team
+#Assigning hex colors to each team
 team_colour <- nfl_sb_winners %>% 
   select(team_name, colour, conference) %>%
   unique() %>% 
@@ -55,16 +55,16 @@ ggplot(nfl_sb_winners, aes(year, points_differential, label = team_name)) +
     legend.position = "bottom",
     legend.key = element_blank(),
     legend.text = element_text(size = 10),
-    plot.title = element_text(size = 18),
+    plot.title = element_text(size = 16),
     strip.background = element_blank(),
-    strip.text = element_text(size = 13)
+    strip.text = element_text(size = 12)
   ) +
   facet_grid(rows = vars(conference)) +
   guides(colour = guide_legend(nrow=2, byrow=TRUE))
 
 
 #saving graphic
-ggsave("nfl_sb_winners.png")
+ggsave("nfl_sb_winners.png", width = 10, height = 5.5, units = c("in"))
 
 
 
