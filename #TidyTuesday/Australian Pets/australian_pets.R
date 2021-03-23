@@ -70,16 +70,6 @@ ggplot(per_animal_complaints, aes(month, year)) +
   guides(fill = guide_colourbar(ticks = F, barwidth = 1, barheight = 8))
 
 
-#segment_coord <- tibble(
-#  x1 = c(1.4, -1.45, 6),
-#  x2 = c(5., -1.45, 11),
-#  y1 = c(-1, 1.3, -1),
-#  y2 = c(-1, 7.7, -1),
-#  axis = c("x", "y", "x-pt2"),
-#  complaint_type = c("Noise", "Noise", "Noise"))
-
-
-
 
 
 

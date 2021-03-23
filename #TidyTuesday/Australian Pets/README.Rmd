@@ -1,13 +1,13 @@
 ---
-output: 
-  md_document:
-    variant: markdown_github
+output: github_document
 ---
+
+# Australian Pets
 
 ```{r setup, echo=FALSE, include=FALSE}
 library(knitr)
 ```
 
 ```{r image, echo=FALSE}
-include_graphics("australian_pets.jpeg")
+include_graphics("australian_pets.png")
 ```
