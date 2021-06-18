@@ -3,48 +3,30 @@ library(tidyverse)
 library(tidymodels)
 library(corrplot)
 library(ranger)
+library(tidytuesdayR)
 
-# Import data
-ikea_data <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-11-03/ikea.csv') %>%
-  select(-X1) %>% 
-  select(price, category, other_colors, depth, height, width)
+# Importing data
+tt_ikea <- tt_load(2020, week = 45)
 
-
-ikea_data %>% 
-  select(-category) %>%
-  filter_at(vars(depth, height, width), ~!is.na(.)) %>% 
-  mutate(other_colors = case_when(other_colors == "Yes" ~ 1,
-                                  TRUE ~ 0)) %>% 
-  cor() %>% 
-  corrplot(method = "number", type = "lower", order = "hclust",
-           tl.srt = 30, tl.col = "black",
-           mar = c(0, 0, 2.5, 0),
-           title = "Correlation between IKEA futniture price and \nfeatures with missing values removed")
+ikea_data <- tt_ikea$ikea %>% 
+  select(-X1)
 
 
 # Prepping recipe to prepare data for modeling
-ikea_prep <- recipe(price ~., data = ikea_data) %>% 
+ikea_prep <- ikea_data %>% 
+  select(-c(name, old_price, link, short_description, designer)) %>% 
+  mutate(sellable_online = as.numeric(sellable_online)) %>% 
+  recipe(price ~., data = .) %>% 
   step_other(category) %>% 
-  step_knnimpute(depth, width, height) %>% 
+  step_knnimpute(depth, width, height) %>% #try later without imputation
   step_dummy(other_colors) %>% 
-  step_string2factor(category) %>% 
-  prep() %>% 
-  juice()
+  step_string2factor(category)
 
-
-# Correlation with imputation 
-ikea_rec %>% 
-  prep() %>% 
-  juice() %>% 
-  select(-category) %>% 
-  cor() %>% 
-  corrplot(method = "number", type = "lower", order = "hclust",
-           tl.srt = 30, tl.col = "black",
-           mar = c(0, 0, 2.5, 0),
-           title = "Correlation between IKEA futniture price and \nfeatures with missing values imputed")
 
 
 # Sampling data
+set.seed(1234)
+
 ikea_split <- initial_split(ikea_prep)
 ikea_train <- training(ikea_split)
 ikea_test <- testing(ikea_split)
