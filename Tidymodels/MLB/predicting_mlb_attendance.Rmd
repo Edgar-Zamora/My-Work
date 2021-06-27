@@ -1,0 +1,10 @@
+---
+title: "Predicting MLB Attendance"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+![Seattle Mariners Game](img/sea_mariners.jpg)
