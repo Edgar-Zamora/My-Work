@@ -10,10 +10,10 @@ library(gt)
 library(scales)
 
 
-mlbscrapeR <- function(year){
+mlbscrapeR <- function(team, year){
   
-  url1 <- glue("https://www.espn.com/mlb/team/schedule/_/name/sea/season/{year}/seasontype/2/half/1")
-  url2 <- glue("https://www.espn.com/mlb/team/schedule/_/name/sea/season/{year}/seasontype/2/half/2")
+  url1 <- glue("https://www.espn.com/mlb/team/schedule/_/name/{team}/season/{year}/seasontype/2/half/1")
+  url2 <- glue("https://www.espn.com/mlb/team/schedule/_/name/{team}/season/{year}/seasontype/2/half/2")
   
   
   first_half <- url1 %>% 
@@ -28,7 +28,8 @@ mlbscrapeR <- function(year){
     pluck(1) %>% 
     row_to_names(row_number = 1) 
   
-  mlb_data <- rbind(first_half, second_half) 
+  mlb_data <- rbind(first_half, second_half)  %>% 
+    mutate(team = {{team}})
   
   return(mlb_data)
   
@@ -36,7 +37,7 @@ mlbscrapeR <- function(year){
 
 
 
-x <- mlbscrapeR(2010)
+x <- mlbscrapeR("sea", 2018)
 
 
 
@@ -67,15 +68,19 @@ z <- x %>%
          win_per = wins/(wins + losses),
          winning_pitcher = str_extract(win, "^[^\\s]*"),
          lossing_pitcher = str_extract(loss, "^[^\\s]*")
-         )
+         ) %>% 
+  left_join(get_mlb_teams() %>% 
+              filter(name == "Seattle Mariners") %>% 
+              tibble() %>% 
+              mutate(team = "sea"))
 
 
 
 z %>% 
   filter(home_away == "Home") %>% 
   ggplot(aes(weekday, att)) +
-  geom_boxplot(alpha = .2) +
-  geom_jitter(alpha = .5, size = 2) +
+  geom_boxplot(alpha = .2, size = 1) +
+  geom_jitter(alpha = .5, size = 3) +
   labs(
     x = "Weekday",
     y = "Game Attendance"
@@ -90,5 +95,9 @@ z %>%
     axis.ticks = element_blank()
   )
 
+
+
+#### 
+library(mlbstats)
 
 
