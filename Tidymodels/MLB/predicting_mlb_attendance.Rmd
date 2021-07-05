@@ -1,5 +1,5 @@
 ---
-title: "Predicting MLB Attendance"
+title: "Predicting MLB Attendance with `{tidymodels}`"
 output: html_document
 ---
 
@@ -7,4 +7,29 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-![Seattle Mariners Game](img/sea_mariners.jpg)
+![Seattle Mariners Game | Sung Shin @ironstagram](img/sea_mariners.jpg)
+
+Living in the Seattle metro there has been a long standing notion that the Seattle Mariners are bound not to draw large crowds. The first inclination may be to attribute it to the Mariners poor record^[The Seattle Mariners have not made the playoffs since 2001, which is the longest current streak for any North American pro sports team.]. There are certainly other reasons for poor attendance which may include the opponent, starting pitcher, day of the week, weather, and many other factors than just their record. I where an executive for an Major League Baseball (MLB) team, I would like to know where games were likely to have lower attendance so that corrective measures like giveaways, special nights or other promotions could attract larger crowds. What might seem obvious, but the more fans that attend a game the more revenue a team can generate. The rest of this post will be dedicated to trying to create a model that will help predict MLB attendance for home games. I strictly focus on home games because I believe looking at away games is not necessary since MLB teams may not have any interest in those games since they do not get revenue, at least that is what I believe. I am writing this as the restrictions for the COVID-19 pandemic are being lifted so some caution should be taken applying a model trained on pre-COVID data to post-COVID games but I think it is worth trying out. 
+
+# MLB Structure
+
+
+
+# `{tidymodels}`
+
+
+
+
+# Scraping data
+
+
+# Building Models
+
+
+# Evualting Models
+
+
+# Final Thought
+
+
+
