@@ -6,7 +6,7 @@ output:
 
 # Predicting A Products Shipping Mode :package: w/ {tidymodels}
 
-Having seen recent articles and tweets regarding the {tidymodels} package, I decided to give it a try myself. Today I decide to use the superstore dataset that is commonly used when working in Tableau. The superstore data records purchases from fictional customers regarding various products.
+Having recently participated in the r4ds `{tidymodels}` bookclub, I decided to give data modeling a try. For this blog post, we use the Superstore dataset from Tableau. The dataset was found on the Tableau community forum and can found [here](https://community.tableau.com/s/question/0D54T00000C5vSDSAZ/global-superstore-data-file). I decide to use this dataset instead of the more traditional data sets to mix things up a bit. The Superstore data set records purchases from fictional customers regarding various products.
 
 As is customary, we start by loading the necessary packages and data.
 
@@ -17,6 +17,7 @@ library(janitor)
 library(readxl)
 library(lubridate)
 library(ggthemes)
+library(gt)
 library(viridis)
 
 orders <- read_excel("data/Global Superstore.xls", sheet = "Orders") %>% 
@@ -36,11 +37,10 @@ knitr::opts_chunk$set(fig.align = 'center')
 
 ```
 
-For this post, we use the Superstore dataset from Tableau. The dataset was found on the Tableau community forum and can found [here](https://community.tableau.com/s/question/0D54T00000C5vSDSAZ/global-superstore-data-file).
 
 # Superstore Data
 
-The superstore dataset consist of transactions (fictional) for customers order, including single and bulk orders. In addition to each individual item, there are other transactional details like order and ship date, shipping mode, profit margin and many other items. Below you can see the complete list that is available
+The superstore dataset consist of transactions for customers order, including single and bulk orders. In addition to each individual item, there are other transactional details like order and ship date, shipping mode, profit margin and many other items. Below you can see the complete list that is available
 
 ```{r superstore_names, echo=FALSE}
 orders %>% 
@@ -50,7 +50,7 @@ orders %>%
 
 The *main objective* of this post is to **predict a products shipping mode** based on a set of predictors.
 
-Though all factors may be relevant in helping to predict the shipping mode of a customer, I decide to limit it to a few that I believe matter. Note that this decision is not based on any scientific analysis or reach but but instead is my perspective. The variables I decide to go with are *order date*, *shipping data*, *segment*, *shipping cost*, *order priority*, and *profit*.
+Though all factors may be relevant in helping to predict the shipping mode of a customer, I decide to limit it to a few that I believe matter. Note that this decision is not based on any scientific research instead is my intuition, which may be off. The variables I decide to go with are *order date*, *shipping data*, *segment*, *shipping cost*, *order priority*, and *profit*.
 
 ```{r superstore_data}
 head(orders) %>% 
@@ -62,9 +62,10 @@ head(orders) %>%
 
 Prior to delving into some exploratory analysis, there are some preproceesing steps that we need to take care as to avoid errors when building our models.
 
-The *first* part of our preproceesing is to create some new variables. Using some `group_by()` on customer id and order date, we are able to count how many items were sent within a particular order. This may matter because a product that is being shipping with many other products may receive a faster shipping mode. The other variable we create is one that tells us in what month a product was shipped in. Using the `month()` function from the {lubridate} package we are able to extract the month.
+The *first* part of our preproceesing is to create some new variables. Using `group_by()` on customer id and order date, we are able to count how many items were sent within a particular order. This may matter because a product that is part of a larger order may receive a faster shipping mode. The other variable we create is one that tells us in what month a product was shipped in. Using the `month()` function from the {lubridate} package we are able to extract the month.
 
 The *second* part in our preprocessing is to convert some of the character variables into numerical values. We apply this to the segment, shipping mode, and order priority variable. Later on we will be using the {recipes} package to further process these variables into a form that our models will comport with.
+
 
 ```{r tidy_data}
 processed_orders <- orders %>% 
@@ -112,12 +113,14 @@ processed_orders %>%
   scale_x_continuous(breaks = seq(1,14, 1)) +
   labs(
     x = "Number of items in a order",
-    y = "Count order (logged)",
-    title = "Shipping Method For The Number Of Items In A Order"
+    y = "Count (log10)",
+    title = "Shipping Method For The Number Of Items In A Order",
+    subtitle = "1 logged order = 10,000 orders"
   ) +
   theme(
     panel.grid = element_blank(),
     panel.background = element_blank(),
+    plot.subtitle = element_text(size = 9),
     axis.ticks.x = element_blank(),
     axis.text = element_text(colour = "black")
   )

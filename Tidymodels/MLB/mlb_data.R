@@ -29,7 +29,6 @@ schedule_clean <- function(data) {
            month = factor(match(month, month.abb),
                           levels = c("1", "2", "3", "4", "5", "6", "7",
                                      "8", "9", "10", "11", "12")),
-           new_date = ymd(paste("2019",month,day)),
            win_lose = str_extract(result, "(W|L)"),
            extra_innings = case_when(str_detect(result, "F") ~ "1",
                                      TRUE ~ "0"),
@@ -46,8 +45,8 @@ schedule_clean <- function(data) {
 }
 
 
-# Since the Los Angeles Angles and Los Angeles Dodgers are both named Los Angeles, i need to use their official name
-# to differentiate between them. 
+# Since the Los Angeles Angles and Los Angeles Dodgers are both named Los Angeles, I need to use their 
+# official name to differentiate between them. 
 
 full_team_names <- function(url1, url2) {
   
@@ -105,7 +104,7 @@ mlbscrapeR <- function(team, year){
     read_html() %>% 
     html_nodes(".headline__h1") %>% 
     html_text() %>% 
-    as.tibble(.repair_names = "unique") %>% 
+    as_tibble(.repair_names = "unique") %>% 
     mutate(team = str_extract(value, "(.*?)(?=\\sSch)")) %>% 
     select(-value)
   
@@ -114,10 +113,10 @@ mlbscrapeR <- function(team, year){
   
   
   mlb_data <- rbind(first_half, second_half) %>% 
-    mutate(home_team = home_team$team,
-           season_year = {{year}}) %>% 
     clean_names() %>%
     schedule_clean() %>% 
+    mutate(home_team = home_team$team,
+           season_year = {{year}}) %>% 
     rowid_to_column() %>% 
     left_join(full_team_names)
    
@@ -127,18 +126,19 @@ mlbscrapeR <- function(team, year){
 
 
 
-x <- mlbscrapeR("sea", 2018)
+#x <- mlbscrapeR("sea", 2018)
 
 
-years <- c(2017, 2018, 2019)
+years <- c(2003:2019)
 
 
-x <- map2_df("sea", years, mlbscrapeR)
+seattle_mariners <- map2_df("sea", years, mlbscrapeR)
+ny_yankees <- map2_df("nyy", years, mlbscrapeR)
 
 
 
 # Weekday Attendance
-x %>% 
+seattle_mariners %>% 
   filter(result != "Postponed",
          home_away == "Home") %>% 
   mutate(across(att, as.numeric)) %>% 
@@ -154,17 +154,24 @@ team_info <- mlbstatsR::get_mlb_teams() %>%
   mutate(name = case_when(name == "St. Louis Cardinals" ~ "St Louis Cardinals",
                           TRUE ~ name))
 
-x %>% 
+z <- seattle_mariners %>% 
   filter(result != "Postponed",
          home_away == "Home") %>% 
   mutate(across(att, as.numeric)) %>% 
-  left_join(team_info, by = c('team' = 'name')) %>% 
+  left_join(team_info, by = c('team' = 'name'))
+
+
+z %>% 
+  filter(is.na(division)) %>% 
+  count(opponent)
+
+
   ggplot(aes(division, att, fill = division)) +
   geom_boxplot()
 
 
 
-x %>% 
+seattle_mariners %>% 
   filter(result != "Postponed") %>% 
   mutate(across(att, as.numeric)) %>% 
   ggplot(aes(new_date, win_per, group = as.character(season_year), colour = as.character(season_year))) + 
