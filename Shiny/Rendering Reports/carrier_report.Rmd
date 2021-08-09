@@ -1,0 +1,67 @@
+---
+title: "`r paste(params$carrier, 'Report')`"
+output: html_document
+params:
+  carrier: United Air Lines Inc.
+---
+
+```{r setup, include=FALSE}
+# Loading packages
+library(tidyverse)
+library(knitr)
+library(lubridate)
+library(ggtext)
+library(nycflights13)
+library(viridis)
+
+
+# Loading data
+merged_df <- flights %>% 
+  left_join(airports %>% 
+              rename(dest_airport = name), by = c("dest" = "faa")) %>% 
+  right_join(airlines %>% 
+               rename(carrier_name = name), by = "carrier") %>% 
+  mutate(date = mdy(paste(month, day, year, sep = "/")),
+         delayed = case_when(dep_delay < 0 ~ "Yes",
+                             TRUE ~ "No")) %>% 
+  filter(carrier_name == params$carrier)
+
+
+# Settings
+knitr::opts_chunk$set(echo = FALSE)
+
+
+```
+
+
+The following report displays the daily flights for `r params$carrier` from x to y.
+
+
+
+```{r, fig.width=8, fig.height=10}
+
+merged_df %>% 
+  mutate(across(c(month, day), as.factor)) %>% 
+  count(month, day) %>% 
+  ggplot(aes(month, fct_rev(day), fill = n)) +
+  geom_tile() +
+  geom_text(aes(label = n), size = 4) +
+  scale_fill_viridis(name = "Number of \nFlights") +
+  scale_x_discrete(position = "top") +
+  labs(
+    x = "Month",
+    y = "Day",
+    title = paste("Number of Daily Flights For <i style='color:blue'>", params$carrier, "</i>")
+    ) +
+  theme(
+    axis.ticks = element_blank(),
+    axis.title =  element_text(size = 15),
+    panel.grid = element_blank(),
+    panel.background = element_blank(),
+    plot.title = element_markdown(family = "Bebas Neue", size = 21),
+    text = element_text(colour = "black", family = "Bebas Neue")
+    )
+
+
+```
+
