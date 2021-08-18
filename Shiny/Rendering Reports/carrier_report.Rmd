@@ -51,15 +51,15 @@ merged_df %>%
   labs(
     x = "Month",
     y = "Day",
-    title = paste("Number of Daily Flights For <i style='color:blue'>", params$carrier, "</i>")
+    title = paste0("Number of Daily Flights For ", params$carrier)
     ) +
   theme(
     axis.ticks = element_blank(),
     axis.title =  element_text(size = 15),
     panel.grid = element_blank(),
     panel.background = element_blank(),
-    plot.title = element_markdown(family = "Bebas Neue", size = 21),
-    text = element_text(colour = "black", family = "Bebas Neue")
+    plot.title = element_text(size = 21),
+    text = element_text(colour = "black")
     )
 
 

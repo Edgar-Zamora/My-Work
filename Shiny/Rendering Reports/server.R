@@ -13,43 +13,33 @@ render_report <- function(input, output, params) {
 }
 
 # Define server logic required to draw a histogram
-shinyServer(function(input, output) {
+shinyServer(function(input, output){
   
   output$report <- downloadHandler(
-    filename = function() {
-      
-      if(!str_detect(input$carrier, "\\.")) {
-        
-        paste0(input$carrier, ".html")
-        
-      } else {
-        
-        paste0(input$carrier, "html")
-        
-      }
-      
-
-
-      },
+    
+    # For PDF output, change this to "report.pdf"
+    filename = paste0(input$carrier, ".html"),
     
     content = function(file) {
+      # Copy the report file to a temporary directory before processing it, in
+      # case we don't have write permissions to the current working dir (which
+      # can happen when deployed).
+      tempReport <- file.path(tempdir(), "carrier_report.Rmd")
+      file.copy("carrier_report.Rmd", tempReport, overwrite = TRUE)
+      
+      # Set up parameters to pass to Rmd document
       params <- list(carrier = input$carrier)
       
-      id <- showNotification(
-        "Rendering report...", 
-        duration = NULL, 
-        closeButton = FALSE
+      # Knit the document, passing in the `params` list, and eval it in a
+      # child of the global environment (this isolates the code in the document
+      # from the code in this app).
+      rmarkdown::render(tempReport, 
+                        output_file = file,
+                        params = params,
+                        envir = new.env(parent = globalenv())
       )
-      
-      on.exit(removeNotification(id), add = TRUE)
-      
-      callr::r(
-        render_report,
-        list(input = report_path, 
-             output = file, 
-             params = params)
-        )
-    })
+      }
+  )
   }
   )
   
