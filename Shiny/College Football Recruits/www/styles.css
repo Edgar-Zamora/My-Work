@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Graduate&display=swap');
+
+
+/* Navigation Changes */
+.navbar-nav {
+  float: right;
+}
+
+.navbar-brand {
+    padding-top: 0rem;
+    padding-bottom: 0rem;
+    margin-right: 0rem;
+    margin-left: 0rem;
+    font-size: 1.25rem;
+}
+
+
+
+
+/* Drop down meanu */
+.has-items {
+  border-radius: 50px
+}
+
+.selectize-input.dropdown-active {
+  border-radius: 50px;
+}
+
+
+
+/* Gt Table */
+.tr-header {
+  background: #E6E6E6;
+  text-align: center;
+}
+
+.tr-row {
+  text-align: center;
+  font-size: 18px
+}
+
+.checked {
+  color: orange;
+}
+
+
+
+
+/* Leaflet Map */
+.selectize-dropdown {
+  z-index: 10000
+}
+
