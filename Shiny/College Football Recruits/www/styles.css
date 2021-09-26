@@ -16,7 +16,6 @@
 
 
 
-
 /* Drop down meanu */
 .has-items {
   border-radius: 50px
@@ -41,6 +40,12 @@
 
 .checked {
   color: orange;
+}
+
+
+.table-center {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 

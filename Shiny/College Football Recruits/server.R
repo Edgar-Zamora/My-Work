@@ -74,7 +74,7 @@ shinyServer(function(input, output, session) {
 
     output$team_logo <- renderUI({
         
-        HTML(paste0("<img src='", unique(team_logo()$logos_0), "' width='50' height='50'> CFB Recruits"))
+        HTML(paste0("<img src='", unique(team_logo()$logos_0), "' width='55' height='55'> CFB Recruits"))
         
 
     })

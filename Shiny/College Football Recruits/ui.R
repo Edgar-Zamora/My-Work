@@ -75,7 +75,7 @@ fluidPage(
                         
                         HTML(paste0("<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
                                  
-                                 <table>
+                                 <table class = table-center>
                                  <tr class = 'tr-header'>
                                  <td width='10%'>Commits</td>
                                  <td width='10%'>Top 300</td>
@@ -114,6 +114,8 @@ fluidPage(
                         gt_output(outputId = "recruit_tbl")
                         
                         ),
+               
+               tabPanel("Draft Analysis"),
                
                navbarMenu("About",
                         tabPanel("Data Source",
