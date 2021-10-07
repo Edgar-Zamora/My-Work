@@ -15,9 +15,9 @@ library(bslib)
 # Reading in data
 
 cfb_recruits <- read_rds(here("Shiny", "College Football Recruits",
-                              "data", "college_recruits_15_22.rds"))
+                              "data", "college_recruits_10_22.rds"))
 cfb_team_sum <- read_rds(here("Shiny", "College Football Recruits",
-                              "data", "college_recruit_sum_15_22.rds"))
+                              "data", "college_recruit_sum_10_22.rds"))
 
 
 # Source script
