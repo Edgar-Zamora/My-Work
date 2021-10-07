@@ -1,6 +1,6 @@
 ---
 title: "2021 RStudio Table Contest Submission"
-output: html_document
+output: github_document
 ---
 
 
