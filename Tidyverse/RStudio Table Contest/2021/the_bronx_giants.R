@@ -11,6 +11,7 @@ library(gt)
 library(measurements)
 library(mlbstatsR)
 library(scales)
+library(webshot)
 
 
 
@@ -182,7 +183,7 @@ gt_data <- all_mlb_players %>%
                                logologodefault, 
                                "' alt='", 
                                team_name, 
-                               "'width=50 height=50 style='float:left'><div><span>",
+                               "'width=50 height=50 style='float:left'><div><span>&nbsp;&nbsp;",
                                team_name,
                                "</span><br><span></span</div></div>")) %>% 
   group_by(team_name, team_name_gt) %>% 
@@ -199,7 +200,7 @@ gt_data <- all_mlb_players %>%
   
 
 # Tablizing
-gt_data %>% 
+mlb_gaints <- gt_data %>% 
   gt() %>% 
   fmt_markdown(
     columns = c(team_name_gt, starts_with("max"))
@@ -239,6 +240,8 @@ gt_data %>%
     label = "Top Players From Team",
     columns = c(starts_with("max"))
   ) %>% 
+  
+  # Styling specific cells
   tab_style(
     style = list(
       cell_borders(
@@ -255,15 +258,31 @@ gt_data %>%
   ) %>% 
   tab_style(
     style = list(
-      cell_text(size = px(18))
+      cell_text(size = px(22))
     ),
     locations = cells_body(
       columns = c(team_name_gt)
     )
   ) %>% 
+  tab_style(
+    style = list(
+      cell_text(size = px(18))
+    ),
+    locations = cells_body(
+      columns = starts_with("avg")
+    )
+  ) %>% 
+  
+  # General table options
   tab_options(
     table.border.top.color = "white",
-    table.border.bottom.color = "white"
+    table.border.bottom.color = "white",
+    heading.title.font.size = px(30),
+  ) %>% 
+  opt_table_font(
+    font = c(
+      "DIN Condensed"
+    )
   ) %>% 
   
   # Footnotes
@@ -288,3 +307,7 @@ gt_data %>%
       domain = NULL
     )
   )
+
+
+# Writing table
+gtsave(mlb_gaints, here::here("Tidyverse", "RStudio Table Contest", "2021", "MLB's Biggest Teams.pdf"))

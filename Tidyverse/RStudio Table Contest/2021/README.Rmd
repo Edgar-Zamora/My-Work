@@ -5,3 +5,14 @@ output: github_document
 
 
 # MLB's Biggest Teams
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r tbl_image, out.width="100%", out.height="800px"}
+knitr::include_graphics(here::here("Tidyverse", "RStudio Table Contest", 
+                                   "2021", "MLB's Biggest Teams.pdf"))
+```
+
