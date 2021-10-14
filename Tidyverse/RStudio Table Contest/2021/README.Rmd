@@ -3,16 +3,240 @@ title: "2021 RStudio Table Contest Submission"
 output: github_document
 ---
 
-
 # MLB's Biggest Teams
 
 ```{r setup, include=FALSE}
+# Load packages
+library(rvest)
+library(tidyr)
+library(dplyr)
+library(janitor)
+library(stringr)
+library(glue)
+library(purrr)
+library(gt)
+library(scales)
+library(here)
+library(readr)
+library(knitr)
+
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Loading Data
 
-```{r tbl_image, out.width="100%", out.height="800px"}
-knitr::include_graphics(here::here("Tidyverse", "RStudio Table Contest", 
-                                   "2021", "MLB's Biggest Teams.pdf"))
+The data is gathered using ESPN roster profiles and the `{mlbstatsR}` package. The script for the data can be found in the data folder in this GitHub.
+
+```{r load_data}
+mlb_player_char <- read_rds(here("Tidyverse", "RStudio Table Contest", "2021", "data", "mlb_player_char.rds"))
+```
+
+# Calculating Metrics
+
+Part of the `{gt}` table includes team averages for age, weight, and height along with the highest for each metric within a team. The code below collects those metrics and prepares them for the table.
+
+```{r calc_metrics}
+# Max players for each team
+## Weight
+max_weight <- mlb_player_char %>% 
+  group_by(team_name)  %>% 
+  filter(wt_lbs == max(wt_lbs)) %>% 
+  slice(1) %>% 
+  ungroup() %>% 
+  select(team_name, name, x, pos, wt_lbs, player_number) %>% 
+  mutate(max_weight = paste0("<div style='display: flex; align-items:center;'><img src='", 
+                             x, 
+                             "' alt='", 
+                             name, 
+                             "'width=100 height=75 style='float:left'><div><span>",
+                             name,
+                             "</span><br><span><center><span style='color:#B4B4B4'>", 
+                             pos, "</span>",
+                             " | ", wt_lbs, 
+                             " lbs </center></span</div></div>"))
+
+
+
+## Height
+max_ht <- mlb_player_char %>% 
+  group_by(team_name) %>% 
+  filter(ht_cm == max(ht_cm)) %>% 
+  slice(1) %>% 
+  ungroup() %>% 
+  mutate(max_ht = paste0("<div style='display: flex; align-items:center;'><img src='", 
+                         x, 
+                         "' alt='", 
+                         name, 
+                         "'width=100 height=75 style='float:left'><div><span>",
+                         name,
+                         "</span><br><span><center><span style='color:#B4B4B4'>", 
+                         pos, "</span>",
+                         " | ",ht, 
+                         "</center></span</div></div>")) %>% 
+  select(team_name, max_ht)
+
+
+## Max Age
+max_age <- mlb_player_char %>%
+  group_by(team_name) %>% 
+  filter(age == max(age)) %>% 
+  slice(1) %>% 
+  ungroup() %>% 
+  mutate(max_age =  paste0("<div style='display: flex; align-items:center;'><img src='", 
+                           x, 
+                           "' alt='", 
+                           name, 
+                           "'width=100 height=75 style='float:left'><div><span>",
+                           name,
+                           "</span><br><span><center><span style='color:#B4B4B4'>", 
+                           pos, "</span>",
+                           " | ", age, 
+                           "</center></span</div></div>")) %>% 
+  select(team_name, max_age)
+
+
+# Team Averages
+mlb_data <- mlb_player_char %>% 
+  mutate(team_name_gt = paste0("<div style='display: flex; align-items:center;'><img src='", 
+                               logologodefault, 
+                               "' alt='", 
+                               team_name, 
+                               "'width=50 height=50 style='float:left'><div><span>&nbsp;&nbsp;",
+                               team_name,
+                               "</span><br><span></span</div></div>")) %>% 
+  group_by(team_name, team_name_gt) %>% 
+  summarise(
+    avg_age = mean(age),
+    avg_ht = mean(ht_cm),
+    avg_weight = mean(wt_lbs)
+  ) %>% 
+  left_join(max_age, by = "team_name") %>% 
+  left_join(max_ht, by = 'team_name') %>% 
+  left_join(max_weight, by = "team_name") %>% 
+  ungroup() %>% 
+  select(team_name_gt, starts_with("avg"), max_age, max_ht, max_weight)
+  
+
+
+
+```
+
+# Creating {gt} table
+
+```{r gt_tbl, eval=FALSE}
+# Tablizing
+mlb_data %>% 
+  gt() %>% 
+  fmt_markdown(
+    columns = c(team_name_gt, starts_with("max"))
+  ) %>% 
+  fmt_number(
+    columns = c(starts_with("avg")),
+    decimals = 0
+  ) %>% 
+  
+  # Formatting Columns
+  cols_label(
+    team_name_gt = ' ',
+    avg_age = "Age",
+    avg_ht = "Height (cm)",
+    avg_weight = "Weight (lbs)",
+    max_age = "Age",
+    max_ht = "Height (ft)",
+    max_weight = "Weight (lbs)",
+  ) %>% 
+  cols_align(
+    columns = c(starts_with("avg"), starts_with("max")),
+    align = "center"
+  ) %>% 
+  cols_width(
+    team_name_gt ~ px(300),
+    starts_with("avg") ~ px(75),
+    starts_with("max") ~ px(250)
+  ) %>% 
+  tab_header(
+    title = "MLB's Biggest Teams"
+  ) %>% 
+  tab_spanner(
+    label = "Team Averages",
+    columns = c(starts_with("avg"))
+  ) %>% 
+  tab_spanner(
+    label = "Top Players From Team",
+    columns = c(starts_with("max"))
+  ) %>% 
+  
+  # Styling specific cells
+  tab_style(
+    style = list(
+      cell_borders(
+        sides = "left",
+        color = "black",
+        weight = px(6)
+      )
+    ),
+    locations = list(
+      cells_body(
+        columns = c(max_age)
+      )
+    )
+  ) %>% 
+  tab_style(
+    style = list(
+      cell_text(size = px(22))
+    ),
+    locations = cells_body(
+      columns = c(team_name_gt)
+    )
+  ) %>% 
+  tab_style(
+    style = list(
+      cell_text(size = px(18))
+    ),
+    locations = cells_body(
+      columns = starts_with("avg")
+    )
+  ) %>% 
+  
+  # General table options
+  tab_options(
+    table.border.top.color = "white",
+    table.border.bottom.color = "white",
+    heading.title.font.size = px(30),
+  ) %>% 
+  opt_table_font(
+    font = c(
+      "DIN Condensed"
+    )
+  ) %>% 
+  
+  # Footnotes
+  tab_footnote(
+    footnote = "When there was a tie I considered age and height. This is my decision and arbitrary.",
+    locations = cells_column_spanners(
+      spanners = "Top Players From Team"
+    )
+  ) %>% 
+  tab_footnote(
+    footnote = md("Using *cm* instead of *ft* allows one to see the distribution better."),
+    locations = cells_column_labels(
+      columns = avg_ht
+    )
+  ) %>% 
+  
+  # Coloring team averages with darker being a higher value
+  data_color(
+    columns = starts_with("avg"),
+    colors = col_numeric(
+      palette = c("#F2EDDC", "#DCE5BA", "#AED898", "#77CA7F", "#35AEAB"),
+      domain = NULL
+    )
+  )
+
+```
+
+
+```{r gt_tbl_viz, out.width="1000px"}
+include_graphics(here("Tidyverse", "RStudio Table Contest", "2021", "test.png"))
 ```
 
