@@ -232,63 +232,91 @@ gt_tbl <- mlb_data %>%
   # General table options
   tab_options(
     table.border.top.color = "white",
-    table.border.bottom.color = "white"
+    table.border.bottom.color = "white",
+    heading.border.bottom.color = "white"
   ) %>% 
+  ## Team Name
   tab_style(
     style = cell_text(
-      size = px(16),
-      font = c(
-        google_font(name = "Mochiy Pop P One")
-      )
+      size = px(18),
+      font = list(
+        google_font(name = 'Source Sans Pro'),
+        "Sans Serif"
+      ),
+      weight = 700
     ),
     locations = cells_body(
       columns = c(team_name_gt)
     )
-  ) %>% 
+  ) %>%
+  ## Team Avg Txt
   tab_style(
     style = cell_text(
-      size = px(14),
-      font = c(
-        google_font(name = "Mochiy Pop P One")
-      )
+      size = px(16),
+      font = list(
+        google_font(name = 'Source Sans Pro'),
+        "Sans Serif"
+      ),
+      weight = 600
     ),
     locations = cells_body(
       columns = c(avg_age:avg_weight)
     )
   ) %>% 
+  ## Team Max Txt
   tab_style(
     style = cell_text(
       size = px(13),
-      font = c(
-        google_font(name = "Mochiy Pop P One")
-      )
+      font = list(
+        google_font(name = 'Source Sans Pro'),
+        "Sans Serif"
+      ),
+      weight = 600
     ),
     locations = cells_body(
       columns = c(max_age:max_weight)
     )
   ) %>% 
+  ## Column spanners
   tab_style(
     style = cell_text(
-      size = px(14),
-      font = c(
-        google_font(name = "Mochiy Pop P One")
-      )
+      size = px(16),
+      font = list(
+        google_font(name = 'Source Sans Pro'),
+        "Sans Serif"
+      ),
+      weight = 700
     ),
     locations = list(
       cells_column_labels(columns = everything()),
       cells_column_spanners(spanners = everything())
     )
   ) %>% 
+  ## Table header
   tab_style(
     style = cell_text(
       size = px(30),
-      font = c(
-        google_font(name = "Mochiy Pop P One")
-      )
+      font = list(
+        google_font(name = 'Source Sans Pro'),
+        "Sans Serif"
+      ),
+      weight = 700
     ),
     locations = cells_title(
       groups = "title"
     )
+  ) %>% 
+  ## Footnote
+  tab_style(
+    style = cell_text(
+      size = px(12),
+      font = list(
+        google_font(name = 'Source Sans Pro'),
+        "Sans Serif"
+      ),
+      weight = 700
+    ),
+    locations = cells_footnotes()
   )
 
 gtsave(gt_tbl, "MLBs Biggest Teams.png", vwidth = 2000)
