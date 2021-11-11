@@ -3,35 +3,36 @@ title: "2021 RStudio Table Contest Submission"
 output: github_document
 ---
 
-# MLB's Biggest Teams
+<figure>
+  <img src="https://d279m997dpfwgl.cloudfront.net/wp/2017/06/0623_oag-bb-characters.jpeg" />
+  <figcaption><a href="https://www.wbur.org/onlyagame/2017/06/23/backyard-baseball-computer-game-history">Martin Kessler</a></figcaption>
+</figure>
 
 ```{r setup, include=FALSE}
 # Load packages
-library(rvest)
-library(tidyr)
-library(dplyr)
+library(tidyverse)
 library(janitor)
-library(stringr)
-library(glue)
-library(purrr)
 library(gt)
 library(scales)
-library(here)
-library(readr)
 library(knitr)
+library(htmltools)
+library(webshot)
+library(here)
 
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+As the 2021 MLB season was winding down and the New York Yankees were fighting for a Wild Card spot, I frequently heard the commentators refer to how tall the Yankees were. Aaron Judge (6'7"), Giancarlo Stanton (6'6"), and Luke Voit (6'3") are among the taller Yankee players, which got me thinking how tall the Yankees as a team is compared to other MLB teams. Using physical characteristics from ESPN MLB rosters, I compare the average height, age, and weight among MLB teams. 
+
 # Loading Data
 
-The data is gathered using ESPN roster profiles and the `{mlbstatsR}` package. The script for the data can be found in the data folder in this GitHub.
+The data is gathered using ESPN roster profiles and the `{mlbstatsR}` package. The script for the data can be found in the [script folder](https://github.com/Edgar-Zamora/My-Work/blob/master/Tidyverse/RStudio%20Table%20Contest/2021/script/get_mlb_player_char.R) in this GitHub repository.
 
 ```{r load_data}
 mlb_player_char <- read_rds(here("Tidyverse", "RStudio Table Contest", "2021", "data", "mlb_player_char.rds"))
 ```
 
-# Calculating Metrics
+# Calculating Averages
 
 Part of the `{gt}` table includes team averages for age, weight, and height along with the highest for each metric within a team. The code below collects those metrics and prepares them for the table.
 
@@ -121,11 +122,18 @@ mlb_data <- mlb_player_char %>%
 
 ```
 
-# Creating {gt} table
+# Creating `{gt}` table
+
+Using the amazing `{gt}` package, I use many different features to show the difference in height, age, and weight across MLB teams.
+
+Highlights:
+* Embedding html in some columns
+* Using Google Fonts 
+* Conditional formatting
 
 ```{r gt_tbl, eval=FALSE}
 # Tablizing
-mlb_data %>% 
+gt_tbl <- mlb_data %>% 
   gt() %>% 
   fmt_markdown(
     columns = c(team_name_gt, starts_with("max"))
@@ -198,18 +206,6 @@ mlb_data %>%
     )
   ) %>% 
   
-  # General table options
-  tab_options(
-    table.border.top.color = "white",
-    table.border.bottom.color = "white",
-    heading.title.font.size = px(30),
-  ) %>% 
-  opt_table_font(
-    font = c(
-      "DIN Condensed"
-    )
-  ) %>% 
-  
   # Footnotes
   tab_footnote(
     footnote = "When there was a tie I considered age and height. This is my decision and arbitrary.",
@@ -231,12 +227,72 @@ mlb_data %>%
       palette = c("#F2EDDC", "#DCE5BA", "#AED898", "#77CA7F", "#35AEAB"),
       domain = NULL
     )
+  ) %>% 
+  
+  # General table options
+  tab_options(
+    table.border.top.color = "white",
+    table.border.bottom.color = "white"
+  ) %>% 
+  tab_style(
+    style = cell_text(
+      size = px(16),
+      font = c(
+        google_font(name = "Mochiy Pop P One")
+      )
+    ),
+    locations = cells_body(
+      columns = c(team_name_gt)
+    )
+  ) %>% 
+  tab_style(
+    style = cell_text(
+      size = px(14),
+      font = c(
+        google_font(name = "Mochiy Pop P One")
+      )
+    ),
+    locations = cells_body(
+      columns = c(avg_age:avg_weight)
+    )
+  ) %>% 
+  tab_style(
+    style = cell_text(
+      size = px(13),
+      font = c(
+        google_font(name = "Mochiy Pop P One")
+      )
+    ),
+    locations = cells_body(
+      columns = c(max_age:max_weight)
+    )
+  ) %>% 
+  tab_style(
+    style = cell_text(
+      size = px(14),
+      font = c(
+        google_font(name = "Mochiy Pop P One")
+      )
+    ),
+    locations = list(
+      cells_column_labels(columns = everything()),
+      cells_column_spanners(spanners = everything())
+    )
+  ) %>% 
+  tab_style(
+    style = cell_text(
+      size = px(30),
+      font = c(
+        google_font(name = "Mochiy Pop P One")
+      )
+    ),
+    locations = cells_title(
+      groups = "title"
+    )
   )
 
+gtsave(gt_tbl, "MLBs Biggest Teams.png", vwidth = 2000)
+
 ```
 
-
-```{r gt_tbl_viz, out.width="1000px"}
-include_graphics(here("Tidyverse", "RStudio Table Contest", "2021", "test.png"))
-```
-
+![MLBs Biggest Teams](MLBs Biggest Teams.png)
