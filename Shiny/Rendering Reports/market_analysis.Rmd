@@ -1,0 +1,73 @@
+---
+title: "Individual Student Report"
+date: "`r Sys.Date()`"
+output:
+  pagedown::html_paged:
+    self_contained: true
+    css: [styles.css]
+    number_sections: false
+    fig_caption: false
+links-to-footnotes: false
+fig_caption: false
+params:
+  state: 'Washington'
+---
+
+# `r params$state` Market Analysis
+
+```{r setup}
+library(ggplot2)
+library(janitor)
+library(readxl)
+library(lubridate)
+library(tidyverse)
+library(ggthemes)
+
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.show = TRUE)
+
+
+superstore <- read_excel("/Users/edgar/Desktop/GitHub/My-Work/Shiny/Rendering Reports/data/Global Superstore.xls") %>%
+  clean_names() %>% 
+  filter(market == "US",
+         state == params$state) %>% 
+  mutate(month = month(order_date))
+
+
+ 
+state_prof_sales <- function(data) {
+  
+  data %>% 
+    select(state, month, sales, profit) %>% 
+    pivot_longer(-c(state, month), names_to = "type", values_to = "value") %>% 
+    ggplot(aes(month, value, color = type, group = type)) +
+    geom_line(size = 2, key_glyph = "timeseries") +
+    scale_y_continuous(labels = scales::dollar_format()) +
+    scale_color_tableau(name = "Metric",
+                        labels = c("Profit", "Sales")) +
+    labs(
+      x = "",
+      y = "",
+      title = "Monthly Profit v. Sales"
+    ) +
+    theme(
+      panel.grid = element_blank(),
+      panel.background = element_blank(),
+      axis.ticks.x = element_blank(),
+      legend.key = element_rect(fill = "transparent")
+    )
+}
+
+
+
+```
+
+
+
+something something.
+
+
+```{r profit_sales_viz}
+superstore %>% 
+  state_prof_sales()
+```
+

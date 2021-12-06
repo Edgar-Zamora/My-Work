@@ -19,7 +19,7 @@ team_logos <- read_csv(here("Shiny", "College Football Recruits", "data", "team_
 
 
 # Desired years
-years <- c(2010:2022)
+years <- c(2010:2020)
 
 
 # Mapping through years to get cfb draft picks
