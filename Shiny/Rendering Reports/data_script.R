@@ -32,17 +32,13 @@ mariners_season <- read_html("https://www.baseball-reference.com/teams/SEA/2019-
          games_back2 = case_when(str_detect(gb, "up") ~ as.numeric(str_extract(gb, "[:digit:].+")),
                          gb == 'Tied' ~ 0,
                          TRUE ~ as.numeric(gb) * -1),
-         run_diff = r - ra) %>% 
+         run_diff = r - ra,
+         ate =  format(mdy(paste(date, '2019')), "%m/%d/%Y")) %>% 
 
   select(-c(x, x_2)) %>% 
   rename(
     runs_for = r,
     runs_against = ra,
     games_back = gb
-  ) 
-
-
-
-mariners_season %>% 
-  mutate(date =  format(mdy(paste(date, '2019')), "%m/%d/%Y"))
+  )
 
