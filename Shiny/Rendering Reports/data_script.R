@@ -57,6 +57,3 @@ mlb_team_schedule <- function(team, year) {
 
 
 
-
-
-

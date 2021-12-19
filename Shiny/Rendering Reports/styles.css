@@ -1,0 +1,16 @@
+/* Most of the customization */
+.title {
+    background: #22577a;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
+  
+.title-img {
+    width: 90px;
+    height: 90px;
+    margin-right: 50px;
+    margin-left: 10px;
+}

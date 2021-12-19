@@ -1,0 +1,17 @@
+---
+title: "<img class='title-img' src='https://a.espncdn.com/i/teamlogos/mlb/500/sea.png' > `r params$year` `r params$team` Report"
+params:
+  team: SEA
+  year: 2019
+output:
+  pagedown::html_paged:
+    css: [styles.css]
+    self_contained: true
+    number_sections: false
+    fig_caption: false
+#knit: pagedown::chrome_print
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
