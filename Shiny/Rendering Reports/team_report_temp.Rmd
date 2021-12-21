@@ -70,6 +70,7 @@ annual_facts <- mlb_df %>%
   )
 ```
 
+# Facts
 
 ```{r annual_facts}
 x <- annual_facts %>% 
