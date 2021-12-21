@@ -13,5 +13,102 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+# Packages
+library(tidyverse)
+library(janitor)
+library(lubridate)
+library(rvest)
+library(ggchicklet)
+library(pagedown)
+library(gt)
+
+
+# Sourcing functions
+source("helper_funs.R")
+source("data_script.R")
+
+
+
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 ```
+
+
+Some stuff
+
+
+
+```{r data_import}
+
+# Year data
+teams <- c("ATL", "PHI", "NYM", "MIA", "WSN", "TBR", "NYY", "BOS",
+           "TOR", "BAL", "MIL", "STL", "CIN", "CHC", "PIT", "CHW",
+           "CLE", "DET", "MIN", "SFG", "SDP", "COL", "ARI", "HOU",
+           'SEA', "OAK", "LAA", "TEX", "KCR", "LAD")
+
+
+years <- params$year
+
+
+# Data Import
+mlb_df <- map2_df(teams, years, mlb_team_schedule)
+
+
+## Annual Summaries
+annual_facts <- mlb_df %>% 
+  filter(home_away == "Home") %>% 
+  group_by(team) %>% 
+  summarise(
+    avg_attendance = mean(attendance, na.rm = T),
+    avg_runs_for = mean(runs_for, na.rm = T),
+    avg_runs_against = mean(runs_against, na.rm = T)
+  ) %>% 
+  ungroup() %>% 
+  mutate(
+    attendance_rank = dense_rank(desc(avg_attendance)),
+    runs_for_rank = dense_rank(desc(avg_runs_for)),
+    runs_against_rank = dense_rank(desc(avg_runs_against))
+  )
+```
+
+
+```{r annual_facts}
+x <- annual_facts %>% 
+  filter(team == "SEA")
+
+
+x %>% 
+  mutate("Avg. Attendance" = paste0(comma(round(avg_attendance, 0)), 
+                                    " (", attendance_rank, ")"),
+         "Avg. Runs For" = paste0(round(avg_runs_for, 1),
+                                  " (", runs_for_rank, ")"),
+         "Avg. Runs Against" = paste0(round(avg_runs_against, 1),
+                                      " (", runs_against_rank, ")")) %>% 
+  select(team, `Avg. Attendance`, `Avg. Runs For`, `Avg. Runs Against`)  %>% 
+  pivot_longer(-team, values_to = "value", names_to = "id") %>% 
+  select(-team) %>% 
+  gt() %>% 
+  tab_header(
+    title = "Facts"
+  ) %>% 
+  cols_label(
+    id = " ",
+    value = "# (League Rank)"
+  ) %>% 
+  cols_align(
+    columns = 2,
+    align = "center"
+  ) %>% 
+  cols_width(
+    id ~ px(200)
+  ) %>% 
+  opt_align_table_header(
+    align = "left"
+  )
+
+```
+
+
+
+
+
+
