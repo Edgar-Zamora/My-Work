@@ -1,5 +1,5 @@
 ---
-title: "<img class='title-img' src='https://a.espncdn.com/i/teamlogos/mlb/500/sea.png' > `r params$year` `r params$team` Report"
+title: "`r params$year` `r params$team` Report"
 params:
   team: SEA
   year: 2019
@@ -10,10 +10,12 @@ output:
     number_sections: false
     fig_caption: false
 #knit: pagedown::chrome_print
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
-# Packages
+# Loading Packages
 library(tidyverse)
 library(janitor)
 library(lubridate)
@@ -21,41 +23,31 @@ library(rvest)
 library(ggchicklet)
 library(pagedown)
 library(gt)
+library(scales)
 
 
-# Sourcing functions
+# Loading data
+mlb_df <- read_csv("data/sample_df.csv")
+
+monthxref <- as_tibble(month.name) %>% 
+  mutate(month = 1:12) %>% 
+  rename(
+    month_name = value
+  )
+
+# Helper Functions
 source("helper_funs.R")
-source("data_script.R")
 
-
-
+# Document Settings
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 ```
 
 
-Some stuff
-
-
-
 ```{r data_import}
-
-# Year data
-teams <- c("ATL", "PHI", "NYM", "MIA", "WSN", "TBR", "NYY", "BOS",
-           "TOR", "BAL", "MIL", "STL", "CIN", "CHC", "PIT", "CHW",
-           "CLE", "DET", "MIN", "SFG", "SDP", "COL", "ARI", "HOU",
-           'SEA', "OAK", "LAA", "TEX", "KCR", "LAD")
-
-
-years <- params$year
-
-
-# Data Import
-mlb_df <- map2_df(teams, years, mlb_team_schedule)
-
-
-## Annual Summaries
+# Annual Summaries
 annual_facts <- mlb_df %>% 
-  filter(home_away == "Home") %>% 
+  filter(home_away == "Home",
+         year == params$year) %>% 
   group_by(team) %>% 
   summarise(
     avg_attendance = mean(attendance, na.rm = T),
@@ -70,14 +62,10 @@ annual_facts <- mlb_df %>%
   )
 ```
 
-# Facts
-
 ```{r annual_facts}
-x <- annual_facts %>% 
-  filter(team == "SEA")
-
-
-x %>% 
+# Annual Facts Viz
+annual_facts %>% 
+  filter(team == params$team) %>% 
   mutate("Avg. Attendance" = paste0(comma(round(avg_attendance, 0)), 
                                     " (", attendance_rank, ")"),
          "Avg. Runs For" = paste0(round(avg_runs_for, 1),
@@ -89,7 +77,7 @@ x %>%
   select(-team) %>% 
   gt() %>% 
   tab_header(
-    title = "Facts"
+    title = ""
   ) %>% 
   cols_label(
     id = " ",
@@ -104,11 +92,52 @@ x %>%
   ) %>% 
   opt_align_table_header(
     align = "left"
+  ) %>% 
+  tab_options(
+    table.border.top.color = "white",
+    table_body.border.bottom.color = "white",
+    column_labels.border.top.color = "white",
+    column_labels.border.top.width = px(3),
+    column_labels.border.bottom.color = "#a9a9a9",
+    column_labels.border.bottom.width = px(3),
+    table_body.hlines.color = "white",
+    table.font.size = px(18)
+  ) %>% 
+  tab_style(
+    style = cell_text(
+      font = c(
+        google_font(name = "Roboto"),
+        default_fonts()
+      ),
+      weight = 600
+    ),
+    locations = cells_column_labels()
+  ) %>% 
+    tab_style(
+    style = cell_text(
+      font = c(
+        google_font(name = "Roboto"),
+        default_fonts()
+      ),
+      weight = 400
+    ),
+    locations = cells_body(columns = everything())
   )
 
 ```
 
+```{r top_5,  out.width='500px', dpi=600}
+# Top 5 Home Games Viz
+mlb_df %>% 
+  filter(team == params$team,
+         year == params$year) %>% 
+  top_5_games(params$team)
+```
 
+
+```{r monthly_attnd}
+# Monthly Attend Viz
+```
 
 
 

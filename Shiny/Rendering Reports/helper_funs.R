@@ -16,9 +16,7 @@ yearly_attnd <- function(data, team, year){
     mutate(month = month(date)) %>% 
     ggplot(aes(date, attendance)) +
     geom_line(size = .75) +
-    geom_point(aes(color = home_away), size = 3) +
-    scale_color_manual(values = c("#c8d0d9", "#1170aa"),
-                       name = 'Home or Away?') +
+    geom_point(size = 3) +
     scale_y_continuous(labels = scales::comma) +
     scale_x_date(date_labels = "%b %d",
                  date_breaks = "2 weeks") +
@@ -59,12 +57,11 @@ top_5_games <- function(data, team) {
     coord_flip() +
     geom_text(aes(label = paste0(comma(round(avg_attendance, 0)), " (", num_games,")")),
               hjust = 1.2, color = "white") +
-    facet_grid(rows = vars(home_away), scales = "free_y") +
     scale_x_reordered() +
     labs(
       x = "Avg Attendance",
       y = "",
-      title = "Top 5 Home & Away Avg Attendance",
+      title = "",
       subtitle = "(#) = Number of games played"
     ) +
     theme(
@@ -77,4 +74,40 @@ top_5_games <- function(data, team) {
   
 }
 
+
+
+
+##### 
+# 
+# 
+# 
+# x <- mlb_df %>% 
+#   filter(team == "SEA",
+#          year == "2018") %>% 
+#   mutate(month = month(date)) %>% 
+#   group_by(team, year, month) %>% 
+#   mutate(monthly_c_li = mean(c_li, na.rm = T)) %>% 
+#   ungroup() %>% 
+#   select(team, year, weekday, date, attendance, month, monthly_c_li) %>% 
+#   left_join(monthxref, by = "month") %>% 
+#   mutate(month_name = factor(month_name, levels = c("March", "April", "May",
+#                                                     "June", "July", "August",
+#                                                     "September", "October")))
+# 
+# 
+# 
+# 
+# x %>% 
+#   ggplot(aes(month_name, attendance, group = month,
+#              colour = month_name)) +
+#   geom_boxplot(fill = "transparent") +
+#   geom_point(alpha = .4, size = 2) +
+#   geom_jitter(alpha = .4) +
+#   scale_y_continuous(name = "Avg. Monthly Attendance") +
+#   scale_x_discrete(name = "") +
+#   theme(
+#     panel.grid = element_blank(),
+#     panel.background = element_blank(),
+#     legend.position = "none"
+#   )
   

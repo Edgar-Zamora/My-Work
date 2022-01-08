@@ -2,25 +2,20 @@
 ================
 
 <figure>
-
 <img src="https://d279m997dpfwgl.cloudfront.net/wp/2017/06/0623_oag-bb-characters.jpeg" />
-
 <figcaption>
-
 <a href="https://www.wbur.org/onlyagame/2017/06/23/backyard-baseball-computer-game-history">Martin
 Kessler</a>
-
 </figcaption>
-
 </figure>
 
 As the 2021 MLB season was winding down and the New York Yankees were
 fighting for a Wild Card spot, I frequently heard the commentators refer
-to how tall the Yankees were. Aaron Judge (6’7“), Giancarlo Stanton
-(6’6”), and Luke Voit (6’3") are among the taller Yankee players,
-which got me thinking how tall the Yankees as a team is compared to
-other MLB teams. Using physical characteristics from ESPN MLB rosters, I
-compare the average height, age, and weight among MLB teams.
+to how tall the Yankees were. Aaron Judge (6’7”), Giancarlo Stanton
+(6’6”), and Luke Voit (6’3”) are among the taller Yankee players, which
+got me thinking how tall the Yankees as a team is compared to other MLB
+teams. Using physical characteristics from ESPN MLB rosters, I compare
+the average height, age, and weight among MLB teams.
 
 # Loading Data
 
@@ -33,7 +28,7 @@ in this GitHub repository.
 mlb_player_char <- read_rds(here("Tidyverse", "RStudio Table Contest", "2021", "data", "mlb_player_char.rds"))
 ```
 
-# Calculating Metrics
+# Calculating Averages
 
 Part of the `{gt}` table includes team averages for age, weight, and
 height along with the highest for each metric within a team. The code
@@ -232,63 +227,91 @@ gt_tbl <- mlb_data %>%
   # General table options
   tab_options(
     table.border.top.color = "white",
-    table.border.bottom.color = "white"
+    table.border.bottom.color = "white",
+    heading.border.bottom.color = "white"
   ) %>% 
+  ## Team Name
   tab_style(
     style = cell_text(
-      size = px(16),
-      font = c(
-        google_font(name = "Mochiy Pop P One")
-      )
+      size = px(18),
+      font = list(
+        google_font(name = 'Source Sans Pro'),
+        "Sans Serif"
+      ),
+      weight = 700
     ),
     locations = cells_body(
       columns = c(team_name_gt)
     )
-  ) %>% 
+  ) %>%
+  ## Team Avg Txt
   tab_style(
     style = cell_text(
-      size = px(14),
-      font = c(
-        google_font(name = "Mochiy Pop P One")
-      )
+      size = px(16),
+      font = list(
+        google_font(name = 'Source Sans Pro'),
+        "Sans Serif"
+      ),
+      weight = 600
     ),
     locations = cells_body(
       columns = c(avg_age:avg_weight)
     )
   ) %>% 
+  ## Team Max Txt
   tab_style(
     style = cell_text(
       size = px(13),
-      font = c(
-        google_font(name = "Mochiy Pop P One")
-      )
+      font = list(
+        google_font(name = 'Source Sans Pro'),
+        "Sans Serif"
+      ),
+      weight = 600
     ),
     locations = cells_body(
       columns = c(max_age:max_weight)
     )
   ) %>% 
+  ## Column spanners
   tab_style(
     style = cell_text(
-      size = px(14),
-      font = c(
-        google_font(name = "Mochiy Pop P One")
-      )
+      size = px(16),
+      font = list(
+        google_font(name = 'Source Sans Pro'),
+        "Sans Serif"
+      ),
+      weight = 700
     ),
     locations = list(
       cells_column_labels(columns = everything()),
       cells_column_spanners(spanners = everything())
     )
   ) %>% 
+  ## Table header
   tab_style(
     style = cell_text(
       size = px(30),
-      font = c(
-        google_font(name = "Mochiy Pop P One")
-      )
+      font = list(
+        google_font(name = 'Source Sans Pro'),
+        "Sans Serif"
+      ),
+      weight = 700
     ),
     locations = cells_title(
       groups = "title"
     )
+  ) %>% 
+  ## Footnote
+  tab_style(
+    style = cell_text(
+      size = px(12),
+      font = list(
+        google_font(name = 'Source Sans Pro'),
+        "Sans Serif"
+      ),
+      weight = 700
+    ),
+    locations = cells_footnotes()
   )
 
 gtsave(gt_tbl, "MLBs Biggest Teams.png", vwidth = 2000)

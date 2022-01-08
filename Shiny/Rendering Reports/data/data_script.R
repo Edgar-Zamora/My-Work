@@ -43,6 +43,7 @@ mlb_team_schedule <- function(team, year) {
            double_header = case_when(is.na(double_header_gm) ~ 0,
                                      TRUE ~ 1),
            date =  as.Date(mdy(paste(date, {{year}})), "%Y%m%d"),
+           year = {{year}}
     ) %>% 
     select(-c(x, x_2)) %>% 
     rename(
