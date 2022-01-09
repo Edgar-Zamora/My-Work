@@ -77,37 +77,52 @@ top_5_games <- function(data, team) {
 
 
 
-##### 
-# 
-# 
-# 
-# x <- mlb_df %>% 
-#   filter(team == "SEA",
-#          year == "2018") %>% 
-#   mutate(month = month(date)) %>% 
-#   group_by(team, year, month) %>% 
-#   mutate(monthly_c_li = mean(c_li, na.rm = T)) %>% 
-#   ungroup() %>% 
-#   select(team, year, weekday, date, attendance, month, monthly_c_li) %>% 
-#   left_join(monthxref, by = "month") %>% 
-#   mutate(month_name = factor(month_name, levels = c("March", "April", "May",
-#                                                     "June", "July", "August",
-#                                                     "September", "October")))
-# 
-# 
-# 
-# 
-# x %>% 
-#   ggplot(aes(month_name, attendance, group = month,
-#              colour = month_name)) +
-#   geom_boxplot(fill = "transparent") +
-#   geom_point(alpha = .4, size = 2) +
-#   geom_jitter(alpha = .4) +
-#   scale_y_continuous(name = "Avg. Monthly Attendance") +
-#   scale_x_discrete(name = "") +
-#   theme(
-#     panel.grid = element_blank(),
-#     panel.background = element_blank(),
-#     legend.position = "none"
-#   )
+## Monthly Attendance
+monthly_attnd <- function(data, team, year){
+  
+  data %>% 
+    filter(tm == {{team}},
+           year == {{year}}) %>% 
+    select(date, attendance, weekday) %>% 
+    mutate(month = month(date)) %>% 
+    left_join(monthxref, by = 'month') %>% 
+    group_by(month_name) %>% 
+    mutate(
+      gms_in_month = n()
+    ) %>% 
+    ungroup() %>% 
+    mutate(month_name = factor(month_name, 
+                               levels = c("March", "April", "May",
+                                          "June", "July", "August",
+                                          'September', "October")),
+           weekday = factor(weekday,
+                            levels = c("Sunday", "Monday", "Tuesday", 
+                                       "Wednesday", "Thursday", 'Friday',
+                                       "Saturday"))) %>% 
+    ggplot(aes(month_name, attendance)) +
+    geom_jitter(aes(colour = weekday), width = .33) +
+    geom_boxplot(fill = 'transparent', outlier.shape = NA) +
+    scale_y_continuous("Avg. Monthly Attendance", labels = comma,
+                       limits = c(0, 60000)) + #largest mlb stadium is 60K
+    scale_x_discrete('') +
+    scale_colour_tableau(name = "Weekday") +
+    labs(
+      title = paste0("<strong>", {{team}}, "</strong> Monthly Attendance for ", "<strong>", {{year}}, "</strong> Season")
+    ) +
+    theme(
+      panel.grid.minor = element_blank(),
+      panel.grid.major = element_line(colour = "#F5F5F5"),
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor.x = element_blank(),
+      panel.background = element_blank(),
+      axis.ticks = element_blank(),
+      axis.text = element_text(colour = 'black', size = 10),
+      axis.title.y = element_text(colour = 'black', size = 12),
+      plot.title = element_markdown(size = 16),
+      legend.position = "bottom",
+      legend.key = element_blank()
+    ) +
+    guides(color = guide_legend(nrow = 1))
+  
+}
   

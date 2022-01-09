@@ -20,8 +20,8 @@ years <- c(2010:2019, 2021)
 
 
 
-# Writing data for all teams and yeras
-source("Shiny/Rendering Reports/data/data_script.R")
+# Writing data for all teams and years
+source("data/data_script.R")
 
 
 sea <- map2_df("SEA", years, mlb_team_schedule)
@@ -31,4 +31,4 @@ nyy <- map2_df("NYY", years, mlb_team_schedule)
 sample_df <- rbind(sea, nyy)
 
 
-write_csv(sample_df, "Shiny/Rendering Reports/data/sample_df.csv")
+write_csv(sample_df, "data/sample_df.csv")

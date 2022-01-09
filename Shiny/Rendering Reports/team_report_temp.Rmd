@@ -24,6 +24,9 @@ library(ggchicklet)
 library(pagedown)
 library(gt)
 library(scales)
+library(here)
+library(ggtext)
+library(ggthemes)
 
 
 # Loading data
@@ -137,6 +140,11 @@ mlb_df %>%
 
 ```{r monthly_attnd}
 # Monthly Attend Viz
+mlb_df %>% 
+  filter(team == params$team,
+         year == params$year) %>% 
+  monthly_attnd(params$team, params$year)
+
 ```
 
 
