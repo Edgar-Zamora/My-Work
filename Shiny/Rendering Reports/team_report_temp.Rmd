@@ -1,8 +1,7 @@
 ---
-title: "`r params$year` `r params$team` Report"
 params:
   team: SEA
-  year: 2019
+  year: 2010
 output:
   pagedown::html_paged:
     css: [styles.css]
@@ -38,6 +37,21 @@ monthxref <- as_tibble(month.name) %>%
     month_name = value
   )
 
+
+# Dynamic Title Info
+## Team Logo
+team_logo <- mlbstatsR::get_mlb_teams() %>% 
+  as_tibble() %>% 
+  filter(team == params$team) %>% 
+  pluck("logo")
+
+
+off_team_name <- mlbstatsR::get_mlb_teams() %>% 
+  as_tibble() %>% 
+  filter(team == params$team) %>% 
+  pluck("name")
+
+
 # Helper Functions
 source("helper_funs.R")
 
@@ -45,6 +59,9 @@ source("helper_funs.R")
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 ```
 
+---
+title: "<img class='title-img' src='`r team_logo`' > `r params$year` `r off_team_name` Attendance Report"
+---
 
 ```{r data_import}
 # Annual Summaries
@@ -65,6 +82,8 @@ annual_facts <- mlb_df %>%
   )
 ```
 
+< div class="top-row">
+< div class="avg-rank">
 ```{r annual_facts}
 # Annual Facts Viz
 annual_facts %>% 
@@ -128,7 +147,9 @@ annual_facts %>%
   )
 
 ```
+</div>
 
+<div class="top-5">
 ```{r top_5,  out.width='500px', dpi=600}
 # Top 5 Home Games Viz
 mlb_df %>% 
@@ -136,6 +157,9 @@ mlb_df %>%
          year == params$year) %>% 
   top_5_games(params$team)
 ```
+</div>
+</div>
+
 
 
 ```{r monthly_attnd}

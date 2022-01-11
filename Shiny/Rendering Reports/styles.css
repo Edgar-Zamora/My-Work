@@ -9,8 +9,17 @@
   
   
 .title-img {
-    width: 90px;
-    height: 90px;
+    width: 75px;
+    height: 75px;
     margin-right: 50px;
     margin-left: 10px;
+}
+
+
+
+/* Report first row */
+.top-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
