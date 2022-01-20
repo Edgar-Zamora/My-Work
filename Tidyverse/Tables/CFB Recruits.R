@@ -287,15 +287,17 @@ opt_css(
   css = '.top-3-img {
   width: 50px;
   height: 50px;}
+  
+  .gt_row gt_center {
+  display: flex;
+  justify-content: flex-start;}
 
   .top-3 {
   display: flex;
   align-items: center;}
 
-
   .top-3-txt {
   margin-left: 10px;}
-
 
   .top-3-img {
   margin: 3px 0px;
