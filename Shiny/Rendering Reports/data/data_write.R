@@ -4,6 +4,7 @@ library(janitor)
 library(rvest)
 library(polite)
 library(lubridate)
+library(furrr)
 
 
 # Function Arguments
@@ -15,7 +16,7 @@ teams <- c("ATL", "PHI", "NYM", "MIA", "WSN", "TBR", "NYY", "BOS",
 
 
 ## Years (exclude COVID-19 Season)
-years <- c(2010:2019, 2021)
+years <- c(2012:2019, 2021)
 
 
 
@@ -24,11 +25,11 @@ years <- c(2010:2019, 2021)
 source("data/data_script.R")
 
 
-sea <- map2_df("SEA", years, mlb_team_schedule)
-nyy <- map2_df("NYY", years, mlb_team_schedule)
 
+# parallel processing with {furrr}
+crossed_df <- crossing(teams, years)
 
-sample_df <- rbind(sea, nyy)
+data <- future_map2_dfr(crossed_df$teams, crossed_df$years, mlb_team_schedule)
 
 
 write_csv(sample_df, "data/sample_df.csv")

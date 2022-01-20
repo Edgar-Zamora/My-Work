@@ -8,14 +8,15 @@ library(polite)
 library(lubridate)
 
 # Bowing to webpage
-session <- bow("https://www.baseball-reference.com")
+#session <- bow("https://www.baseball-reference.com")
 
 
 # Reading table
 
 mlb_team_schedule <- function(team, year) {
   
-  team_url <- paste0('https://www.baseball-reference.com/teams/', {{team}}, "/", {{year}},"-schedule-scores.shtml")
+  team_url <- paste0("https://www.baseball-reference.com/teams/", {{team}}, "/", {{year}}, "-schedule-scores.shtml")
+  
   
   team_schedule <- read_html(team_url) %>% 
     html_element("table") %>% 
@@ -33,9 +34,9 @@ mlb_team_schedule <- function(team, year) {
                                  TRUE ~ "Home"),
            extra_innings = case_when(inn != "" ~ 1,
                                      TRUE ~ 0),
-           games_back2 = case_when(str_detect(gb, "up") ~ as.numeric(str_extract(gb, "[:digit:].+")),
-                                   gb == 'Tied' ~ 0,
-                                   TRUE ~ as.numeric(gb) * -1),
+           # games_back2 = case_when(str_detect(gb, "up") ~ as.numeric(str_extract(gb, "[:digit:].+")),
+           #                         gb == 'Tied' ~ 0,
+           #                         TRUE ~ as.numeric(gb) * -1),
            run_diff = r - ra,
            team = {{team}},
            double_header_gm = str_extract(date, "(?<=\\().*(?=\\))"),
@@ -51,8 +52,6 @@ mlb_team_schedule <- function(team, year) {
       runs_against = ra,
       games_back = gb
     )
-  
-  return(team_schedule)
   
 }
 
