@@ -1,0 +1,6 @@
+---
+title: "Tables in R"
+output: github_document
+---
+
+A collection of tables using the `{gt}` package.
