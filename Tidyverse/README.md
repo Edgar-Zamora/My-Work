@@ -1,19 +1,6 @@
-My Work
-=======
 
-<center>
-🐦 <a href="https://twitter.com/Edgar_Zamora_">Twitter</a> \| 📝
-<a href="https://edgarzamora.netlify.com/">Blog</a> \| 📧
-<a href="mailto:edgarzamora2012@hotmail.com">Email</a> \| 👔
-<a href="https://www.linkedin.com/in/edgar-zamora-01896b148/">LinkedIn</a>
+# Visualizations
 
-</center>
-<br>
-
-A portfolio of my work to the
-<a href="https://github.com/rfordatascience/tidytuesday">\#TidyTuesday</a>
-project and general `{tidyverse}` work.
-
-<br>
-
-<img src="/Users/edgarzamora/Desktop/GitHub/myrepo/#TidyTuesday/images/tidytuesday.gif">
+Contained within these folders is work I have done primiarly using the
+`{ggplot2}` package. With ever visualization I attempt a new techinque,
+function or just simply have fun with it.

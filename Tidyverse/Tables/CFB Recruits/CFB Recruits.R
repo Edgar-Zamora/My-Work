@@ -277,7 +277,7 @@ sample_cfb_data %>%
   # Table descriptors
   tab_header(
     title = "Are They Staying Home?",
-    subtitle = md("<p style='line-height:150%; text-align:justify;'>The ongoing discussion among college football programs is that they need to keep as much in-state talent, especially 5 and 4 star recruits, while <br> making inroads in talent rich states to build a winning team. With the <emg>2022 National Signing Day</em> just having passed, I decided to do a state analysis <br>of college recruits to see which college programs are dominating each state.</p>")
+    subtitle = md("<p style='line-height:150%; text-align:justify;'>The ongoing discussion among college football programs is that they need to keep as much in-state talent, especially 5 and 4 star recruits, while <br> making inroads in talent rich states to build a winning team. With the <em>2022 National Signing Day</em> just having passed, I decided to do a state analysis <br>of college recruits to see which college programs are dominating each state.</p>")
   ) %>% 
   tab_footnote(
     footnote = "Showing top 3 schools unless there are ties",
