@@ -235,7 +235,7 @@ sample_cfb_data <- cfb_data %>%
   
 
 
-gt_tbl <- cfb_data %>% 
+sample_cfb_data %>% 
   # Building gt() tbl
   gt() %>% 
   
@@ -245,7 +245,7 @@ gt_tbl <- cfb_data %>%
     locations = cells_body(columns = ggplot),
     fn = function(x) {
       plots %>% 
-        #filter(state_name %in% str_to_lower(sample_cfb_data$state_name)) %>% # For twitter teaser
+        filter(state_name %in% str_to_lower(sample_cfb_data$state_name)) %>% # For twitter teaser
         pluck("plot") %>% 
         ggplot_image(height = px(175))
     }
@@ -277,10 +277,10 @@ gt_tbl <- cfb_data %>%
   # Table descriptors
   tab_header(
     title = "Are They Staying Home?",
-    subtitle = "State by state analysis of where in-state college football recruits are committing to."
+    subtitle = md("<p style='line-height:150%; text-align:justify;'>The ongoing discussion among college football programs is that they need to keep as much in-state talent, especially 5 and 4 star recruits, while <br> making inroads in talent rich states to build a winning team. With the <emg>2022 National Signing Day</em> just having passed, I decided to do a state analysis <br>of college recruits to see which college programs are dominating each state.</p>")
   ) %>% 
   tab_footnote(
-    footnote = "Showing Top 3 unless there are ties",
+    footnote = "Showing top 3 schools unless there are ties",
     locations = cells_column_labels(
       columns = top3_schls
     )
@@ -346,10 +346,6 @@ gt_tbl <- cfb_data %>%
     )
   ) %>% 
   tab_style(
-    style = "padding-top:25px;",
-    locations = cells_column_spanners()
-  ) %>% 
-  tab_style(
     style = cell_text(
       size = px(15)
     ),
@@ -371,6 +367,9 @@ gt_tbl <- cfb_data %>%
       google_font(name = "Rubik"),
       "Sans", "Serif"
     )
+  ) %>% 
+  opt_align_table_header(
+    align = "left"
   ) %>% 
   
   
