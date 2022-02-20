@@ -12,7 +12,6 @@ library(gt)
 session <- bow("https://www.nhl.com/kraken/roster", force = TRUE)
 
 
-
 # Creating function to scrape data
 kraken_scrape <- function(category) {
   
@@ -22,7 +21,6 @@ kraken_scrape <- function(category) {
     as_tibble() %>% 
     row_to_names(row_number = 1) %>% 
     clean_names()
-  
   
 }
 
@@ -60,6 +58,33 @@ plyr_data <- map_dfc(categories, kraken_scrape) %>%
               html_attr("src") %>% 
               as_tibble() %>% 
               rowid_to_column() %>% 
-              rename(player_img_src = value), by = "rowid")
+              rename(player_img_small = value), by = "rowid")
+
+
+
+
+# Building list of urls for bigger player images
+kraken_imgs <- function(url) {
+  
+  session <- bow({{url}})
+  
+  scrape(session) %>% 
+    html_element(".player-jumbotron-vitals__headshot-image") %>% 
+    html_attr("src") %>% 
+    as_tibble()
+}
+
+
+plyr_img_df <- plyr_data %>% 
+  select(rowid, player, player_img_small) %>% 
+  separate(col = player, into = c("first_name", "last_name"), sep = " ") %>% 
+  mutate(plyr_id = str_extract(str_sub(player_img_small, start = -11), ".*(?=\\.)"),
+         across(c(first_name, last_name), str_to_lower),
+         plyr_img_addr = paste0("https://www.nhl.com/player/", first_name, "-", last_name, "-", plyr_id),
+         player_img_large = map(plyr_img_addr, kraken_imgs)) %>% 
+  unnest(player_img_large) %>% 
+  rename(player_img_large = value)
+
+
 
 
