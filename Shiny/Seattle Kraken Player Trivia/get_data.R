@@ -75,6 +75,8 @@ kraken_imgs <- function(url) {
 }
 
 
+
+
 plyr_img_df <- plyr_data %>% 
   select(rowid, player, player_img_small) %>% 
   separate(col = player, into = c("first_name", "last_name"), sep = " ") %>% 
@@ -83,7 +85,9 @@ plyr_img_df <- plyr_data %>%
          plyr_img_addr = paste0("https://www.nhl.com/player/", first_name, "-", last_name, "-", plyr_id),
          player_img_large = map(plyr_img_addr, kraken_imgs)) %>% 
   unnest(player_img_large) %>% 
-  rename(player_img_large = value)
+  rename(player_img_large = value) %>% 
+  right_join(plyr_data) %>% 
+  select(-c(plyr_img_addr))
 
 
 

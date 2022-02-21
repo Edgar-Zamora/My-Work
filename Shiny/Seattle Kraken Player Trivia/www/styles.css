@@ -1,0 +1,18 @@
+.kraken-img {
+  height: 75px;
+  margin-right: 15px;
+}
+
+
+#playerImg {
+  border: 5px rgb(0, 20, 37) solid;
+  box-shadow: 3px 2px 2px rgb(150, 216, 216);
+  text-align: center;
+  border-radius: 15px;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -9,25 +9,41 @@
 
 library(shiny)
 
+
+
 # Define UI for application that draws a histogram
-shinyUI(fluidPage(
-
-    # Application title
-    titlePanel("Old Faithful Geyser Data"),
-
-    # Sidebar with a slider input for number of bins
-    sidebarLayout(
-        sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
-        ),
-
-        # Show a plot of the generated distribution
+fluidPage(
+    
+    includeCSS("www/styles.css"),
+    theme = 'www/styles.css',
+    
+    navbarPage(
+        
+        tabPanel(selectInput("choose_player", "", choices = sort(plyr_data$player))),
+        
+        
+        title = tags$div(class = 'navbar-logo',
+            tags$image(class = 'kraken-img',
+                       src = 'https://upload.wikimedia.org/wikipedia/en/thumb/4/48/Seattle_Kraken_official_logo.svg/220px-Seattle_Kraken_official_logo.svg.png',
+                       alt = 'Seattle Kraken'),
+            tags$p("Seattle Kraken"),
+            )
+        ,
+        
+        windowTitle = "Seattle Kraken Trivia",
+        
         mainPanel(
-            plotOutput("distPlot")
-        )
+            
+            uiOutput("playerImg"),
+            
+            tags$br(),
+            
+            textOutput("playerName"),
+            
+            tags$br(),
+            
+            uiOutput("playerInfo")
+            
+            )
     )
-))
+    )

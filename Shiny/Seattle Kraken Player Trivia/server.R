@@ -10,17 +10,33 @@
 library(shiny)
 
 # Define server logic required to draw a histogram
-shinyServer(function(input, output) {
-
-    output$distPlot <- renderPlot({
-
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white')
-
+shinyServer(function(input, output, session) {
+    
+    player_data <- reactive({ plyr_img_df %>% 
+            filter(player == input$choose_player)
+        
+    })
+    
+    
+    
+    # Player Display
+    output$playerImg <- renderText({
+        paste0("<img src='", player_data()$player_img_large,"'>")
+    })
+    
+    
+    output$playerName <- renderText({
+        player_data()$player
+    })
+    
+    
+    output$playerInfo <- renderText({
+        paste0("<ul>
+               <li>", player_data()$birthplace, "</li>",
+               "<li>", player_data()$born, "</li>",
+               "<li>", player_data()$pos, "</li>",
+               "<li>", player_data()$sh, "</li>",
+               "</ul>")
     })
 
 })
