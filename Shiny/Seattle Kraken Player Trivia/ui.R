@@ -11,6 +11,7 @@ library(shiny)
 
 
 
+
 # Define UI for application that draws a histogram
 fluidPage(
     
@@ -19,18 +20,17 @@ fluidPage(
     
     navbarPage(
         
-        tabPanel(selectInput("choose_player", "", choices = sort(plyr_data$player))),
-        
         
         title = tags$div(class = 'navbar-logo',
             tags$image(class = 'kraken-img',
                        src = 'https://upload.wikimedia.org/wikipedia/en/thumb/4/48/Seattle_Kraken_official_logo.svg/220px-Seattle_Kraken_official_logo.svg.png',
                        alt = 'Seattle Kraken'),
             tags$p("Seattle Kraken"),
-            )
-        ,
+            ),
         
         windowTitle = "Seattle Kraken Trivia",
+        
+        tabPanel(selectInput("choose_player", "", choices = sort(plyr_data$player))),
         
         mainPanel(
             

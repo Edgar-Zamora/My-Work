@@ -31,12 +31,17 @@ shinyServer(function(input, output, session) {
     
     
     output$playerInfo <- renderText({
-        paste0("<ul>
-               <li>", player_data()$birthplace, "</li>",
-               "<li>", player_data()$born, "</li>",
-               "<li>", player_data()$pos, "</li>",
-               "<li>", player_data()$sh, "</li>",
-               "</ul>")
+        paste0(
+        "<ul>
+        <li><strong>Birthplace: </strong>", player_data()$birthplace, "</li>
+        <li><strong>Weight: </strong>", player_data()$wt, " lbs</li>
+        <li><strong>Height: </strong>", player_data()$ht, "</li>
+        </ul>
+        <ul>
+        <li><strong>Position: </strong>", player_data()$pos, "</li>
+        <li><strong>Player Number: </strong>", player_data()$number, "</li>
+        <li><strong>Age: <strong>", player_data()$age, "</li>
+        </ul>")
     })
 
 })
