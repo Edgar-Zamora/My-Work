@@ -6,6 +6,16 @@ library(tidyverse)
 library(httr)
 library(lubridate)
 library(gt)
+library(furrr)
+
+
+# Position Reference Tbl
+pos_xref <- tibble(
+  pos = c("D", "C", "LW", "RW", "G"),
+  pos_name = c("Defenseman", "Center", "Left Wing", "Right Wing",
+               "Goalie")
+)
+
 
 
 # Bow to session
@@ -87,8 +97,35 @@ plyr_img_df <- plyr_data %>%
   unnest(player_img_large) %>% 
   rename(player_img_large = value) %>% 
   right_join(plyr_data) %>% 
-  select(-c(plyr_img_addr))
+  select(-c(plyr_img_addr)) %>% 
+  left_join(pos_xref, by = "pos")
+  
 
 
 
+#### get_season_stats
+# Bow to session
+#https://www.nhl.com/player/mark-giordano-8470966
+
+player_urls <- plyr_img_df %>% 
+  transmute(player_url = paste0("https://www.nhl.com/player/", first_name, "-", last_name, "-", plyr_id),
+            player_name = player)
+
+
+kraken_stats <- function(player_name, player_url) {
+  
+  session <- bow({{player_url}})
+  
+  scrape(session) %>%
+    html_table() %>% 
+    pluck(., 3) %>% 
+    mutate(player_name = {{player_name}})
+  
+}
+
+player_url <- pluck(player_urls$player_url)
+player_names <- pluck(player_urls$player_name)
+
+
+furrr::future_map2(player_names, player_url, kraken_stats)
 

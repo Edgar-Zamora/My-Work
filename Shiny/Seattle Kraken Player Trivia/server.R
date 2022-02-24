@@ -38,9 +38,9 @@ shinyServer(function(input, output, session) {
         <li><strong>Height: </strong>", player_data()$ht, "</li>
         </ul>
         <ul>
-        <li><strong>Position: </strong>", player_data()$pos, "</li>
+        <li><strong>Position: </strong>", player_data()$pos_name, "</li>
         <li><strong>Player Number: </strong>", player_data()$number, "</li>
-        <li><strong>Age: <strong>", player_data()$age, "</li>
+        <li><strong>Age: </strong>", player_data()$age, "</li>
         </ul>")
     })
 
