@@ -28,7 +28,7 @@ fluidPage(
         
         windowTitle = "Seattle Kraken Trivia",
         
-        tabPanel(selectInput("choose_player", "", choices = sort(plyr_data$player))),
+        tabPanel(selectInput("choose_player", "", choices = sort(complete_player_df$player))),
         
         mainPanel(
             
@@ -40,7 +40,11 @@ fluidPage(
             
             tags$br(),
             
-            uiOutput("playerInfo")
+            uiOutput("playerInfo"),
+            
+            tags$br(),
+            
+            gt_output(outputId = "stat_tbl")
             
             )
     )

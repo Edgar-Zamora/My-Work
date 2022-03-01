@@ -8,8 +8,11 @@ library(lubridate)
 library(gt)
 library(furrr)
 
+# Source functions
+source("funs/helper_funs.R")
 
-# Position Reference Tbl
+
+# Position reference table
 pos_xref <- tibble(
   pos = c("D", "C", "LW", "RW", "G"),
   pos_name = c("Defenseman", "Center", "Left Wing", "Right Wing",
@@ -17,23 +20,12 @@ pos_xref <- tibble(
 )
 
 
-
 # Bow to session
 session <- bow("https://www.nhl.com/kraken/roster", force = TRUE)
 
 
-# Creating function to scrape data
-kraken_scrape <- function(category) {
-  
-  scrape(session) %>% 
-    html_elements({{category}}) %>% 
-    html_text() %>% 
-    as_tibble() %>% 
-    row_to_names(row_number = 1) %>% 
-    clean_names()
-  
-}
 
+# Scraping Kraken team roster
 # Hometown: .hometown-col
 # Birthplace: .birthdate-col
 # Weight: .weight-col
@@ -49,8 +41,8 @@ categories <- c(".hometown-col", ".birthdate-col", ".weight-col", ".height-col",
                 ".shoots-col", ".position-col", ".number-col", ".name-col")
 
 
-# Building table with Kraken player info
-plyr_data <- map_dfc(categories, kraken_scrape) %>% 
+# Iterating through each element on the page and then building a data frame.
+player_df <- map_dfc(categories, kraken_scrape) %>% 
   mutate(across(player, ~str_remove_all(str_squish(.), "^[A-Z].?\\s")),
          ht = str_sub(ht, start = 1, end = 3),
          born = as.Date(str_sub(born, start = 1, end = 8), "%m/%d/%y"),
@@ -63,6 +55,9 @@ plyr_data <- map_dfc(categories, kraken_scrape) %>%
   ) %>% 
   filter(across(born, ~!is.na(.))) %>% 
   rowid_to_column() %>% 
+  
+  # Adding player image outside of function because of the need to get the attribute 
+  # which is the image url
   left_join(scrape(session) %>% 
               html_elements(".player-photo") %>% 
               html_attr("src") %>% 
@@ -73,30 +68,17 @@ plyr_data <- map_dfc(categories, kraken_scrape) %>%
 
 
 
-# Building list of urls for bigger player images
-kraken_imgs <- function(url) {
-  
-  session <- bow({{url}})
-  
-  scrape(session) %>% 
-    html_element(".player-jumbotron-vitals__headshot-image") %>% 
-    html_attr("src") %>% 
-    as_tibble()
-}
-
-
-
-
-plyr_img_df <- plyr_data %>% 
+# Getting larger player images and combining with above df
+complete_player_df <- player_df %>% 
   select(rowid, player, player_img_small) %>% 
   separate(col = player, into = c("first_name", "last_name"), sep = " ") %>% 
   mutate(plyr_id = str_extract(str_sub(player_img_small, start = -11), ".*(?=\\.)"),
          across(c(first_name, last_name), str_to_lower),
          plyr_img_addr = paste0("https://www.nhl.com/player/", first_name, "-", last_name, "-", plyr_id),
-         player_img_large = map(plyr_img_addr, kraken_imgs)) %>% 
+         player_img_large = future_map(plyr_img_addr, kraken_imgs)) %>% 
   unnest(player_img_large) %>% 
   rename(player_img_large = value) %>% 
-  right_join(plyr_data) %>% 
+  right_join(player_df) %>% 
   select(-c(plyr_img_addr)) %>% 
   left_join(pos_xref, by = "pos")
   
@@ -106,26 +88,23 @@ plyr_img_df <- plyr_data %>%
 #### get_season_stats
 # Bow to session
 #https://www.nhl.com/player/mark-giordano-8470966
-
-player_urls <- plyr_img_df %>% 
+# Making each players specific url to be able to get their season and career stats
+player_urls <- complete_player_df %>% 
   transmute(player_url = paste0("https://www.nhl.com/player/", first_name, "-", last_name, "-", plyr_id),
             player_name = player)
 
 
-kraken_stats <- function(player_name, player_url) {
-  
-  session <- bow({{player_url}})
-  
-  scrape(session) %>%
-    html_table() %>% 
-    pluck(., 3) %>% 
-    mutate(player_name = {{player_name}})
-  
-}
 
 player_url <- pluck(player_urls$player_url)
 player_names <- pluck(player_urls$player_name)
 
 
-furrr::future_map2(player_names, player_url, kraken_stats)
+
+kraken_player_stats <- furrr::future_map2(player_names, player_url, kraken_stats) %>% 
+  set_names(player_names)
+
+
+kraken_player_stats$`Mason Appleton` %>% 
+  kraken_tbl()
+
 
