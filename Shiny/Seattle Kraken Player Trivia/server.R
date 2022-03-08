@@ -19,7 +19,7 @@ shinyServer(function(input, output, session) {
     
     
     player_stats <- reactive({
-        kraken_player_stats$`Colin Blackwell`
+        pluck(kraken_player_stats, input$choose_player)
     })
     
     
@@ -53,32 +53,8 @@ shinyServer(function(input, output, session) {
     
     
     gt_tbl <- reactive(player_stats() %>% 
-                           gt() %>% 
-                           cols_hide(
-                               columns = player_name
-                           ) %>% 
-                           cols_width(
-                               Season ~ px(125)
-                           ) %>% 
-                           cols_align(
-                               columns = 2:13,
-                               align = 'center'
-                           ) %>% 
-                           tab_style(
-                               style = list(
-                                   cell_fill(color = '#F0F3F5'),
-                                   cell_text(weight = 500),
-                                   cell_borders(sides = "top", weight = px(3))
-                               ),
-                               locations = cells_body(
-                                   rows = Season == 'NHL Career'
-                               )
-                           ) %>% 
-                           tab_options(
-                               table_body.border.bottom.color = "white",
-                               table_body.border.top.color = "white",
-                               column_labels.border.top.color = "white"
-                           ))
+                           kraken_tbl()
+                       )
     
     
     output$stat_tbl <- render_gt(
@@ -86,3 +62,5 @@ shinyServer(function(input, output, session) {
     )
 
 })
+
+

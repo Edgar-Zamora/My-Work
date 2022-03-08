@@ -9,7 +9,7 @@
   box-shadow: 3px 2px 2px rgb(150, 216, 216);
   text-align: center;
   border-radius: 15px;
-  margin: 15px 0px;
+  margin: 15px 0;
 }
 
 .navbar-logo {
@@ -21,4 +21,10 @@
 
 ul {
   display: inline-block;
+}
+
+
+
+.gt_table {
+  border: dashed red;
 }
