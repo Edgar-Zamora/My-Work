@@ -69,6 +69,7 @@ player_df <- map_dfc(categories, kraken_scrape) %>%
 
 
 # Getting larger player images and combining with above df
+# Running this will take some time
 complete_player_df <- player_df %>% 
   select(rowid, player, player_img_small) %>% 
   separate(col = player, into = c("first_name", "last_name"), sep = " ") %>% 
@@ -83,6 +84,8 @@ complete_player_df <- player_df %>%
   left_join(pos_xref, by = "pos")
   
 
+# Writing player information to data folder
+#write_csv(complete_player_df, "data/seattle_kraken.csv")
 
 
 #### get_season_stats
@@ -104,7 +107,8 @@ kraken_player_stats <- furrr::future_map2(player_names, player_url, kraken_stats
   set_names(player_names)
 
 
-kraken_player_stats$`Mason Appleton` %>% 
-  kraken_tbl()
+# Writing player stats to data folder
+write_rds(kraken_player_stats, path = "data/kraken_player_stats.rds")
+
 
 

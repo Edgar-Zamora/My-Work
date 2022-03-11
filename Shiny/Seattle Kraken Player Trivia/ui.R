@@ -9,6 +9,8 @@
 
 library(shiny)
 
+seattle_kraken <- read_csv('data/seattle_kraken.csv')
+
 
 # Define UI for application that draws a histogram
 fluidPage(
@@ -28,7 +30,7 @@ fluidPage(
         
         windowTitle = "Seattle Kraken Trivia",
         
-        tabPanel(selectInput("choose_player", "", choices = sort(complete_player_df$player))),
+        tabPanel(selectInput("choose_player", "", choices = sort(seattle_kraken$player))),
         
         mainPanel(
             

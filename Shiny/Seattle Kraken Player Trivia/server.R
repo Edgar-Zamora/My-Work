@@ -8,18 +8,23 @@
 #
 
 library(shiny)
+source("funs/helper_funs.R")
+
+seattle_kraken <- read_csv('data/seattle_kraken.csv')
+seattle_kraken_stats <- read_rds("data/kraken_player_stats.rds")
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
     
-    player_data <- reactive({ complete_player_df %>% 
+    # Reactive Data
+    player_data <- reactive({ seattle_kraken %>% 
             filter(player == input$choose_player)
         
     })
     
     
     player_stats <- reactive({
-        pluck(kraken_player_stats, input$choose_player)
+        pluck(seattle_kraken_stats, input$choose_player)
     })
     
     
