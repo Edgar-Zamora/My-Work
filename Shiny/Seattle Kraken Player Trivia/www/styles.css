@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap');
+
 .kraken-img {
   height: 75px;
   margin-right: 20px;
@@ -10,6 +12,13 @@
   text-align: center;
   border-radius: 15px;
   margin: 15px 0;
+}
+
+
+#playerName {
+  font-family: 'Mulish', sans-serif;
+  font-size: 30px;
+  font-weight: 600px;
 }
 
 .navbar-logo {

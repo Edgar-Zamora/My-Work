@@ -34,7 +34,7 @@ fluidPage(
         
         mainPanel(
             
-            uiOutput("playerImg"),
+            imageOutput("playerImg"),
             
             tags$br(),
             

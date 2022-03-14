@@ -30,9 +30,15 @@ shinyServer(function(input, output, session) {
     
     
     # Player Display
-    output$playerImg <- renderText({
-        paste0("<img src='", player_data()$player_img_large,"'>")
-    })
+    output$playerImg <- renderImage({
+        
+        filename <- list.files("img") %>% 
+            str_subset(input$choose_player) %>% 
+            paste0("img/", .)
+        
+        list(src = filename)
+        
+    }, deleteFile = FALSE)
     
     
     output$playerName <- renderText({
