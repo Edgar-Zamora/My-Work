@@ -8,6 +8,8 @@
 #
 
 library(shiny)
+library(tidyverse)
+library(gt)
 
 seattle_kraken <- read_csv('data/seattle_kraken.csv')
 
@@ -34,7 +36,7 @@ fluidPage(
         
         mainPanel(
             
-            uiOutput("playerImg"),
+            imageOutput("playerImg"),
             
             tags$br(),
             
