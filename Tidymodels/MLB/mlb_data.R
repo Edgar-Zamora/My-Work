@@ -16,7 +16,7 @@ library(mlbstatsR)
 
 schedule_clean <- function(data) {
   
-  {{data}} %>% 
+  data %>% 
     separate(w_l, c("wins", "losses"), sep = "-") %>% 
     mutate(home_away = case_when(str_detect(opponent, "[@]") ~ "Away",
                                  TRUE ~ "Home"),

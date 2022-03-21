@@ -8,6 +8,9 @@
 #
 
 library(shiny)
+library(tidyverse)
+library(readr)
+library(gt)
 source("funs/helper_funs.R")
 
 seattle_kraken <- read_csv('data/seattle_kraken.csv')
