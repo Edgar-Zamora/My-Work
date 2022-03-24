@@ -111,4 +111,3 @@ kraken_player_stats <- furrr::future_map2(player_names, player_url, kraken_stats
 write_rds(kraken_player_stats, path = "data/kraken_player_stats.rds")
 
 
-

@@ -9,13 +9,10 @@
 
 library(shiny)
 library(tidyverse)
-<<<<<<< HEAD
 library(readr)
 library(gt)
-=======
 library(gt)
 
->>>>>>> 765c876351644995a6f001f5e537cf8654dbeaaa
 source("funs/helper_funs.R")
 
 seattle_kraken <- read_csv('data/seattle_kraken.csv')

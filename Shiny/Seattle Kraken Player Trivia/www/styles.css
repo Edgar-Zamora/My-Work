@@ -1,46 +1,46 @@
-@import url('https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@700&display=swap');
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: none;
+  overflow-x: none;
+  margin-left: 0;
+}
+
+
+#navBarContainer {
+  width: 100%;
+}
+
+
+#navFlexContainer {
+ display: flex;
+ flex-direction: row;
+ width: 100%;
+ align-items: center;
+ background: linear-gradient(180deg, #68a2b9, #558fad, #447ca1, #366994, #2d5785, #274476, #243266, #231f54);
+ border-bottom:black solid 10px;
+}
+
+
+.container-fluid {
+  width: 100%;
+  padding: 0;
+}
 
 .kraken-img {
-  height: 75px;
-  margin-right: 20px;
-}
-
-/* Navbar */
-p {
-  font-family: 'Arima Madurai', cursive;
-  color: #001628;
+  width: 50px;
+  height: 50px;
 }
 
 
-/* Content */
-#playerImg {
-  border: 5px rgb(0, 20, 37) solid;
-  box-shadow: 3px 2px 2px rgb(150, 216, 216);
-  text-align: center;
-  border-radius: 15px;
-  margin: 15px 0;
+/* */
+#pTagNav {
+  margin-left: 10px;
+  color: white;
+  font-size: 20px;
+  padding-top: 10px;
 }
 
-
-#playerName {
-  font-family: 'Arima Madurai', cursive;
-  font-size: 30px;
-  font-weight: 600px;
-}
-
-.navbar-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-ul {
-  display: inline-block;
-}
-
-
-
-.gt_table {
-  border: dashed red;
+#navDropdown {
+  margin-left: 20px;
 }

@@ -15,41 +15,67 @@ seattle_kraken <- read_csv('data/seattle_kraken.csv')
 
 
 # Define UI for application that draws a histogram
+# fluidPage(
+# 
+#     includeCSS("www/styles.css"),
+#     theme = 'www/styles.css',
+# 
+#     navbarPage(
+# 
+#         # tags$div(class = "navbar-content",
+#         #
+#         #
+#         #          )
+# 
+#         title = tags$image(class = 'kraken-img',
+#                        src = 'https://upload.wikimedia.org/wikipedia/en/thumb/4/48/Seattle_Kraken_official_logo.svg/220px-Seattle_Kraken_official_logo.svg.png',
+#                        alt = 'Seattle Kraken'),
+#             tags$p("Seattle Kraken"),
+# 
+#         windowTitle = "Seattle Kraken Trivia",
+# 
+#         tabPanel(selectInput("choose_player", "", choices = sort(seattle_kraken$player)))),
+# 
+#     mainPanel(
+# 
+# 
+#             imageOutput("playerImg"),
+# 
+#             tags$br(),
+# 
+#             textOutput("playerName"),
+# 
+#             tags$br(),
+# 
+#             uiOutput("playerInfo"),
+# 
+#             tags$br(),
+# 
+#             gt_output(outputId = "stat_tbl")
+# 
+#             )
+#     )
+
+
 fluidPage(
     
     includeCSS("www/styles.css"),
     theme = 'www/styles.css',
     
-    navbarPage(
+    tags$body(
         
-        
-        title = tags$div(class = 'navbar-logo',
-            tags$image(class = 'kraken-img',
-                       src = 'https://upload.wikimedia.org/wikipedia/en/thumb/4/48/Seattle_Kraken_official_logo.svg/220px-Seattle_Kraken_official_logo.svg.png',
-                       alt = 'Seattle Kraken'),
-            tags$p("Seattle Kraken"),
-            ),
-        
-        windowTitle = "Seattle Kraken Trivia",
-        
-        tabPanel(selectInput("choose_player", "", choices = sort(seattle_kraken$player))),
-        
-        mainPanel(
-            
-            imageOutput("playerImg"),
-            
-            tags$br(),
-            
-            textOutput("playerName"),
-            
-            tags$br(),
-            
-            uiOutput("playerInfo"),
-            
-            tags$br(),
-            
-            gt_output(outputId = "stat_tbl")
-            
-            )
+        tags$div(id="navbarContainer",
+                 tags$div(id="navFlexContainer",
+                 tags$img(class = 'kraken-img',
+                          src = 'https://upload.wikimedia.org/wikipedia/en/thumb/4/48/Seattle_Kraken_official_logo.svg/220px-Seattle_Kraken_official_logo.svg.png',
+                          alt = 'Seattle Kraken'),
+                 tags$p(id="pTagNav", 
+                        "Seattle Kraken"),
+                 tags$div(id="navDropdown", selectInput("choose_player", "", choices = sort(seattle_kraken$player)))
+                 
+                 )
+  
     )
-    )
+)
+)
+
