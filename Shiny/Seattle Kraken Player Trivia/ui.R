@@ -72,10 +72,20 @@ fluidPage(
                  tags$p(id="pTagNav", 
                         "Seattle Kraken"),
                  tags$div(id="navDropdown", selectInput("choose_player", "", choices = sort(seattle_kraken$player)))
-                 
                  )
-  
+                 ),
+        
+        tags$div(id = 'mainContent',
+                 tags$div(class = 'mainContent-playerImg',
+                          imageOutput("playerImg")),
+                 
+                 tags$div(class = 'mainContent-playerInfo',
+                          uiOutput('playerInfo')),
+                 
+                 tags$div(class = 'mainContent-playStats',
+                          gt_output(outputId = "stat_tbl"))
+                 )
+        
+        )
     )
-)
-)
 

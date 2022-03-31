@@ -1,4 +1,4 @@
-# Load Pkgs
+# Load Packages
 library(janitor)
 library(rvest)
 library(polite)
@@ -85,7 +85,7 @@ complete_player_df <- player_df %>%
   
 
 # Writing player information to data folder
-#write_csv(complete_player_df, "data/seattle_kraken.csv")
+write_csv(complete_player_df, "data/seattle_kraken.csv")
 
 
 #### get_season_stats
