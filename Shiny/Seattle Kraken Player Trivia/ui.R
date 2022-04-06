@@ -77,7 +77,8 @@ fluidPage(
         
         tags$div(id = 'mainContent',
                  tags$div(class = 'mainContent-playerImg',
-                          imageOutput("playerImg")),
+                          imageOutput("playerImg"),
+                          tags$h3(textOutput('playerName'))),
                  
                  tags$div(class = 'mainContent-playerInfo',
                           uiOutput('playerInfo')),

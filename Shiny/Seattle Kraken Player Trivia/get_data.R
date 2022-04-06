@@ -47,12 +47,20 @@ player_df <- map_dfc(categories, kraken_scrape) %>%
          ht = str_sub(ht, start = 1, end = 3),
          born = as.Date(str_sub(born, start = 1, end = 8), "%m/%d/%y"),
          age = year(Sys.Date()) - year(born),
+         myd_date = format(born, format = '%B %d, %Y'),
          team_role = str_remove_all(str_trim(str_extract(player, ".?[\\(].[\\)].?")), "[:punct:]"),
          team_role = case_when(team_role == "C" ~ "Captain",
                                team_role == "A" ~ "Alternate Captain",
                                TRUE ~ "None"),
-         player = str_remove(player, ".?[\\(].[\\)].?")
-  ) %>% 
+         sh = case_when(sh == 'L' ~ "Left",
+                        sh == 'R' ~ "Right",
+                        TRUE ~ sh),
+         player = str_remove(player, ".?[\\(].[\\)].?"),
+         alpha_3_code = str_sub(birthplace, start = -3)) %>% 
+  left_join(read_csv("data/alpha3_country_cds.csv") %>% 
+              clean_names() %>% 
+              select(country, alpha_3_code), by = "alpha_3_code") %>% 
+  mutate(full_birthplace = str_replace(birthplace, str_sub(birthplace, start = -3), country)) %>% 
   filter(across(born, ~!is.na(.))) %>% 
   rowid_to_column() %>% 
   

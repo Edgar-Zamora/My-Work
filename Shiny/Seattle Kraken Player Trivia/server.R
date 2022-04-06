@@ -45,21 +45,21 @@ shinyServer(function(input, output, session) {
 
     }, deleteFile = FALSE)
 
-    # 
-    # output$playerName <- renderText({
-    #     player_data()$player
-    # })
-    # 
-    # 
+
+    output$playerName <- renderText({
+        paste0(player_data()$player, " | #", player_data()$number)
+    })
+
+
     output$playerInfo <- renderText({
         paste0(
         "<ul>
-        <li><strong>Birthplace: </strong>", player_data()$birthplace, "</li>
+        <li><strong>Birthplace: </strong>", player_data()$full_birthplace, "</li>
+        <li><strong>Born (Age): </strong>", player_data()$myd_date, " (",player_data()$age, ")</li>
         <li><strong>Weight: </strong>", player_data()$wt, " lbs</li>
         <li><strong>Height: </strong>", player_data()$ht, "</li>
         <li><strong>Position: </strong>", player_data()$pos_name, "</li>
-        <li><strong>Player Number: </strong>", player_data()$number, "</li>
-        <li><strong>Age: </strong>", player_data()$age, "</li>
+        <li><strong>Shoots: </strong>", player_data()$sh, "</li>
         </ul>")
     })
 

@@ -55,24 +55,59 @@ kraken_tbl <- function(data) {
       Season ~ px(125)
     ) %>% 
     cols_align(
-      columns = 2:13,
       align = 'center'
+    ) %>%
+    # cols_align(
+    #   align = 'left',
+    #   columns = 1
+    # ) %>% 
+    
+    # Styling the gt table to match what is on the Kraken website
+    tab_style(
+      style = list(
+        cell_fill(color = "#000000"),
+        cell_text(color = '#FFFFFF')
+      ),
+      locations = cells_column_labels(
+        columns = everything()
+      )
     ) %>% 
     tab_style(
       style = list(
-        cell_fill(color = '#F0F3F5'),
-        cell_text(weight = 500),
-        cell_borders(sides = "top", weight = px(3))
+        cell_fill(color = "#DFDFDF"),
+        cell_text(color = "#283A49", weight = "normal")
       ),
+      locations = cells_body(
+        columns = Season
+      )
+    ) %>% 
+    tab_style(
+      style = list(
+        cell_fill(color = "#ECECEC"),
+        cell_text(color = "#111111",
+                  font = google_font(name = 'Lato'), 'monospace',
+                  weight = 'normal')
+      ),
+      locations = cells_body(
+        columns = -1
+      )
+    ) %>% 
+    tab_style(
+      style = cell_borders(sides = "top", 
+                           color = "#DEDEDE", 
+                           weight = px(2)),
       locations = cells_body(
         rows = Season == 'NHL Career'
       )
     ) %>% 
-    tab_options(
-      table_body.border.bottom.color = "white",
-      table_body.border.top.color = "white",
-      column_labels.border.top.color = "white"
-    )
+  
+  # Adding general table styles
+  tab_options(
+    table_body.border.bottom.color = "white",
+    table_body.border.top.color = "white",
+    column_labels.border.top.color = "white",
+    container.width = '100%'
+  )
   
   
 }
