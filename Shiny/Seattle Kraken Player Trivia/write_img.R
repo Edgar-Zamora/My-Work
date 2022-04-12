@@ -6,6 +6,8 @@ library(furrr)
 library(magick)
 
 
+
+
 # Reading Seattle Kraken data
 read_csv("data/seattle_kraken.csv") %>% 
   select(player, player_img_large) %>% 

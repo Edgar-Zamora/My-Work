@@ -100,3 +100,22 @@ ul {
   font-weight: bold;
   font-family: 'Oswald', sans-serif;
 }
+
+#playerImg {
+  text-align: center;
+  padding: 70px 0;
+}
+
+#playerInfo{
+  padding: 70px 0;
+}
+
+
+/* Table settings */
+#stat_tbl {
+  width: 100%;
+}
+
+.gt_table {
+  width: 100%;
+}

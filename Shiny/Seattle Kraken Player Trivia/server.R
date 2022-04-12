@@ -11,7 +11,6 @@ library(shiny)
 library(tidyverse)
 library(readr)
 library(gt)
-library(gt)
 
 source("funs/helper_funs.R")
 
@@ -29,7 +28,10 @@ shinyServer(function(input, output, session) {
 
 
     player_stats <- reactive({
-        pluck(seattle_kraken_stats, input$choose_player)
+      
+      pluck(seattle_kraken_stats, input$choose_player, 'result')
+      
+      
     })
 
 
@@ -66,9 +68,14 @@ shinyServer(function(input, output, session) {
 
 
 
-    gt_tbl <- reactive(player_stats() %>%
-                           kraken_tbl()
-                       )
+    # gt() table output
+    gt_tbl <- reactive({
+      
+      
+      player_stats() %>% 
+        kraken_tbl()
+      
+      })
 
 
     output$stat_tbl <- render_gt(

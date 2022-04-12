@@ -61,7 +61,7 @@ player_df <- map_dfc(categories, kraken_scrape) %>%
               clean_names() %>% 
               select(country, alpha_3_code), by = "alpha_3_code") %>% 
   mutate(full_birthplace = str_replace(birthplace, str_sub(birthplace, start = -3), country)) %>% 
-  filter(across(born, ~!is.na(.))) %>% 
+  filter(if_any(born, ~!is.na(.))) %>% 
   rowid_to_column() %>% 
   
   # Adding player image outside of function because of the need to get the attribute 
@@ -111,11 +111,11 @@ player_names <- pluck(player_urls$player_name)
 
 
 
-kraken_player_stats <- furrr::future_map2(player_names, player_url, kraken_stats) %>% 
+kraken_player_stats <- furrr::future_map2(player_names, player_url, safely(kraken_stats)) %>% 
   set_names(player_names)
 
 
 # Writing player stats to data folder
-write_rds(kraken_player_stats, path = "data/kraken_player_stats.rds")
+write_rds(kraken_player_stats, file = "data/kraken_player_stats.rds")
 
 

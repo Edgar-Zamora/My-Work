@@ -48,9 +48,6 @@ kraken_tbl <- function(data) {
   
   data %>% 
     gt() %>% 
-    cols_hide(
-      columns = player_name
-    ) %>% 
     cols_width(
       Season ~ px(125)
     ) %>% 
@@ -102,12 +99,26 @@ kraken_tbl <- function(data) {
     ) %>% 
   
   # Adding general table styles
-  tab_options(
-    table_body.border.bottom.color = "white",
-    table_body.border.top.color = "white",
-    column_labels.border.top.color = "white",
-    container.width = '100%'
-  )
+    tab_options(
+      table_body.border.bottom.color = "white",
+      table_body.border.top.color = "white",
+      column_labels.border.top.color = "white",
+      container.width = '100%'
+    ) %>%
+    
+  # Adding css to table
+    
+    opt_css(
+      css = "
+      #cxpxghuanw .gt_table {
+        width: 100%
+      }
+      "
+    )
+    
+    
+    
+    
   
   
 }
