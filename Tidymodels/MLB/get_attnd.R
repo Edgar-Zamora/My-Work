@@ -33,9 +33,7 @@ mlbscrapR <- function(team, year) {
                                  TRUE ~ "home"),
            mlb_season = year,
            across(attendance, parse_number),
-           across(weekday, ~str_remove_all(., "[:punct:]")),
-           month = match(month, month.abb),
-           date = ymd(paste0(year, "0", month, day)),
+,
            mlb_team = team) %>%
     select(-c(x, x_2)) %>%
     rename(
@@ -62,4 +60,5 @@ year_team <- crossing(years, mlb_teams)
 x <- furrr::future_map2_dfr(year_team$mlb_teams, year_team$years, mlbscrapR)
 
 
+mlbscrapR("SEA", 2021)
 

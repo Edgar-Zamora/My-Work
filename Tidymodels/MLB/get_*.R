@@ -1,4 +1,31 @@
-mlbscrapR("SEA", '2021')
+# Loading packages
+library(polite)
+library(rvest)
+library(httr)
+library(janitor)
+library(tidyverse)
+library(lubridate)
+library(glue)
+library(gt)
+library(scales)
+library(mlbstatsR)
+library(furrr)
+
+set.seed(1234)
+
+# Creating crosses
+
+years <- c(2010:2021)
+mlb_teams <- c("SEA") #"ARI", "ATL", "BAL", "BOS", "CHC", "CHW", "CIN",
+               #"CLE", "COL", "DET", "HOU", "KCR", "LAA", "LAD",
+               #"MIN", "MIA", "MIL", "NYM", "NYY", "OAK", "PHI",
+               #"PIT", "SDP", "SFG", "SEA", "STL", "TBR", "TEX",
+               #"TOR", "WSN")
+
+year_team <- crossing(years, mlb_teams)
+
+
+
 
 # Database name: MLB Stats
 
@@ -7,8 +34,8 @@ mlbscrapR("SEA", '2021')
 get_outcome <- function(team, year) {
   
   url <- paste0("https://www.baseball-reference.com/teams/", team, "/", year, "-schedule-scores.shtml")
-  
   session <- bow(url)
+
   
   scrape(session) %>% 
     html_element("table") %>% 
@@ -25,7 +52,9 @@ get_outcome <- function(team, year) {
       inn = case_when(inn == "" ~ 0,
                       TRUE ~ as.numeric(inn)),
       extra_innings = case_when(inn >= 9 ~ 1,
-                                TRUE ~ 0)) %>% 
+                                TRUE ~ 0),
+      team = team,
+      year = year) %>% 
     rename(
       win_lose = w_l
     )
@@ -33,7 +62,7 @@ get_outcome <- function(team, year) {
 }
 
 
-get_outcome("SEA", 2021)
+sea_outcomes <- map2_dfr(year_team$mlb_teams, year_team$years, get_outcome)
 
 
 
@@ -56,3 +85,50 @@ get_team_names <- function() {
 }
 
 get_team_names()
+
+
+
+# Table: GAME_DATA
+# This table contains information regarding game data that does not pertain to the outcome. Things
+# such as weekday (month, day), time, day or night etc.
+
+
+get_game_data <- function(team, year) {
+  
+  url <- paste0("https://www.baseball-reference.com/teams/", team, "/", year, "-schedule-scores.shtml")
+  session <- bow(url)
+  
+  
+  scrape(session) %>% 
+    html_element("table") %>% 
+    html_table() %>%  
+    clean_names() %>% 
+    filter(tm != "Tm") %>% 
+    separate(col = date, into = c('weekday', "month", "day"), sep = "\\s") %>% 
+    mutate(across(weekday, ~str_remove_all(., "[:punct:]")),
+           month = match(month, month.abb),
+           date = ymd(paste0(year, "0", month, day)),
+           weekend = case_when(weekday %in% c("Saturday, Sunday") & (weekday == "Friday" & time > "5:00") ~ 1,
+                               TRUE ~ 0),
+           attendance = as.numeric(str_remove_all(attendance, "[:punct:]")),
+           year = year,
+           team = team) %>% 
+    select(gm_number, year, team, date, month, day, weekday, time, d_n, weekend, attendance) %>% 
+    rename(
+      day_night  = d_n,
+      start_time = time
+    )
+    
+}
+
+
+get_game_data("SEA", 2019)
+
+
+# Table: PITCHER_DATA
+
+
+
+
+# TABLE: STANDINGS
+
