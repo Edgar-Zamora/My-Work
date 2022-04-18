@@ -9,18 +9,15 @@ library(glue)
 library(gt)
 library(scales)
 library(mlbstatsR)
+library(furrr)
+
+set.seed(1234)
 
 
 # Getting mlb attendance data
-# https://www.baseball-reference.com/teams/SEA/2021-schedule-scores.shtml
-# https://www.baseball-reference.com/teams/SEA/2020-schedule-scores.shtml
-#'https://www.baseball-reference.com/teams/',{{team}}, '/' ,{{year}}, '-schedule-scores.shtml'
-
-
-# #div_team_schedule
-
 
 mlbscrapR <- function(team, year) {
+  
   
   url <- paste0("https://www.baseball-reference.com/teams/", team, "/", year, "-schedule-scores.shtml")
   
@@ -34,13 +31,6 @@ mlbscrapR <- function(team, year) {
     separate(col = date, into = c('weekday', "month", "day"), sep = "\\s") %>%
     mutate(away_home = case_when(x_2 == "@" ~ "away",
                                  TRUE ~ "home"),
-           walkoff = case_when(str_detect(w_l, "wo") ~ 1,
-                               TRUE ~ 0),
-           forfeit = case_when(str_detect(w_l, "&V") ~ 1,
-                               TRUE ~ 0),
-           w_l = str_remove_all(w_l, "-wo|&V"),
-           extra_innings = case_when(inn == "" ~ 1,
-                                     TRUE ~ 0),
            mlb_season = year,
            across(attendance, parse_number),
            across(weekday, ~str_remove_all(., "[:punct:]")),
@@ -54,6 +44,9 @@ mlbscrapR <- function(team, year) {
       win_lose_record = w_l_2,
       day_night = d_n
     )
+  
+  
+
 }
 
 
@@ -64,8 +57,9 @@ mlb_teams <- c("ARI", "ATL", "BAL", "BOS", "CHC", "CHW", "CIN",
                "PIT", "SDP", "SFG", "SEA", "STL", "TBR", "TEX",
                "TOR", "WSN")
 
+year_team <- crossing(years, mlb_teams)
 
-x <- map2(mlb_teams, years, mlbscrapR)
+x <- furrr::future_map2_dfr(year_team$mlb_teams, year_team$years, mlbscrapR)
 
 
 
