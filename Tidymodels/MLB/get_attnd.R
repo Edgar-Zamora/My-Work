@@ -33,7 +33,6 @@ mlbscrapR <- function(team, year) {
                                  TRUE ~ "home"),
            mlb_season = year,
            across(attendance, parse_number),
-,
            mlb_team = team) %>%
     select(-c(x, x_2)) %>%
     rename(

@@ -15,16 +15,7 @@ set.seed(1234)
 
 # Creating crosses
 
-years <- c(2010:2021)
-mlb_teams <- c("SEA") #"ARI", "ATL", "BAL", "BOS", "CHC", "CHW", "CIN",
-               #"CLE", "COL", "DET", "HOU", "KCR", "LAA", "LAD",
-               #"MIN", "MIA", "MIL", "NYM", "NYY", "OAK", "PHI",
-               #"PIT", "SDP", "SFG", "SEA", "STL", "TBR", "TEX",
-               #"TOR", "WSN")
-
-year_team <- crossing(years, mlb_teams)
-
-
+years <- c(2000:2019)
 
 
 # Database name: MLB Stats
@@ -62,8 +53,8 @@ get_outcome <- function(team, year) {
 }
 
 
-sea_outcomes <- map2_dfr(year_team$mlb_teams, year_team$years, get_outcome)
-
+outcomes <- map2_dfr("SEA", years, get_outcome)
+write_csv(outcomes, "data/outcomes.csv")
 
 
 # Table: TEAM_NAMES
@@ -84,7 +75,8 @@ get_team_names <- function() {
   
 }
 
-get_team_names()
+team_names <- get_team_names()
+write_csv(team_names, "data/team_names.csv")
 
 
 
@@ -112,8 +104,11 @@ get_game_data <- function(team, year) {
                                TRUE ~ 0),
            attendance = as.numeric(str_remove_all(attendance, "[:punct:]")),
            year = year,
-           team = team) %>% 
-    select(gm_number, year, team, date, month, day, weekday, time, d_n, weekend, attendance) %>% 
+           team = team,
+           away_home = case_when(x_2 == "@" ~ "away",
+                                 TRUE ~ "home")) %>% 
+    select(gm_number, year, team, date, month, day, weekday, time, d_n, weekend, attendance,
+           away_home) %>% 
     rename(
       day_night  = d_n,
       start_time = time
@@ -122,8 +117,8 @@ get_game_data <- function(team, year) {
 }
 
 
-get_game_data("SEA", 2019)
-
+game_data <- map2_dfr("SEA", years, get_game_data)
+write_csv(game_data, "data/game_data.csv")
 
 # Table: PITCHER_DATA
 
