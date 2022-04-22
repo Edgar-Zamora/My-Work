@@ -3,15 +3,16 @@ Predicting MLB Attendance with `{tidymodels}`
 
 ![Seattle Mariners Game \| Sung Shin @ironstagram](img/sea_mariners.jpg)
 
-Living in the Seattle metro there has been a long standing notion that
-the Seattle Mariners are bound not to draw large crowds. The first
-inclination may be to attribute it to the Mariners poor record[1]. There
-are certainly other reasons for poor attendance which may include the
-opponent, starting pitcher, day of the week, weather, and many other
-factors than just their record. If I where an executive for a Major
-League Baseball (MLB) team, I would like to know which games were likely
-to have lower attendance so that corrective measures like giveaways,
-special nights or other promotions could help attract larger crowds.
+Living in the Seattle metro there has been a constant pattern that the
+Seattle Mariners are bound not to draw large crowds. The first
+inclination may be to attributed to the Mariners poor regular and
+postseason record[^1]. There are certainly other reasons for poor
+attendance which may include the opponent, starting pitcher, day of the
+week, weather, and many other factors than just their record. If I where
+an executive for a Major League Baseball (MLB) team, I would like to
+know which games were likely to have lower attendance so that corrective
+measures like giveaways, special nights or other promotions could help
+attract larger crowds.
 
 The rest of this post will attempt to create a model that will help
 predict MLB attendance for home games. I strictly focus on home games
@@ -22,21 +23,23 @@ for the COVID-19 pandemic are being lifted so some caution should be
 taken applying a model trained on pre-COVID data to post-COVID games but
 I think it is worth trying out.
 
-# MLB Schedule
+# MLB Schedule Structure
 
 The MLB consists of 30 teams split into the American League (AL) and the
 National League (NL). Within each league there are 3 divisions that
 further split the teams into an east, central, and western division.
-Teams traditionally most of their games against division rivals followed
-league games and finally interleague games. Ultimately what that results
-in a total of 164 games per team or 2,430 total games that span from
-late March/early April to late September/early October.
-
-# `{tidymodels}`
+Teams traditionally most play most of their games against division
+rivals followed by league games and finally interleague games.
+Ultimately what that results in is a total of 164 games per team or
+2,430 total games that span from late March/early April to late
+September/early October.
 
 # Scraping data
 
-With the abundance of data within an MLB season
+With there being an abundant number of games within an MLB season, it
+provides the perfect opportunity to model MLB attendance.
+
+# SQL Database
 
 # Building Models
 
@@ -44,5 +47,5 @@ With the abundance of data within an MLB season
 
 # Final Thought
 
-[1] The Seattle Mariners have not made the playoffs since 2001, which is
-the longest current streak of any North American pro sports team.
+[^1]: The Seattle Mariners have not made the playoffs since 2001, which
+    is the longest current streak of any North American pro sports team.
