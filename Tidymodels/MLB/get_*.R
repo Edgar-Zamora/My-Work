@@ -83,8 +83,6 @@ write_csv(team_names, "data/team_names.csv")
 # Table: GAME_DATA
 # This table contains information regarding game data that does not pertain to the outcome. Things
 # such as weekday (month, day), time, day or night etc.
-
-
 get_game_data <- function(team, year) {
   
   url <- paste0("https://www.baseball-reference.com/teams/", team, "/", year, "-schedule-scores.shtml")
@@ -116,14 +114,66 @@ get_game_data <- function(team, year) {
     
 }
 
-
 game_data <- map2_dfr("SEA", years, get_game_data)
 write_csv(game_data, "data/game_data.csv")
 
+
+
 # Table: PITCHER_DATA
+get_pitcher_data <- function(team, year) {
+  
+  url <- paste0("https://www.baseball-reference.com/teams/", team, "/", year, "-schedule-scores.shtml")
+  session <- bow(url)
+  
+  scrape(session) %>% 
+    html_element("table") %>% 
+    html_table() %>%  
+    clean_names() %>% 
+    filter(tm != "Tm") %>%
+    mutate(team = team,
+           year = year,
+           across(where(is.character), str_trim),
+           away_home = case_when(x_2 == "@" ~ "away",
+                                 TRUE ~ "home")) %>% 
+    select(year, gm_number, opp, win, loss, save, away_home) 
+  
+  
+}
+
+pitcher_data <- map2_dfr("SEA", years, get_pitcher_data)
+write_csv(pitcher_data, "data/pitcher_data.csv")
 
 
 
 
 # TABLE: STANDINGS
+get_standings <- function(team, year) {
+  
+  url <- paste0("https://www.baseball-reference.com/teams/", team, "/", year, "-schedule-scores.shtml")
+  session <- bow(url)
+  
+  scrape(session) %>% 
+    html_element("table") %>% 
+    html_table() %>%  
+    clean_names() %>% 
+    filter(tm != "Tm") %>% 
+    select(gm_number, w_l_2, rank, gb, c_li, streak) %>% 
+    separate(col = w_l_2, into = c("wins", "losses"), sep = "-") %>% 
+    mutate(games_back = as.numeric(str_extract(gb, "\\d.*")),
+           games_back = case_when(str_detect(gb, "up") ~ games_back,
+                                  gb == "Tied" ~ 0,
+                                  TRUE ~ games_back * -1),
+           across(c(wins, losses), as.numeric),
+           win_per = wins/(wins + losses),
+           win_streak = str_count(streak, "\\+"),
+           losing_streak = str_count(streak, "\\-")) %>% 
+    rename(division_rank = rank)
+  
+}
+
+
+standings <- map2_dfr("SEA", years, get_standings)
+write_csv(standings, "data/standings.csv")  
+
+
 
