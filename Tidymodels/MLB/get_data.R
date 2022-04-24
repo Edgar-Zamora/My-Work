@@ -1,32 +1,17 @@
-# Loading packages
-library(polite)
-library(rvest)
-library(httr)
-library(janitor)
-library(tidyverse)
-library(lubridate)
-library(glue)
-library(gt)
-library(scales)
-library(mlbstatsR)
-library(furrr)
-
-set.seed(1234)
-
-# Creating crosses
-
-years <- c(2000:2019)
-
-
-# Database name: MLB Stats
-
-# Table: OUTCOMES
-# This table contains outcomes for each game with revelant info
-get_outcome <- function(team, year) {
+#' Getting game outcome data 
+#'
+#' @param team Name of the MLB team
+#' @param season Season of MLB season
+#'
+#' @return Returns a df of outcome data for entire MLB team 
+#' @export
+#'
+#' @examples
+get_outcome <- function(team, season) {
   
-  url <- paste0("https://www.baseball-reference.com/teams/", team, "/", year, "-schedule-scores.shtml")
+  url <- paste0("https://www.baseball-reference.com/teams/", team, "/", season, "-schedule-scores.shtml")
   session <- bow(url)
-
+  
   
   scrape(session) %>% 
     html_element("table") %>% 
@@ -45,7 +30,7 @@ get_outcome <- function(team, year) {
       extra_innings = case_when(inn >= 9 ~ 1,
                                 TRUE ~ 0),
       team = team,
-      year = year) %>% 
+      season = season) %>% 
     rename(
       win_lose = w_l
     )
@@ -53,39 +38,50 @@ get_outcome <- function(team, year) {
 }
 
 
-outcomes <- map2_dfr("SEA", years, get_outcome)
-write_csv(outcomes, "data/outcomes.csv")
 
 
-# Table: TEAM_NAMES
-# This table will  contain information about each team including their
-# official name, abbreviated name, team colors and other information.
+#' MLB team names
+#'
+#' @description Table contains information about each team including their official 
+#' name, abbreviated name, team colors and other information.
+#' @return
+#' @export
+#'
+#' @examples
+#' 
 get_team_names <- function() {
   
   mlbstatsR::get_mlb_teams() %>% 
-  select(name, liga, division, team, primary, secondary) %>% 
-  as_tibble() %>% 
-  rename(
-    full_team_name = name,
-    league_name = liga,
-    team_abb = team,
-    primary_color = primary,
-    secondary_color = secondary
-  )
+    select(name, liga, division, team, primary, secondary) %>% 
+    as_tibble() %>% 
+    rename(
+      full_team_name = name,
+      league_name = liga,
+      team_abb = team,
+      primary_color = primary,
+      secondary_color = secondary
+    )
   
 }
 
-team_names <- get_team_names()
-write_csv(team_names, "data/team_names.csv")
 
 
 
-# Table: GAME_DATA
-# This table contains information regarding game data that does not pertain to the outcome. Things
-# such as weekday (month, day), time, day or night etc.
-get_game_data <- function(team, year) {
+
+#' Getting game data
+#'
+#' @description Table contains information regarding game data that does not pertain to the outcome. Things
+# such as weekday (month, day), time, day and more.
+#' @param team Name of the MLB team
+#' @param season Season of MLB season
+#'
+#' @return
+#' @export
+#'
+#' @examples
+get_game_data <- function(team, season) {
   
-  url <- paste0("https://www.baseball-reference.com/teams/", team, "/", year, "-schedule-scores.shtml")
+  url <- paste0("https://www.baseball-reference.com/teams/", team, "/", season, "-schedule-scores.shtml")
   session <- bow(url)
   
   
@@ -97,32 +93,40 @@ get_game_data <- function(team, year) {
     separate(col = date, into = c('weekday', "month", "day"), sep = "\\s") %>% 
     mutate(across(weekday, ~str_remove_all(., "[:punct:]")),
            month = match(month, month.abb),
-           date = ymd(paste0(year, "0", month, day)),
+           date = ymd(paste0(season, "0", month, day)),
            weekend = case_when(weekday %in% c("Saturday, Sunday") & (weekday == "Friday" & time > "5:00") ~ 1,
                                TRUE ~ 0),
            attendance = as.numeric(str_remove_all(attendance, "[:punct:]")),
-           year = year,
+           season = season,
            team = team,
            away_home = case_when(x_2 == "@" ~ "away",
                                  TRUE ~ "home")) %>% 
-    select(gm_number, year, team, date, month, day, weekday, time, d_n, weekend, attendance,
+    select(gm_number, season, team, date, month, day, weekday, time, d_n, weekend, attendance,
            away_home) %>% 
     rename(
       day_night  = d_n,
       start_time = time
     )
-    
+  
 }
 
-game_data <- map2_dfr("SEA", years, get_game_data)
-write_csv(game_data, "data/game_data.csv")
 
 
 
-# Table: PITCHER_DATA
-get_pitcher_data <- function(team, year) {
+#' Getting pitcher data
+#' 
+#' @description Table containing information on winning, losing, and saving pitcher for
+#' each game
+#' @param team Name of the MLB team
+#' @param season Season of MLB season
+#'
+#' @return
+#' @export
+#'
+#' @examples
+get_pitcher_data <- function(team, season) {
   
-  url <- paste0("https://www.baseball-reference.com/teams/", team, "/", year, "-schedule-scores.shtml")
+  url <- paste0("https://www.baseball-reference.com/teams/", team, "/", season, "-schedule-scores.shtml")
   session <- bow(url)
   
   scrape(session) %>% 
@@ -131,25 +135,30 @@ get_pitcher_data <- function(team, year) {
     clean_names() %>% 
     filter(tm != "Tm") %>%
     mutate(team = team,
-           year = year,
+           season = season,
            across(where(is.character), str_trim),
            away_home = case_when(x_2 == "@" ~ "away",
                                  TRUE ~ "home")) %>% 
-    select(year, gm_number, opp, win, loss, save, away_home) 
+    select(season, gm_number, opp, win, loss, save, away_home) 
   
   
 }
 
-pitcher_data <- map2_dfr("SEA", years, get_pitcher_data)
-write_csv(pitcher_data, "data/pitcher_data.csv")
 
 
-
-
-# TABLE: STANDINGS
-get_standings <- function(team, year) {
+#' Getting MLB team standings
+#'
+#' @description Table containing information about a MLB at each game
+#' @param team Name of the MLB team
+#' @param season Season of MLB season
+#'
+#' @return
+#' @export
+#'
+#' @examples
+get_standings <- function(team, season) {
   
-  url <- paste0("https://www.baseball-reference.com/teams/", team, "/", year, "-schedule-scores.shtml")
+  url <- paste0("https://www.baseball-reference.com/teams/", team, "/", season, "-schedule-scores.shtml")
   session <- bow(url)
   
   scrape(session) %>% 
@@ -170,10 +179,5 @@ get_standings <- function(team, year) {
     rename(division_rank = rank)
   
 }
-
-
-standings <- map2_dfr("SEA", years, get_standings)
-write_csv(standings, "data/standings.csv")  
-
 
 

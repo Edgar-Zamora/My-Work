@@ -1,4 +1,4 @@
-gm_number,year,team,date,month,day,weekday,start_time,day_night,weekend,attendance,away_home
+gm_number,season,team,date,month,day,weekday,start_time,day_night,weekend,attendance,away_home
 1,2000,SEA,2000-04-04,4,4,Tuesday,2:40,N,0,45552,home
 2,2000,SEA,2000-04-05,4,5,Wednesday,3:11,N,0,29242,home
 3,2000,SEA,2000-04-06,4,6,Thursday,3:06,N,0,25121,home
@@ -3239,3 +3239,17 @@ gm_number,year,team,date,month,day,weekday,start_time,day_night,weekend,attendan
 160,2019,SEA,2019-09-27,9,27,Friday,3:34,N,0,24198,home
 161,2019,SEA,2019-09-28,9,28,Saturday,2:41,N,0,26470,home
 162,2019,SEA,2019-09-29,9,29,Sunday,2:52,D,0,16819,home
+1,2022,SEA,2022-04-08,4,8,Friday,2:53,D,0,35462,away
+2,2022,SEA,2022-04-09,4,9,Saturday,3:09,D,0,20867,away
+3,2022,SEA,2022-04-10,4,10,Sunday,3:11,D,0,17018,away
+4,2022,SEA,2022-04-11,4,11,Monday,3:00,N,0,12932,away
+5,2022,SEA,2022-04-12,4,12,Tuesday,3:22,D,0,36948,away
+6,2022,SEA,2022-04-13,4,13,Wednesday,2:54,N,0,12291,away
+7,2022,SEA,2022-04-14,4,14,Thursday,3:01,D,0,13391,away
+8,2022,SEA,2022-04-15,4,15,Friday,3:04,N,0,45023,home
+9,2022,SEA,2022-04-16,4,16,Saturday,2:36,N,0,38504,home
+10,2022,SEA,2022-04-17,4,17,Sunday,2:56,D,0,26583,home
+11,2022,SEA,2022-04-19,4,19,Tuesday,2:37,N,0,11067,home
+12,2022,SEA,2022-04-20,4,20,Wednesday,2:56,N,0,9374,home
+13,2022,SEA,2022-04-21,4,21,Thursday,3:47,N,0,12570,home
+14,2022,SEA,2022-04-22,4,22,Friday,2:42,N,0,24206,home

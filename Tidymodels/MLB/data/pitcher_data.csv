@@ -1,4 +1,4 @@
-year,gm_number,opp,win,loss,save,away_home
+season,gm_number,opp,win,loss,save,away_home
 2000,1,BOS,Martinez,Moyer,Lowe,home
 2000,2,BOS,Garcia,Martinez,,home
 2000,3,BOS,Mesa,Florie,Sasaki,home
@@ -3239,3 +3239,165 @@ year,gm_number,opp,win,loss,save,away_home
 2019,160,OAK,Warren,Hendriks,,home
 2019,161,OAK,Anderson,Gonzales,Luzardo,home
 2019,162,OAK,McClain,Roark,Bass,home
+2022,1,MIN,Ray,Ryan,Steckenrider,away
+2022,2,MIN,Munoz,Duffey,Castillo,away
+2022,3,MIN,Ober,Gonzales,,away
+2022,4,MIN,Bundy,Flexen,,away
+2022,5,CHW,Lopez,Brash,Hendriks,away
+2022,6,CHW,Keuchel,Ray,Hendriks,away
+2022,7,CHW,Gilbert,Lambert,,away
+2022,8,HOU,Gonzales,Odorizzi,,home
+2022,9,HOU,Verlander,Flexen,,home
+2022,10,HOU,Brash,Urquidy,,home
+2022,11,TEX,Ray,Gray,,home
+2022,12,TEX,Gilbert,Dunning,,home
+2022,13,TEX,Barlow,Steckenrider,,home
+2022,14,KCR,Flexen,Keller,Munoz,home
+2022,15,KCR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,16,KCR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,17,TBR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,18,TBR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,19,TBR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,20,MIA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,21,MIA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,22,MIA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,23,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,24,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,25,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,26,TBR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,27,TBR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,28,TBR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,29,TBR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,30,PHI,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,31,PHI,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,32,PHI,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,33,NYM,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,34,NYM,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,35,NYM,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,36,TOR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,37,TOR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,38,TOR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,39,BOS,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,40,BOS,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,41,BOS,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,42,BOS,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,43,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,44,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,45,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,46,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,47,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,48,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,49,BAL,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,50,BAL,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,51,BAL,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,52,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,53,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,54,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,55,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,56,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,57,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,58,BOS,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,59,BOS,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,60,BOS,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,61,MIN,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,62,MIN,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,63,MIN,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,64,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,65,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,66,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,67,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,68,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,69,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,70,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,71,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,72,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,73,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,74,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,75,BAL,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,76,BAL,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,77,BAL,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,78,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,79,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,80,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,81,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,82,SDP,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,83,SDP,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,84,TOR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,85,TOR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,86,TOR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,87,TOR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,88,WSN,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,89,WSN,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,90,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,91,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,92,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,93,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,94,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,95,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,96,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,97,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,98,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,99,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,100,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,101,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,102,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,103,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,104,NYY,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,105,NYY,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,106,NYY,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,107,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,108,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,109,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,110,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,111,NYY,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,112,NYY,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,113,NYY,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,114,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,115,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,116,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,117,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,118,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,119,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,120,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,121,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,122,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,123,WSN,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,124,WSN,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,125,CLE,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,126,CLE,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,127,CLE,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,128,CLE,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,129,DET,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,130,DET,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,131,DET,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,132,CLE,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,133,CLE,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,134,CLE,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,135,CHW,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,136,CHW,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,137,CHW,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,138,ATL,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,139,ATL,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,140,ATL,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,141,SDP,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,142,SDP,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,143,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,144,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,145,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,146,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,147,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,148,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,149,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,150,KCR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,151,KCR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,152,KCR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,153,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,154,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,155,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,156,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,157,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,158,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,159,DET,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,160,DET,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,161,DET,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+2022,162,DET,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home

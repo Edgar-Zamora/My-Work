@@ -1,4 +1,4 @@
-gm_number,opp,win_lose,r,ra,inn,walkoff,forfeit,extra_innings,team,year
+gm_number,opp,win_lose,r,ra,inn,walkoff,forfeit,extra_innings,team,season
 1,BOS,L,0,2,0,0,0,0,SEA,2000
 2,BOS,W,9,3,0,0,0,0,SEA,2000
 3,BOS,W,5,2,0,0,0,0,SEA,2000
@@ -3239,3 +3239,17 @@ gm_number,opp,win_lose,r,ra,inn,walkoff,forfeit,extra_innings,team,year
 160,OAK,W,4,3,0,1,0,0,SEA,2019
 161,OAK,L,0,1,0,0,0,0,SEA,2019
 162,OAK,W,3,1,0,0,0,0,SEA,2019
+1,MIN,W,2,1,0,0,0,0,SEA,2022
+2,MIN,W,4,3,0,0,0,0,SEA,2022
+3,MIN,L,4,10,0,0,0,0,SEA,2022
+4,MIN,L,0,4,0,0,0,0,SEA,2022
+5,CHW,L,2,3,0,0,0,0,SEA,2022
+6,CHW,L,4,6,0,0,0,0,SEA,2022
+7,CHW,W,5,1,0,0,0,0,SEA,2022
+8,HOU,W,11,1,0,0,0,0,SEA,2022
+9,HOU,L,0,4,0,0,0,0,SEA,2022
+10,HOU,W,7,2,0,0,0,0,SEA,2022
+11,TEX,W,6,2,0,0,0,0,SEA,2022
+12,TEX,W,4,2,0,0,0,0,SEA,2022
+13,TEX,L,6,8,0,0,0,0,SEA,2022
+14,KCR,W,4,1,0,0,0,0,SEA,2022
