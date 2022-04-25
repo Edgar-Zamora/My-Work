@@ -22,7 +22,7 @@ The MLB consists of 30 teams split into the American League (AL) and the Nationa
 
 With there being an abundant number of games within an MLB season, it provides the perfect opportunity to model MLB attendance. 
 
-# SQL Database
+
 
 # Building Models
 

@@ -52,7 +52,7 @@ get_outcome <- function(team, season) {
 get_team_names <- function() {
   
   mlbstatsR::get_mlb_teams() %>% 
-    select(name, liga, division, team, primary, secondary) %>% 
+    select(name, liga, division, team, primary, secondary, logo) %>% 
     as_tibble() %>% 
     rename(
       full_team_name = name,
@@ -175,7 +175,9 @@ get_standings <- function(team, season) {
            across(c(wins, losses), as.numeric),
            win_per = wins/(wins + losses),
            win_streak = str_count(streak, "\\+"),
-           losing_streak = str_count(streak, "\\-")) %>% 
+           losing_streak = str_count(streak, "\\-"),
+           team = team,
+           season = season) %>% 
     rename(division_rank = rank)
   
 }
