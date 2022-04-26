@@ -4,11 +4,11 @@ library(tidymodels)
 library(scales)
 library(ggforce)
 library(ggthemes)
-library(gganimate)
-library(transformr)
 
 
 # Importing data
+source("write_data.R")
+
 mlb_data <- list.files("data", full.names = T) %>% 
   map(., read_csv) %>% 
   set_names(list.files("data"))
@@ -18,8 +18,8 @@ sea_branding <- mlb_data$team_names.csv %>%
   filter(team_abb == "SEA")
 
 
-# Getting featues and making new features that I think are relavent in trying to predict
-# attendacne to a Seattle Mariners game
+# Getting features and making new features that I think are relevant in trying to predict
+# attendance to a Seattle Mariners game
 
 outcomes <- mlb_data$outcomes.csv %>% 
   left_join(mlb_data$team_names.csv %>% 
@@ -31,6 +31,7 @@ outcomes <- mlb_data$outcomes.csv %>%
          same_division = case_when(division == "AL West" ~ 1,
                                     TRUE ~ 0)) %>% 
   select(gm_number, team, season, won_prev_game, same_league, same_division)
+
 
 
 game_data <- mlb_data$game_data.csv %>% 
