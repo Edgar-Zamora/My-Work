@@ -3019,7 +3019,7 @@ season,gm_number,opp,win,loss,save,away_home
 2018,102,SFG,Colome,Watson,Díaz,home
 2018,103,LAA,Johnson,Nicasio,,away
 2018,104,LAA,Barria,Hernandez,,away
-2018,105,LAA,Gonzales,Pena,Díaz,away
+2018,105,LAA,Gonzales,Peña,Díaz,away
 2018,106,HOU,Paxton,Cole,Díaz,home
 2018,107,HOU,Morton,Leake,Rondon,home
 2018,108,HOU,Keuchel,LeBlanc,,home
@@ -3135,7 +3135,7 @@ season,gm_number,opp,win,loss,save,away_home
 2019,56,TEX,Milone,Lynn,,home
 2019,57,TEX,Sampson,Gonzales,,home
 2019,58,TEX,Chavez,Bass,Kelley,home
-2019,59,LAA,Pena,Kikuchi,,home
+2019,59,LAA,Peña,Kikuchi,,home
 2019,60,LAA,Leake,Skaggs,Bass,home
 2019,61,LAA,Bedrosian,Brennan,Robles,home
 2019,62,LAA,Suarez,Gonzales,,home
@@ -3171,7 +3171,7 @@ season,gm_number,opp,win,loss,save,away_home
 2019,92,OAK,Anderson,Kikuchi,Hendriks,home
 2019,93,OAK,Gonzales,Bassitt,,home
 2019,94,OAK,Mengden,Carasiti,Hendriks,home
-2019,95,LAA,Pena,Leake,,away
+2019,95,LAA,Peña,Leake,,away
 2019,96,LAA,Harvey,LeBlanc,,away
 2019,97,LAA,Buttrey,Bass,Robles,away
 2019,98,OAK,Mengden,Gonzales,,away
@@ -3256,10 +3256,10 @@ season,gm_number,opp,win,loss,save,away_home
 2022,15,KCR,Castillo,Brentz,,home
 2022,16,KCR,Ramirez,Payamps,,home
 2022,17,TBR,Gilbert,Fleming,,away
-2022,18,TBR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,19,TBR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,20,MIA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,21,MIA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,18,TBR,Rasmussen,Gonzales,Kittredge,away
+2022,19,TBR,Feyereisen,Flexen,Thompson,away
+2022,20,MIA,Hernandez,Brash,Bender,away
+2022,21,MIA,Luzardo,Ray,Bender,away
 2022,22,MIA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
 2022,23,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
 2022,24,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away

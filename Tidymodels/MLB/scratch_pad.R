@@ -5,6 +5,7 @@ library(scales)
 library(ggforce)
 library(ggthemes)
 library(ggtext)
+library(lubridate)
 
 
 # Importing data
@@ -38,16 +39,34 @@ retired_teams <- tibble(
 ## THIS IS NOT MT WORK. The solution comes from Claus Wilke who was answering a question on stackoverflow asked by Eric Green. 
 ## You can find the question and answer here: https://stackoverflow.com/questions/60332202/conditionally-fill-ggtext-text-boxes-in-facet-wrap/60345086#60345086
 
-element_textbox_highlight <- function(..., hi.labels = NULL, hi.fill = NULL,
-                                      hi.col = NULL, hi.box.col = NULL) {
+element_textbox_highlight <- function(..., 
+                                      hi.labels = NULL, hi.fill = NULL,
+                                      hi.col = NULL, hi.box.col = NULL,
+                                      hi.labels2 = NULL, hi.fill2 = NULL,
+                                      hi.col2 = NULL, hi.box.col2 = NULL) {
   structure(
     c(element_textbox(...),
-      list(hi.labels = hi.labels, hi.fill = hi.fill, hi.col = hi.col, hi.box.col = hi.box.col)
+      list(hi.labels = hi.labels, hi.fill = hi.fill, hi.col = hi.col, hi.box.col = hi.box.col,
+           hi.labels2 = hi.labels2, hi.fill2 = hi.fill2, hi.col2 = hi.col2, hi.box.col2 = hi.box.col2)
     ),
-    class = c("element_textbox_highlight", "element_textbox", "element_text", "element")
+    class = c("element_textbox_highlight", "element_textbox", "element_text", "element",
+              "element_textbox_highlight", "element_textbox", "element_text", "element")
   )
 }
 
+element_grob.element_textbox_highlight <- function(element, label = "", ...) {
+  if (label %in% element$hi.labels) {
+    element$fill <- element$hi.fill %||% element$fill
+    element$colour <- element$hi.col %||% element$colour
+    element$box.colour <- element$hi.box.col %||% element$box.colour
+  }
+  if (label %in% element$hi.labels2) {
+    element$fill <- element$hi.fill2 %||% element$fill
+    element$colour <- element$hi.col2 %||% element$colour
+    element$box.colour <- element$hi.box.col2 %||% element$box.colour
+  }
+  NextMethod()
+}
 
 # Getting features and making new features that I think are relevant in trying to predict
 # attendance to a Seattle Mariners game
@@ -61,7 +80,7 @@ outcomes <- mlb_data$outcomes.csv %>%
                                  TRUE ~ 0),
          same_division = case_when(division == "AL West" ~ 1,
                                     TRUE ~ 0)) %>% 
-  select(gm_number, team, season, won_prev_game, same_league, same_division, opp)
+  select(gm_number, team, season, won_prev_game, same_league, same_division, opp, series_won)
 
 
 
@@ -196,7 +215,8 @@ model_data %>%
   labs(
     x = "",
     y = "Average Attendance",
-    title = "Average Attendance Per MLB Team Since 2000"
+    title = "Average Attendance Per MLB Team Since 2000",
+    subtitle = "Average attendance is calculated by taking a sum of attendance and dividing by the number of games play"
   ) +
   theme(
     panel.grid = element_blank(),
@@ -204,13 +224,22 @@ model_data %>%
     axis.ticks = element_blank(),
     axis.text =  element_text(color = "black"),
     strip.background = element_blank(),
+    plot.subtitle = element_text(size = 7.5),
+    plot.title = element_text(size = 16),
     strip.text = element_textbox_highlight(
       size = 12,
-      color = "white", fill = "#E61847", box.color = "#E61847",
+      # unnamed set (all facet windows except named sets below)
+      color = "black", fill = "white", box.color = "white",
       halign = 0.5, linetype = 1, r = unit(5, "pt"), width = unit(1, "npc"),
       padding = margin(2, 0, 1, 0), margin = margin(3, 3, 3, 3),
-      hi.labels = c("AL", "NL"),
-      hi.fill = "#04427D", hi.box.col = "#04427D", hi.col = "white")
+      # this is new relative to element_textbox():
+      # first named set
+      hi.labels = c("AL"),
+      hi.fill = "#C0063B", hi.box.col = "white", hi.col = "white",
+      # add second named set 
+      hi.labels2 = c("NL"),
+      hi.fill2 = "#01183F", hi.box.col2 = "white", hi.col2 = "white"
+    )
   )
 
 

@@ -33,7 +33,17 @@ get_outcome <- function(team, season) {
       season = season) %>% 
     rename(
       win_lose = w_l
-    )
+    ) |> 
+    group_by(season, opp) |> 
+    mutate(series = cur_group_id(),
+           series_gm_number = row_number(),
+           series_wins = cumsum(win_lose == 'W'),
+           series_tot_gms = n(),
+           series_per = series_wins/series_gm_number,
+           series_won = case_when(max(series_per) > .5 ~ 1,
+                                  TRUE ~ 0)
+    ) |> 
+    ungroup()
   
 }
 

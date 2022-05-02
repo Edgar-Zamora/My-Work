@@ -34,16 +34,49 @@ Ultimately what that results in is a total of 164 games per team or
 2,430 total games that span from late March/early April to late
 September/early October.
 
-# Scraping data
+# Data
 
-With there being an abundant number of games within an MLB season, it
-provides the perfect opportunity to model MLB attendance.
+The majority of the game, outcome, pitcher, and standing data comes from
+[Baseball Reference](https://www.baseball-reference.com/teams/). Using
+the `{revest}` package, I build a scrapper the pulls data and separates
+it into relevant tables. For now, I will not be going in depth about the
+script that scrapped the data, but if you are interested you can see the
+[GitHub
+Repo](https://github.com/Edgar-Zamora/My-Work/blob/master/Tidymodels/MLB/get_data.R).
 
-# SQL Database
+I also us the `{mlbstatsR}` package by
+[IvoVillanueva](https://github.com/IvoVillanueva) to get information
+about a MLBs league, division, full name and other attributes.
+
+Of the many possible features to include in a model that helps predict
+attendance, I consider the following to be the most import.
+
+<ol type="A">
+<li>
+Outcome
+</li>
+<li>
+Game
+</li>
+<li>
+Standing
+</li>
+<ul>
+<li>
+Current Win Streak
+</li>
+<li>
+Team Win %
+</li>
+<li>
+Games back
+</li>
+</ul>
+</ol>
 
 # Building Models
 
-# Evualting Models
+# Evualting Model
 
 # Final Thought
 
