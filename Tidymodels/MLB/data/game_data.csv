@@ -3255,3 +3255,14 @@ gm_number,season,team,date,month,day,weekday,start_time,day_night,weekend,attend
 14,2022,SEA,2022-04-22,4,22,Friday,2:42,N,0,24206,home
 15,2022,SEA,2022-04-23,4,23,Saturday,4:06,N,0,28583,home
 16,2022,SEA,2022-04-24,4,24,Sunday,4:12,D,0,28548,home
+17,2022,SEA,2022-04-26,4,26,Tuesday,3:15,N,0,9257,away
+18,2022,SEA,2022-04-27,4,27,Wednesday,2:41,N,0,7290,away
+19,2022,SEA,2022-04-28,4,28,Thursday,3:04,D,0,6749,away
+20,2022,SEA,2022-04-29,4,29,Friday,3:06,N,0,9963,away
+21,2022,SEA,2022-04-30,4,30,Saturday,2:46,N,0,29010,away
+22,2022,SEA,2022-05-01,5,1,Sunday,3:22,D,0,16741,away
+23,2022,SEA,2022-05-02,5,2,Monday,2:48,N,0,27321,away
+24,2022,SEA,2022-05-03,5,3,Tuesday,3:12,N,0,23796,away
+25,2022,SEA,2022-05-04,5,4,Wednesday,3:01,D,0,24110,away
+26,2022,SEA,2022-05-05,5,5,Thursday,2:50,N,0,17027,home
+27,2022,SEA,2022-05-06,5,6,Friday,3:54,N,0,26154,home
