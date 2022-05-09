@@ -13,12 +13,12 @@ get_outcome <- function(team, season) {
   session <- bow(url)
   
   
-  scrape(session) %>% 
-    html_element("table") %>% 
-    html_table() %>%  
-    clean_names() %>% 
-    filter(tm != "Tm") %>% 
-    select(gm_number, opp, w_l, r, ra, inn) %>% 
+  scrape(session) |> 
+    html_element("table") |> 
+    html_table() |>  
+    clean_names() |> 
+    filter(tm != "Tm") |> 
+    select(gm_number, opp, w_l, r, ra, inn) |> 
     mutate(
       walkoff = case_when(str_detect(w_l, "wo") ~ 1,
                           TRUE ~ 0),
@@ -29,8 +29,10 @@ get_outcome <- function(team, season) {
                       TRUE ~ as.numeric(inn)),
       extra_innings = case_when(inn >= 9 ~ 1,
                                 TRUE ~ 0),
+      won_prev_game = case_when(lag(w_l) == "W" ~ 1,
+                                TRUE ~ 0),
       team = team,
-      season = season) %>% 
+      season = season) |> 
     rename(
       win_lose = w_l
     ) |> 
@@ -61,9 +63,9 @@ get_outcome <- function(team, season) {
 #' 
 get_team_names <- function() {
   
-  mlbstatsR::get_mlb_teams() %>% 
-    select(name, liga, division, team, primary, secondary, logo) %>% 
-    as_tibble() %>% 
+  mlbstatsR::get_mlb_teams() |> 
+    select(name, liga, division, team, primary, secondary, logo) |> 
+    as_tibble() |> 
     rename(
       full_team_name = name,
       league_name = liga,
@@ -95,12 +97,12 @@ get_game_data <- function(team, season) {
   session <- bow(url)
   
   
-  scrape(session) %>% 
-    html_element("table") %>% 
-    html_table() %>%  
-    clean_names() %>% 
-    filter(tm != "Tm") %>% 
-    separate(col = date, into = c('weekday', "month", "day"), sep = "\\s") %>% 
+  scrape(session) |> 
+    html_element("table") |> 
+    html_table() |>  
+    clean_names() |> 
+    filter(tm != "Tm") |> 
+    separate(col = date, into = c('weekday', "month", "day"), sep = "\\s") |> 
     mutate(across(weekday, ~str_remove_all(., "[:punct:]")),
            month = match(month, month.abb),
            date = ymd(paste0(season, "0", month, day)),
@@ -110,11 +112,15 @@ get_game_data <- function(team, season) {
            season = season,
            team = team,
            away_home = case_when(x_2 == "@" ~ "away",
+<<<<<<< HEAD
+                                 TRUE ~ "home")) |> 
+=======
                                  TRUE ~ "home"),
            openning_week = case_when(date >= date[gm_number = 1] + weeks(1) ~ 1,
                                      TRUE ~ 0)) %>% 
+>>>>>>> 5e37cfa54bc89e4c190caf6a4a0a280a1ed76f1b
     select(gm_number, season, team, date, month, day, weekday, time, d_n, weekend, attendance,
-           away_home) %>% 
+           away_home) |> 
     rename(
       day_night  = d_n,
       start_time = time
@@ -141,16 +147,16 @@ get_pitcher_data <- function(team, season) {
   url <- paste0("https://www.baseball-reference.com/teams/", team, "/", season, "-schedule-scores.shtml")
   session <- bow(url)
   
-  scrape(session) %>% 
-    html_element("table") %>% 
-    html_table() %>%  
-    clean_names() %>% 
-    filter(tm != "Tm") %>%
+  scrape(session) |> 
+    html_element("table") |> 
+    html_table() |>  
+    clean_names() |> 
+    filter(tm != "Tm") |>
     mutate(team = team,
            season = season,
            across(where(is.character), str_trim),
            away_home = case_when(x_2 == "@" ~ "away",
-                                 TRUE ~ "home")) %>% 
+                                 TRUE ~ "home")) |> 
     select(season, gm_number, opp, win, loss, save, away_home) 
   
   
@@ -173,13 +179,13 @@ get_standings <- function(team, season) {
   url <- paste0("https://www.baseball-reference.com/teams/", team, "/", season, "-schedule-scores.shtml")
   session <- bow(url)
   
-  scrape(session) %>% 
-    html_element("table") %>% 
-    html_table() %>%  
-    clean_names() %>% 
-    filter(tm != "Tm") %>% 
-    select(gm_number, w_l_2, rank, gb, c_li, streak) %>% 
-    separate(col = w_l_2, into = c("wins", "losses"), sep = "-") %>% 
+  scrape(session) |> 
+    html_element("table") |> 
+    html_table() |>  
+    clean_names() |> 
+    filter(tm != "Tm") |> 
+    select(gm_number, w_l_2, rank, gb, c_li, streak) |> 
+    separate(col = w_l_2, into = c("wins", "losses"), sep = "-") |> 
     mutate(games_back = as.numeric(str_extract(gb, "\\d.*")),
            games_back = case_when(str_detect(gb, "up") ~ games_back,
                                   gb == "Tied" ~ 0,
@@ -189,7 +195,7 @@ get_standings <- function(team, season) {
            win_streak = str_count(streak, "\\+"),
            losing_streak = str_count(streak, "\\-"),
            team = team,
-           season = season) %>% 
+           season = season) |> 
     rename(division_rank = rank)
   
 }

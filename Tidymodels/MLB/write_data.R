@@ -21,10 +21,10 @@ current_season <- year(Sys.Date())
 prev_outcomes <- map2_dfr("SEA", prev_seasons, get_outcome)
 current_outcomes <- map2_dfr("SEA", current_season, get_outcome)
 
-prev_outcomes %>% 
-  rbind(current_outcomes %>% 
-          filter(win_lose %in% c("W", "L"))) %>% 
-  write_csv(., "data/outcomes.csv")
+prev_outcomes |> 
+  rbind(current_outcomes |> 
+          filter(win_lose %in% c("W", "L"))) |> 
+  write_csv("data/outcomes.csv")
 
 
 # Table: TEAM_NAMES
@@ -36,10 +36,10 @@ write_csv(team_names, "data/team_names.csv")
 prev_game_data <- map2_dfr("SEA", prev_seasons, get_game_data)
 current_game_data <-  map2_dfr("SEA", current_season, get_game_data)
 
-prev_game_data %>% 
-  rbind(current_game_data %>% 
-          filter(day_night %in% c("N", "D"))) %>% 
-  write_csv(., "data/game_data.csv")
+prev_game_data |> 
+  rbind(current_game_data |> 
+          filter(day_night %in% c("N", "D"))) |> 
+  write_csv("data/game_data.csv")
 
 
 
@@ -47,10 +47,10 @@ prev_game_data %>%
 prev_pitcher_data <- map2_dfr("SEA", prev_seasons, get_pitcher_data)
 current_pitcher_data <- map2_dfr("SEA", current_season, get_pitcher_data)
 
-prev_pitcher_data %>% 
-  rbind(current_pitcher_data %>% 
-          filter(away_home %in% c("away", "home"))) %>% 
-  write_csv(., "data/pitcher_data.csv")
+prev_pitcher_data |> 
+  rbind(current_pitcher_data |> 
+          filter(away_home %in% c("away", "home"))) |> 
+  write_csv("data/pitcher_data.csv")
 
 
 
@@ -58,10 +58,10 @@ prev_pitcher_data %>%
 prev_standings <- map2_dfr("SEA", prev_seasons, get_standings)
 current_standings <- map2_dfr("SEA", current_season, get_standings)
  
-prev_standings %>% 
-  rbind(current_standings %>% 
-          filter(!is.na(wins))) %>% 
-  write_csv(., "data/standings.csv")
+prev_standings |> 
+  rbind(current_standings |> 
+          filter(!is.na(wins))) |> 
+  write_csv("data/standings.csv")
 
 
 

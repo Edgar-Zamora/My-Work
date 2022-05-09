@@ -3260,12 +3260,21 @@ season,gm_number,opp,win,loss,save,away_home
 2022,19,TBR,Feyereisen,Flexen,Thompson,away
 2022,20,MIA,Hernandez,Brash,Bender,away
 2022,21,MIA,Luzardo,Ray,Bender,away
+<<<<<<< HEAD
+2022,22,MIA,Gilbert,Alcantara,,away
+2022,23,HOU,Odorizzi,Gonzales,Montero,away
+2022,24,HOU,Javier,Flexen,,away
+2022,25,HOU,Verlander,Brash,,away
+2022,26,TBR,McClanahan,Ray,Raley,home
+2022,27,TBR,Thompson,Sewald,Raley,home
+=======
 2022,22,MIA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
 2022,23,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
 2022,24,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
 2022,25,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
 2022,26,TBR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
 2022,27,TBR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
+>>>>>>> 5e37cfa54bc89e4c190caf6a4a0a280a1ed76f1b
 2022,28,TBR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
 2022,29,TBR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
 2022,30,PHI,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
