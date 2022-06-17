@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Gothic&display=swap');
+  
+#team-logo {
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+}
+
+#header-title {
+  margin-left: 20px;
+  font-size: 50px;
+  font-family: 'League Gothic', sans-serif;
+  color: white;
+}
+
+.header {
+  background-color: #0C2C56;
+
+}
+
+
+p {
+  display: flex;
+  align-items: center;
+}
