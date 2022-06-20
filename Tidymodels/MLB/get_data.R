@@ -112,13 +112,9 @@ get_game_data <- function(team, season) {
            season = season,
            team = team,
            away_home = case_when(x_2 == "@" ~ "away",
-<<<<<<< HEAD
-                                 TRUE ~ "home")) |> 
-=======
-                                 TRUE ~ "home"),
+                                 TRUE ~ "home"), 
            openning_week = case_when(date >= date[gm_number = 1] + weeks(1) ~ 1,
-                                     TRUE ~ 0)) %>% 
->>>>>>> 5e37cfa54bc89e4c190caf6a4a0a280a1ed76f1b
+                                     TRUE ~ 0)) |>  
     select(gm_number, season, team, date, month, day, weekday, time, d_n, weekend, attendance,
            away_home) |> 
     rename(

@@ -16,8 +16,8 @@ mlb_data <- list.files("data", full.names = T) %>%
   set_names(list.files("data"))
 
 
-sea_branding <- mlb_data$team_names.csv %>% 
-  filter(team_abb == "SEA")
+nyy_branding <- mlb_data$team_names.csv %>% 
+  filter(team_abb == "NYY")
 
 
 retired_teams <- tibble(
@@ -132,7 +132,7 @@ model_data %>%
     plot.subtitle = element_text(size = 8),
     plot.title = element_text(size = 16),
     strip.text = element_text(size = 12, face = "bold", colour = "white"),
-    strip.background = element_rect(fill = sea_branding$secondary_color)
+    strip.background = element_rect(fill = nyy_branding$secondary_color)
   )
 
 
@@ -144,11 +144,11 @@ model_data %>%
   group_by(team, season) %>% 
   summarise(avg_season_attnd = mean(attendance, na.rm = T)) %>% 
   ggplot(aes(as_factor(season), avg_season_attnd, group = 1)) +
-  geom_line(size = 1.5, color = sea_branding$primary_color) +
+  geom_line(size = 1.5, color = nyy_branding$primary_color) +
   labs(
     x = "",
     y = "Average Season Attendance",
-    title = "Seattle Mariners Average Season Attendance"
+    title = "New York Yankeess Average Season Attendance"
   ) +
   scale_y_continuous(labels = comma) +
   theme(
@@ -177,7 +177,7 @@ model_data %>%
   labs(
     x = "",
     y = "Attendance",
-    title = "Seattle Mariners Attendance By Day of Week"
+    title = "New York Yankees Attendance By Day of Week"
   ) +
   theme(
     legend.position = "none",

@@ -13,7 +13,7 @@ editor_options:
 ---
 
 
-```{r data, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
+```{r data, echo=FALSE, message=FALSE, warning=FALSE}
 
 # Load packages
 library(tidyverse)
@@ -22,6 +22,8 @@ library(pagedown)
 #devtools::install_github("IvoVillanueva/mlbstatsR")
 library(mlbstatsR)
 
+
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, results='hide')
 
 # Header information
 sea_meta_info <- mlbstatsR::get_mlb_teams() |> 
@@ -33,9 +35,18 @@ sea_meta_info <- mlbstatsR::get_mlb_teams() |>
     league = liga
   )
 
-
 # Attendance Data
 attendence <- read_csv("~/Desktop/Personal Projects/my-work/Tidymodels/MLB/data/game_data.csv")
+
+```
+
+
+<div class='header'>
+<img id='team-logo' src='https://www.mlbstatic.com/team-logos/team-cap-on-light/136.svg' > <span id='header-title'> 2022 Attendance Report </span>
+</div>
+
+
+```{r graphics}
 
 attendence |> 
   filter(season == "2019",
@@ -56,34 +67,4 @@ attendence |>
     axis.text = element_text(color = "black")
   )
   
-
-attendence |> 
-  filter(away_home == "home",
-         season %in% c(2019:2012)) |> 
-  group_by(season) |> 
-  summarise(
-    avg_season_attendence = mean(attendance, na.rm = TRUE)
-  ) |> 
-  ggplot(aes(avg_season_attendence, factor(season))) +
-  geom_col(width = .6) +
-  labs(
-    x = "",
-    y = ""
-  ) +
-  scale_x_continuous(labels = scales::label_number(suffix = "K", scale = 1/1000),
-                     limits = c(0, 30000)) +
-  theme(
-    axis.ticks = element_blank(),
-    axis.text = element_text(colour = "black"),
-    panel.grid = element_blank(),
-    panel.background = element_blank()
-  )
-
-
 ```
-
-
-<div class='header'>
-<img id='team-logo' src='https://www.mlbstatic.com/team-logos/team-cap-on-light/136.svg' > <span id='header-title'> 2022 Attendance Report </span>
-</div>
-
