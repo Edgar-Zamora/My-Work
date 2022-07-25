@@ -3,23 +3,25 @@ library(polite)
 library(rvest)
 library(httr)
 library(janitor)
+library(future)
 library(tidyverse)
 library(lubridate)
 library(mlbstatsR)
 library(furrr)
 
-
 source("get_data.R")
 
 # Year list
 
-prev_seasons <- c(2000:2019)
+prev_seasons <- c(2000:2005)
 current_season <- year(Sys.Date())
 
 
 # Table: OUTCOMES
-prev_outcomes <- map2_dfr("SEA", prev_seasons, get_outcome)
-current_outcomes <- map2_dfr("SEA", current_season, get_outcome)
+furrr_options(seed = 1234)
+plan(multisession, workers = 3)
+prev_outcomes <- furrr::future_map2_dfr("SEA", prev_seasons, get_outcome, .progress = TRUE)
+current_outcomes <- furrr::future_map2_dfr("SEA", current_season, get_outcome, .progress = TRUE)
 
 prev_outcomes |> 
   rbind(current_outcomes |> 
