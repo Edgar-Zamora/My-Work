@@ -3260,94 +3260,85 @@ season,gm_number,opp,win,loss,save,away_home
 2022,19,TBR,Feyereisen,Flexen,Thompson,away
 2022,20,MIA,Hernandez,Brash,Bender,away
 2022,21,MIA,Luzardo,Ray,Bender,away
-<<<<<<< HEAD
 2022,22,MIA,Gilbert,Alcantara,,away
 2022,23,HOU,Odorizzi,Gonzales,Montero,away
 2022,24,HOU,Javier,Flexen,,away
 2022,25,HOU,Verlander,Brash,,away
 2022,26,TBR,McClanahan,Ray,Raley,home
-2022,27,TBR,Thompson,Sewald,Raley,home
-=======
-2022,22,MIA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,23,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,24,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,25,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,26,TBR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,27,TBR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
->>>>>>> 5e37cfa54bc89e4c190caf6a4a0a280a1ed76f1b
-2022,28,TBR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,29,TBR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,30,PHI,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,31,PHI,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,32,PHI,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,33,NYM,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,34,NYM,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,35,NYM,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,36,TOR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,37,TOR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,38,TOR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,39,BOS,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,40,BOS,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,41,BOS,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,42,BOS,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,43,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,44,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,45,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,46,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,47,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,48,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,49,BAL,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,50,BAL,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,51,BAL,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,52,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,53,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,54,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,55,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,56,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,57,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,58,BOS,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,59,BOS,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,60,BOS,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,61,MIN,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,62,MIN,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,63,MIN,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,64,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,65,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,66,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,67,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,68,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,69,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,70,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,71,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,72,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,73,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,74,LAA,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,75,BAL,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,76,BAL,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,77,BAL,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,78,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,79,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,80,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,81,OAK,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,82,SDP,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,83,SDP,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,84,TOR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,85,TOR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,86,TOR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,87,TOR,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,88,WSN,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,89,WSN,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,90,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,91,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,92,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,93,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
-2022,94,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,95,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,96,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,97,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,98,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,99,TEX,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",home
-2022,100,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
+2022,27,TBR,Raley,Sewald,,home
+2022,28,TBR,Rasmussen,Gonzales,,home
+2022,29,TBR,Sewald,Wisler,,home
+2022,30,PHI,Suarez,Flexen,,home
+2022,31,PHI,Ray,Nola,Sewald,home
+2022,32,PHI,Dominguez,Gilbert,Knebel,home
+2022,33,NYM,Sewald,Smith,Steckenrider,away
+2022,34,NYM,Ottavino,Munoz,Díaz,away
+2022,35,NYM,Ray,Shreve,Castillo,away
+2022,36,TOR,Kikuchi,Flexen,Cimber,away
+2022,37,TOR,Berrios,Gilbert,Cimber,away
+2022,38,TOR,Gonzales,Gausman,,away
+2022,39,BOS,Houck,Kirby,,away
+2022,40,BOS,Davis,Ray,,away
+2022,41,BOS,Schreiber,Steckenrider,Barnes,away
+2022,42,BOS,Diekman,Munoz,,away
+2022,43,OAK,Gonzales,Logue,Sewald,home
+2022,44,OAK,Moll,Misiewicz,Jimenez,home
+2022,45,OAK,Blackburn,Ray,Jimenez,home
+2022,46,HOU,Flexen,Verlander,,home
+2022,47,HOU,Gilbert,Urquidy,,home
+2022,48,HOU,Montero,Gonzales,Pressly,home
+2022,49,BAL,Kirby,Baker,,away
+2022,50,BAL,Pérez,Ray,,away
+2022,51,BAL,Castillo,Lopez,,away
+2022,52,TEX,Murfee,Barlow,Sewald,away
+2022,53,TEX,Otto,Gonzales,Barlow,away
+2022,54,TEX,Castillo,Burke,Sewald,away
+2022,55,HOU,Ray,Javier,Castillo,away
+2022,56,HOU,Verlander,Flexen,Pressly,away
+2022,57,HOU,Gilbert,Urquidy,Castillo,away
+2022,58,BOS,Diekman,Munoz,Houck,home
+2022,59,BOS,Sewald,Robles,,home
+2022,60,BOS,Danish,Sewald,Houck,home
+2022,61,MIN,Thielbar,Flexen,Pagan,home
+2022,62,MIN,Gilbert,Ryan,,home
+2022,63,MIN,Jax,Gonzales,,home
+2022,64,LAA,Ohtani,Kirby,Iglesias,home
+2022,65,LAA,Ray,Lorenzen,,home
+2022,66,LAA,Iglesias,Castillo,Quijada,home
+2022,67,LAA,Herget,Milone,Bradley,home
+2022,68,LAA,Wantz,Gilbert,,home
+2022,69,OAK,Gonzales,Kaprielian,,away
+2022,70,OAK,Kirby,Blackburn,,away
+2022,71,OAK,Castillo,Jackson,Sewald,away
+2022,72,LAA,Flexen,Lorenzen,Sewald,away
+2022,73,LAA,Gilbert,Bradley,Swanson,away
+2022,74,LAA,Suarez,Gonzales,Ortega,away
+2022,75,BAL,Wells,Kirby,Akin,home
+2022,76,BAL,Castillo,Pérez,Sewald,home
+2022,77,BAL,Flexen,Voth,,home
+2022,78,OAK,Gilbert,Martinez,Sewald,home
+2022,79,OAK,Kaprielian,Gonzales,Trivino,home
+2022,80,OAK,Castillo,Trivino,,home
+2022,81,OAK,Ray,Montas,Sewald,home
+2022,82,SDP,Flexen,Manaea,,away
+2022,83,SDP,Gilbert,Clevinger,,away
+2022,84,TOR,Gonzales,Banda,,home
+2022,85,TOR,Borucki,Romo,,home
+2022,86,TOR,Brash,Manoah,Castillo,home
+2022,87,TOR,Festa,Cimber,Sewald,home
+2022,88,WSN,Flexen,Gray,Sewald,away
+2022,89,WSN,Milone,Fedde,Sewald,away
+2022,90,TEX,Festa,Santana,Castillo,away
+2022,91,TEX,Ray,Hearn,,away
+2022,92,TEX,Castillo,Martin,Festa,away
+2022,93,TEX,Borucki,Otto,,away
+2022,94,HOU,Urquidy,Gonzales,Neris,home
+2022,95,HOU,Verlander,Gilbert,Abreu,home
+2022,96,HOU,Valdez,Ray,Pressly,home
+2022,97,TEX,Flexen,Otto,Swanson,home
+2022,98,TEX,Swanson,Martin,,home
+2022,99,TEX,Gonzales,Gray,Festa,home
+2022,100,HOU,Montero,Munoz,Pressly,away
 2022,101,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
 2022,102,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away
 2022,103,HOU,"Game Preview, and Matchups","Game Preview, and Matchups","Game Preview, and Matchups",away

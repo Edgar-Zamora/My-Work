@@ -8,12 +8,13 @@ library(tidyverse)
 library(lubridate)
 library(mlbstatsR)
 library(furrr)
+library(polite)
 
 source("get_data.R")
 
 # Year list
 
-prev_seasons <- c(2000:2005)
+prev_seasons <- c(2000:2019)
 current_season <- year(Sys.Date())
 
 
@@ -35,8 +36,8 @@ write_csv(team_names, "data/team_names.csv")
 
 
 # Table: GAME_DATA
-prev_game_data <- map2_dfr("SEA", prev_seasons, get_game_data)
-current_game_data <-  map2_dfr("SEA", current_season, get_game_data)
+prev_game_data <- furrr::future_map2_dfr("SEA", prev_seasons, get_game_data, .progress = TRUE)
+current_game_data <-  furrr::future_map2_dfr("SEA", current_season, get_game_data, .progress = TRUE)
 
 prev_game_data |> 
   rbind(current_game_data |> 
@@ -46,8 +47,8 @@ prev_game_data |>
 
 
 # Table: PITCHER_DATA
-prev_pitcher_data <- map2_dfr("SEA", prev_seasons, get_pitcher_data)
-current_pitcher_data <- map2_dfr("SEA", current_season, get_pitcher_data)
+prev_pitcher_data <- furrr::future_map2_dfr("SEA", prev_seasons, get_pitcher_data, .progress = TRUE)
+current_pitcher_data <- furrr::future_map2_dfr("SEA", current_season, get_pitcher_data, .progress = TRUE)
 
 prev_pitcher_data |> 
   rbind(current_pitcher_data |> 
@@ -57,8 +58,8 @@ prev_pitcher_data |>
 
 
 # TABLE: STANDINGS
-prev_standings <- map2_dfr("SEA", prev_seasons, get_standings)
-current_standings <- map2_dfr("SEA", current_season, get_standings)
+prev_standings <- furrr::future_map2_dfr("SEA", prev_seasons, get_standings, .progress = TRUE)
+current_standings <- furrr::future_map2_dfr("SEA", current_season, get_standings, .progress = TRUE)
  
 prev_standings |> 
   rbind(current_standings |> 
